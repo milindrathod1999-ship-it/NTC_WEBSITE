@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Lookbook — Napoleon Textile Company</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link rel="prefetch" href="index.html"/>
+  <style>
+    @font-face {
+      font-family: 'Bodoni Moda';
+      font-style: normal;
+      font-weight: 400;
+      font-display: swap;
+      src: url('fonts/bodoni-400.woff2') format('woff2');
+    }
+    @font-face {
+      font-family: 'Bodoni Moda';
+      font-style: normal;
+      font-weight: 500;
+      font-display: swap;
+      src: url('fonts/bodoni-500.woff2') format('woff2');
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #F4F1EA;
+      --obsidian:  #1A1A18;
+      --slate:     #6B6B64;
+      --champagne: #C5A97A;
+      --card:      280px;
+      --gap:       24px;
+      --nav-h:     88px;
+    }
+
+    html, body {
+      width: 100%; height: 100%;
+      overflow: hidden;
+      background: transparent;
+      font-family: 'Inter', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      user-select: none;
+    }
+
+    /* ── NAV ── */
+    #lb-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 200;
+      background: var(--bg);
+      border-bottom: 1px solid rgba(26,26,24,0.08);
+    }
+    #lb-nav-inner {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      padding: 20px 48px;
+    }
+    .lb-nav-col { display: flex; align-items: center; }
+    .lb-nav-left  { justify-content: flex-start; }
+    .lb-nav-center { justify-content: center; }
+    .lb-nav-right { justify-content: flex-end; }
+
+    /* Exact copy of home page .btn-nav-text — font-family explicit since lookbook body uses Inter */
+    .btn-nav-text {
+      font-family: 'Bodoni Moda', Georgia, serif;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      text-decoration: none;
+      background: transparent;
+      display: inline-block;
+      padding-bottom: 3px;
+      border-bottom: 1px solid currentColor;
+      color: var(--obsidian);
+      opacity: 1;
+      transition: opacity 0.25s ease;
+    }
+    .btn-nav-text:hover { opacity: 0.6; }
+
+    /* Eyebrow — same as .btn-nav-text but no underline, not interactive */
+    #lb-eyebrow {
+      font-family: 'Bodoni Moda', Georgia, serif;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--obsidian);
+      opacity: 1;
+      white-space: nowrap;
+      cursor: default;
+    }
+
+    /* ── CATEGORY TABS ── */
+    #cat-tabs {
+      position: fixed;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 100;
+      display: flex;
+      gap: 2px;
+      align-items: center;
+      background: rgba(244,241,234,0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(26,26,24,0.12);
+      border-radius: 100px;
+      padding: 5px 6px;
+      box-shadow: 0 4px 24px rgba(26,26,24,0.10);
+      white-space: nowrap;
+    }
+    .cat-tab {
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--slate);
+      padding: 7px 16px;
+      border-radius: 100px;
+      border: none;
+      background: none;
+      cursor: pointer;
+      transition: color 0.2s ease, background 0.2s ease;
+    }
+    .cat-tab:hover { color: var(--obsidian); }
+    .cat-tab.active {
+      color: #F4F1EA;
+      background: var(--obsidian);
+    }
+
+    /* ── DRAG HINT ── */
+    #drag-hint {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 90;
+      pointer-events: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      transition: opacity 0.5s ease;
+    }
+    #drag-hint.hidden { opacity: 0; }
+    #drag-hint svg { animation: hintPulse 2.2s ease-in-out infinite; }
+    @keyframes hintPulse {
+      0%, 100% { opacity: 0.35; transform: scale(1);    }
+      50%       { opacity: 0.85; transform: scale(1.08); }
+    }
+    #drag-hint p {
+      font-size: 9px;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--slate);
+    }
+
+    /* ── CANVAS STAGE ── */
+    #stage {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 1;
+      background: var(--bg);
+      cursor: grab;
+      overflow: hidden;
+    }
+    #stage.dragging { cursor: grabbing; }
+
+    /* ── GRID WORLD ── */
+    #grid-world {
+      position: absolute;
+      will-change: transform;
+    }
+
+    /* ── PHOTO CARD ── */
+    .lb-card {
+      position: absolute;
+      width: var(--card);
+      height: var(--card);
+      aspect-ratio: 1 / 1;
+      overflow: hidden;
+      background: #E8E4DB;
+      transition: box-shadow 0.3s ease, transform 0.3s ease;
+    }
+    .lb-card img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      pointer-events: none;
+      transition: transform 0.5s ease;
+    }
+    .lb-card:hover {
+      box-shadow:
+        0 20px 60px rgba(26,26,24,0.18),
+        0 6px 18px rgba(26,26,24,0.10);
+      transform: translateY(-6px);
+      z-index: 20;
+    }
+    .lb-card:hover img { transform: scale(1.06); }
+
+    /* ── HOVER OVERLAY ── */
+    .lb-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 22px;
+      background: linear-gradient(
+        to top,
+        rgba(26,26,24,0.86) 0%,
+        rgba(26,26,24,0.38) 55%,
+        transparent 100%
+      );
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+    .lb-card:hover .lb-overlay { opacity: 1; }
+    .lb-overlay-eyebrow {
+      font-size: 8px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--champagne);
+      margin-bottom: 5px;
+    }
+    .lb-overlay-name {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 1.15rem;
+      font-weight: 400;
+      color: #F4F1EA;
+      line-height: 1.2;
+      margin-bottom: 8px;
+    }
+    .lb-overlay-desc {
+      font-size: 8px;
+      font-weight: 300;
+      letter-spacing: 0.03em;
+      color: rgba(244,241,234,0.65);
+      line-height: 1.6;
+    }
+
+    /* ── ZOOM CONTROLS ── */
+    #zoom-ctrl {
+      position: fixed;
+      right: 24px;
+      bottom: 76px;
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .zoom-btn {
+      width: 32px; height: 32px;
+      background: rgba(244,241,234,0.9);
+      border: 1px solid rgba(26,26,24,0.15);
+      border-radius: 3px;
+      color: var(--obsidian);
+      font-size: 16px;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 2px 8px rgba(26,26,24,0.06);
+    }
+    .zoom-btn:hover { background: var(--bg); box-shadow: 0 4px 16px rgba(26,26,24,0.12); }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="lb-nav">
+    <div id="lb-nav-inner">
+
+      <!-- Left -->
+      <div class="lb-nav-col lb-nav-left">
+        <span id="lb-eyebrow">Lookbook &nbsp;·&nbsp; S/S 2026</span>
+      </div>
+
+      <!-- Center: Logo -->
+      <div class="lb-nav-col lb-nav-center">
+        <a href="index.html">
+          <img src="BRAND_ASSETS/napoleon logo-2.png" alt="Napoleon Textile Company"
+               style="height:4.8rem;width:auto;display:block;"/>
+        </a>
+      </div>
+
+      <!-- Right: Back to Site -->
+      <div class="lb-nav-col lb-nav-right">
+        <a href="index.html" class="btn-nav-text">← Back to Site</a>
+      </div>
+
+    </div>
+  </nav>
+
+  <!-- DRAG HINT -->
+  <div id="drag-hint">
+    <svg width="44" height="44" viewBox="0 0 44 44" fill="none">
+      <circle cx="22" cy="22" r="21" stroke="#C5A97A" stroke-width="1"/>
+      <line x1="11" y1="22" x2="33" y2="22" stroke="#1A1A18" stroke-width="1.2" stroke-linecap="round"/>
+      <polyline points="26,15 33,22 26,29" fill="none" stroke="#1A1A18" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+      <polyline points="18,15 11,22 18,29" fill="none" stroke="#1A1A18" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <p>Drag to explore</p>
+  </div>
+
+  <!-- ZOOM CONTROLS -->
+  <div id="zoom-ctrl">
+    <button class="zoom-btn" id="zoom-in" title="Zoom in">+</button>
+    <button class="zoom-btn" id="zoom-out" title="Zoom out">−</button>
+  </div>
+
+  <!-- CANVAS STAGE -->
+  <div id="stage">
+    <div id="grid-world"></div>
+  </div>
+
+  <!-- CATEGORY TABS -->
+  <div id="cat-tabs">
+    <button class="cat-tab active" data-cat="all">All</button>
+    <button class="cat-tab" data-cat="stripes">Stripes</button>
+    <button class="cat-tab" data-cat="checks">Checks</button>
+    <button class="cat-tab" data-cat="dobbies">Dobbies</button>
+    <button class="cat-tab" data-cat="prints">Prints</button>
+    <button class="cat-tab" data-cat="plains">Plains</button>
+    <button class="cat-tab" data-cat="uniforms">Uniforms</button>
+    <button class="cat-tab" data-cat="premium">Premium</button>
+  </div>
+
+  <script>
+  // ─────────────────────────────────────────────
+  // FABRIC DATA
+  // ─────────────────────────────────────────────
+  const FABRICS = [
+    // ── STRIPES ──
+    {
+      src:  'https://placehold.co/600x600/1C2540/C5A97A?text=Navy+PC+Stripe',
+      name: 'Navy PC Stripe',
+      type: 'Poly-Cotton · 60s',
+      cat:  ['stripes'],
+      desc: 'Napoleon\'s signature yarn-dyed PC stripe in navy and white. Tight poplin construction with excellent colourfastness. The fabric that built our reputation.',
+    },
+    {
+      src:  'https://placehold.co/600x600/162030/C5A97A?text=Royal+Bengal+Stripe',
+      name: 'Royal Bengal Stripe',
+      type: 'Oxford Weave · 80s',
+      cat:  ['stripes'],
+      desc: 'Classic Bengal stripe in royal blue and ivory. Oxford basket weave adds subtle texture and exceptional durability for everyday wear.',
+    },
+    {
+      src:  'https://placehold.co/600x600/2A2416/C5A97A?text=Ecru+Tan+Stripe',
+      name: 'Ecru Tan Stripe',
+      type: 'Poplin · 80s',
+      cat:  ['stripes'],
+      desc: 'Warm earth-tone stripes in ecru and tan poplin. Lightweight and breathable — ideal for resort and smart-casual shirting.',
+    },
+    {
+      src:  'https://placehold.co/600x600/1F2D20/C5A97A?text=Forest+Stripe',
+      name: 'Forest Dobby Stripe',
+      type: 'Dobby · 100s',
+      cat:  ['stripes', 'dobbies'],
+      desc: 'Yarn-dyed forest green stripe with a dobby weave that adds micro-texture to each band. 100s two-ply for premium hand-feel.',
+    },
+    {
+      src:  'https://placehold.co/600x600/1A1A18/C5A97A?text=Charcoal+Pinstripe',
+      name: 'Charcoal Pinstripe',
+      type: 'Broadcloth · 100s',
+      cat:  ['stripes', 'premium'],
+      desc: 'Refined charcoal pinstripe in 100s combed broadcloth. Ultra-fine stripe pitch for boardroom-ready formal shirting with understated elegance.',
+    },
+    {
+      src:  'https://placehold.co/600x600/2D1820/C5A97A?text=Burgundy+Stripe',
+      name: 'Burgundy Stripe',
+      type: 'Twill · 80s',
+      cat:  ['stripes'],
+      desc: 'Deep burgundy and cream yarn-dyed stripe in 80s twill. The diagonal weave structure gives excellent drape and wrinkle resistance.',
+    },
+    {
+      src:  'https://placehold.co/600x600/18283A/C5A97A?text=Sky+Stripe',
+      name: 'Sky Poplin Stripe',
+      type: 'Poplin · 68s',
+      cat:  ['stripes'],
+      desc: 'Airy sky-blue and white poplin stripe. Reactive-dyed for vivid, wash-fast colour. 68s yarn count delivers a crisp, cool hand perfect for summer shirting.',
+    },
+    {
+      src:  'https://placehold.co/600x600/221E14/C5A97A?text=Khaki+Stripe',
+      name: 'Khaki Bengal',
+      type: 'Oxford · 80s',
+      cat:  ['stripes'],
+      desc: 'Earthy khaki Bengal stripe in 80s Oxford weave. The basketwork construction catches light subtly, giving the stripe depth without loud contrast.',
+    },
+
+    // ── CHECKS ──
+    {
+      src:  'BRAND_ASSETS/Fabric photos/White-and-Blue-Small-Checks-Handloom-Cotton-Khadi-Fabric-40040.jpg',
+      name: 'Indigo Khadi Check',
+      type: 'Handloom Cotton · 40s',
+      cat:  ['checks'],
+      desc: 'Hand-woven on traditional pit looms. Breathable 40-count yarn with natural slubs that give each metre a unique character. Pre-washed for minimal shrinkage.',
+    },
+    {
+      src:  'BRAND_ASSETS/Fabric photos/LSBRSH56NBLBGRDGRYCHKTWFEB.jpg',
+      name: 'Navy Graph Check',
+      type: 'Twill Weave · 80s',
+      cat:  ['checks'],
+      desc: '80s two-ply combed cotton in a precise graph-check twill. Dense, wrinkle-resistant weave with a subtle sheen. Ideal for formal shirting.',
+    },
+    {
+      src:  'BRAND_ASSETS/Fabric photos/LSIYASH85OGRNBGBKCHKTW180NOV.jpg',
+      name: 'Olive Ground Check',
+      type: 'Broadcloth · 100s',
+      cat:  ['checks'],
+      desc: '100s single-ply broadcloth woven on air-jet looms. Exceptionally smooth hand-feel with uniform thread count and excellent colour fastness.',
+    },
+    {
+      src:  'BRAND_ASSETS/Fabric photos/LSIYASH85PINEGRNWHLBRNCHKTW180NOV.jpg',
+      name: 'Pine Green Plaid',
+      type: 'Oxford Weave · 80s',
+      cat:  ['checks', 'premium'],
+      desc: 'Classic Oxford basket weave in premium 80s yarn. The dual-thread construction adds subtle texture and exceptional durability.',
+    },
+    {
+      src:  'BRAND_ASSETS/Fabric photos/LSRAYSH68BLWHCHKPOPSEP.jpg',
+      name: 'Sky Blue Poplin Check',
+      type: 'Poplin · 68s',
+      cat:  ['checks'],
+      desc: 'Fine 68s poplin with a crisp, lustrous finish. Lightweight and breathable — the benchmark fabric for dress shirts in tropical climates.',
+    },
+    {
+      src:  'https://placehold.co/600x600/221E14/C5A97A?text=Gingham',
+      name: 'Warm Gingham',
+      type: 'Plain Weave · 60s',
+      cat:  ['checks'],
+      desc: 'Even-sided gingham in warm earth tones. Classic plain weave with reactive-dyed yarns for consistent colour on both faces of the cloth.',
+    },
+    {
+      src:  'https://placehold.co/600x600/1C2540/C5A97A?text=Window+Pane',
+      name: 'Navy Window Pane',
+      type: 'Twill · 100s',
+      cat:  ['checks', 'premium'],
+      desc: 'Overcheck window pane in 100s two-ply twill. The open grid is woven in contrasting yarn — sharp, precise, and refined for suiting-grade shirts.',
+    },
+    {
+      src:  'https://placehold.co/600x600/2A1E10/C5A97A?text=Brown+Tattersall',
+      name: 'Tobacco Tattersall',
+      type: 'Oxford · 80s',
+      cat:  ['checks'],
+      desc: 'Traditional tattersall in tobacco and ivory. Widely spaced overcheck on an Oxford ground. Timeless country-shirting pattern reinterpreted for modern tailoring.',
+    },
+
+    // ── PRINTS ──
+    {
+      src:  'BRAND_ASSETS/Fabric photos/Untitled-design-2024-04-23T144215.043.png',
+      name: 'Blush Floral Print',
+      type: 'Digital Print · 60s',
+      cat:  ['prints'],
+      desc: 'Digital floral print on 60s cotton voile base. 16-colour process with reactive inks for vivid, wash-fast colour. Resort and smart-casual shirting.',
+    },
+    {
+      src:  'https://placehold.co/600x600/2D1820/F4F1EA?text=Geometric+Block',
+      name: 'Geometric Block Print',
+      type: 'Screen Print · 60s',
+      cat:  ['prints'],
+      desc: 'Bold geometric screen print on white poplin. 8-colour screen process with eco-certified reactive inks. Each colour registered to ±0.5mm accuracy.',
+    },
+    {
+      src:  'https://placehold.co/600x600/1C2540/C5A97A?text=Indigo+Floral',
+      name: 'Indigo Botanical',
+      type: 'Digital Print · 80s',
+      cat:  ['prints'],
+      desc: 'Dense indigo botanical print on 80s broadcloth. Digital pigment printing with outstanding wash fastness — Grade 4–5 on all ISO colour fastness tests.',
+    },
+    {
+      src:  'https://placehold.co/600x600/2A2416/C5A97A?text=Abstract+Brush',
+      name: 'Abstract Brushstroke',
+      type: 'Digital Print · 60s',
+      cat:  ['prints'],
+      desc: 'Artist-inspired brushstroke print in earthy tones. Digitally printed on soft cambric. Limited seasonal development — 500+ colourways per season.',
+    },
+    {
+      src:  'https://placehold.co/600x600/1A2B1C/C5A97A?text=Tropical+Print',
+      name: 'Tropical Digital',
+      type: 'Digital Print · 80s',
+      cat:  ['prints'],
+      desc: 'Vibrant tropical motif on 80s cotton broadcloth. Designed in-house from original artwork. Reactive ink for colour that lasts 50+ washes.',
+    },
+    {
+      src:  'https://placehold.co/600x600/1A1A18/C5A97A?text=Micro+Print',
+      name: 'Micro Repeat Print',
+      type: 'Screen Print · 100s',
+      cat:  ['prints', 'premium'],
+      desc: 'Precision micro-pattern screen print on 100s combed cotton. Registration accuracy of ±0.2mm. The pattern reads as a texture from arm\'s length — refined and distinctive.',
+    },
+
+    // ── DOBBY ──
+    {
+      src:  'BRAND_ASSETS/Fabric photos/image00014_7a68f7f3-33b9-4da8-a129-605278fc48b8.jpg',
+      name: 'Slate Dobby Texture',
+      type: 'Dobby Weave · 80s',
+      cat:  ['dobbies'],
+      desc: 'Geometric dobby pattern woven on a 24-shaft loom. The raised surface creates subtle visual depth without adding bulk or weight.',
+    },
+    {
+      src:  'BRAND_ASSETS/Fabric photos/image00030_7b4091a1-7225-4d77-bc07-c3978eca3986.jpg',
+      name: 'Ecru Herringbone',
+      type: 'Herringbone Twill · 100s',
+      cat:  ['dobbies'],
+      desc: 'Classic herringbone in 100s two-ply yarn. The diagonal zigzag weave gives excellent shape retention and a distinguished texture.',
+    },
+    {
+      src:  'BRAND_ASSETS/Fabric photos/image00053_0d13f820-0cf5-4b10-811e-8b4e0cd8a053.jpg',
+      name: 'Midnight Jacquard',
+      type: 'Jacquard · 120s',
+      cat:  ['dobbies', 'premium'],
+      desc: 'Intricate jacquard pattern woven on computerised looms. 120s combed cotton with a self-colour tone-on-tone motif. Exceptional definition and hand-feel.',
+    },
+    {
+      src:  'https://placehold.co/600x600/221E14/C5A97A?text=Tonal+Dobby',
+      name: 'Tonal Dobby Stripe',
+      type: 'Dobby Stripe · 80s',
+      cat:  ['dobbies', 'stripes'],
+      desc: 'Self-colour dobby stripe woven in 80s two-ply combed cotton. The tone-on-tone effect is achieved entirely through weave structure — no dye variation.',
+    },
+    {
+      src:  'https://placehold.co/600x600/1A1A18/C5A97A?text=Shadow+Jacquard',
+      name: 'Shadow Jacquard',
+      type: 'Jacquard · 100s',
+      cat:  ['dobbies', 'premium'],
+      desc: 'Monochromatic shadow jacquard in 100s combed cotton. The subtle pattern emerges from the interplay of warp and weft — visible only in directional light.',
+    },
+    {
+      src:  'https://placehold.co/600x600/1C2540/C5A97A?text=Diamond+Dobby',
+      name: 'Diamond Dobby',
+      type: 'Dobby · 80s',
+      cat:  ['dobbies'],
+      desc: 'Repeating diamond motif woven on a 16-shaft dobby loom. The geometric pattern is created by selective lifting of warp threads — no printing involved.',
+    },
+
+    // ── SOLIDS ──
+    {
+      src:  'BRAND_ASSETS/Fabric photos/670d3cfac965327bea30548b10d786d9.jpg',
+      name: 'Warm Earth Solid',
+      type: 'Cambric · 60s',
+      cat:  ['plains'],
+      desc: 'Soft mercerised cambric in 60s combed cotton. A tight plain weave delivers a silky surface and excellent print uptake for dye lots.',
+    },
+    {
+      src:  'BRAND_ASSETS/Fabric photos/81JgX46aSvL._AC_UY1100_.jpg',
+      name: 'Classic White Voile',
+      type: 'Voile · 120s',
+      cat:  ['plains', 'premium'],
+      desc: 'Ultra-fine 120s Egyptian cotton voile. Semi-sheer with a delicate drape. ISO-certified for colour fastness Grade 5 — the highest standard.',
+    },
+    {
+      src:  'https://placehold.co/600x600/1C2540/F4F1EA?text=Pale+Blue+Poplin',
+      name: 'Pale Blue Poplin',
+      type: 'Poplin · 80s',
+      cat:  ['plains'],
+      desc: 'Crisp pale blue poplin in 80s combed cotton. Reactive-dyed for consistent colour throughout. The essential dress-shirt solid.',
+    },
+    {
+      src:  'https://placehold.co/600x600/E0D8C8/1A1A18?text=Warm+Ecru',
+      name: 'Warm Ecru Plain',
+      type: 'Plain Weave · 60s',
+      cat:  ['plains'],
+      desc: 'Natural ecru in 60s plain weave. Undyed and chemical-free — woven from natural cotton with its inherent warm tone. Ideal for sustainable collections.',
+    },
+    {
+      src:  'https://placehold.co/600x600/1F2D20/C5A97A?text=Sage+Oxford',
+      name: 'Sage Oxford',
+      type: 'Oxford · 80s',
+      cat:  ['plains'],
+      desc: 'Muted sage green Oxford weave in 80s two-ply cotton. The basket structure adds subtle texture while the solid ground reads clean and contemporary.',
+    },
+    {
+      src:  'https://placehold.co/600x600/2A2416/C5A97A?text=Stone+Twill',
+      name: 'Stone Twill',
+      type: 'Twill · 100s',
+      cat:  ['plains'],
+      desc: 'Warm stone-coloured 100s twill in a 2×1 weave. The diagonal rib creates excellent drape and a soft, smooth hand ideal for luxury shirting.',
+    },
+    {
+      src:  'https://placehold.co/600x600/2D1820/C5A97A?text=Blush+Poplin',
+      name: 'Blush Poplin',
+      type: 'Poplin · 80s',
+      cat:  ['plains'],
+      desc: 'Delicate blush poplin in 80s combed cotton. Reactive-dyed in a soft rose tone. A feminine statement solid for contemporary resort and occasion wear.',
+    },
+
+    // ── PREMIUM ──
+    {
+      src:  'BRAND_ASSETS/Fabric photos/image00060_0699734e-9def-4913-af71-30d1801e7181.jpg',
+      name: 'Ivory Supima',
+      type: 'Supima Cotton · 140s',
+      cat:  ['premium', 'plains'],
+      desc: 'Extra-long staple Supima cotton at 140s count. Silkier than silk, stronger than standard cotton. Our finest offering for the discerning shirtmaker.',
+    },
+    {
+      src:  'https://placehold.co/600x600/1A2B1C/C5A97A?text=Tencel+Blend',
+      name: 'Tencel Blend Solid',
+      type: 'Tencel · Modal · 80s',
+      cat:  ['premium'],
+      desc: 'Tencel-modal blend in a plain weave construction. Naturally moisture-wicking with an exceptional drape. OEKO-TEX Standard 100 certified.',
+    },
+    {
+      src:  'https://placehold.co/600x600/221E14/C5A97A?text=Fine+2-Ply',
+      name: 'Fine 2-Ply Shirting',
+      type: '2/100s Two-Ply',
+      cat:  ['premium'],
+      desc: '2/100s two-ply construction — the finest thread count in our range. Woven on precision air-jet looms with zero deviation across the full roll width.',
+    },
+    {
+      src:  'https://placehold.co/600x600/1C2540/C5A97A?text=Organic+Cotton',
+      name: 'Organic Cotton Poplin',
+      type: 'Organic Cotton · 80s',
+      cat:  ['premium', 'plains'],
+      desc: 'GOTS-certified organic cotton poplin. No pesticides, no synthetic dyes — reactive colours from natural pigment sources. Full-chain transparency.',
+    },
+    {
+      src:  'https://placehold.co/600x600/1A1A18/C5A97A?text=Giza+Sateen',
+      name: 'Giza Sateen',
+      type: 'Sateen · 120s',
+      cat:  ['premium'],
+      desc: 'Extra-long staple Giza cotton in a 4×1 sateen weave. The floating warp threads create a mirror-smooth surface with natural lustre. Grade A certified.',
+    },
+
+    // ── UNIFORMS ──
+    {
+      src:  'BRAND_ASSETS/Fabric photos/Gemini_Generated_Image_sczswdsczswdsczs.png',
+      name: 'Institutional Shirting',
+      type: 'PC Blend · 60s',
+      cat:  ['uniforms'],
+      desc: 'High-performance poly-cotton blend engineered for volume uniform programmes. Dimensional stability across 80+ industrial wash cycles. Minimum order from 3,000 metres.',
+    },
+    {
+      src:  'BRAND_ASSETS/Fabric photos/image.png',
+      name: 'Corporate Navy Range',
+      type: 'Poplin · Oxford · Twill',
+      cat:  ['uniforms', 'plains'],
+      desc: 'Full navy spectrum across poplin, Oxford, and twill constructions — colour-matched to ΔE < 1.0. Designed for multi-piece corporate wardrobe programmes with exact shade consistency roll to roll.',
+    },
+    {
+      src:  'BRAND_ASSETS/Fabric photos/LSBRSH56NBLBGRDGRYCHKTWFEB.jpg',
+      name: 'Hospitality Check',
+      type: 'Twill Weave · 80s',
+      cat:  ['uniforms', 'checks'],
+      desc: 'Subdued graph check in hospitality-grade 80s twill. Shrinkage under 1% after 40 commercial washes. Available in navy, grey, and slate colourways across full roll widths.',
+    },
+    {
+      src:  'https://placehold.co/600x600/1C2540/F4F1EA?text=Corporate+Stripe',
+      name: 'Corporate Stripe',
+      type: 'Poplin · 68s',
+      cat:  ['uniforms', 'stripes'],
+      desc: 'Quiet authority stripe in 68s poplin — engineered for airline, hospitality, and banking uniform programmes. Reactive-dyed for colour consistency across large yardage orders.',
+    },
+    {
+      src:  'https://placehold.co/600x600/2A3040/C5A97A?text=Durable+Oxford',
+      name: 'Durable Oxford',
+      type: 'Oxford Weave · 40s',
+      cat:  ['uniforms'],
+      desc: '40-count Oxford weave built for longevity. Double-yarn warp construction resists abrasion and maintains shape through heavy institutional use. Tested to AATCC standards.',
+    },
+  ];
+
+  // ─────────────────────────────────────────────
+  // LAYOUT — landscape grid matching screen ratio
+  // ─────────────────────────────────────────────
+  const CARD_PX  = 280;
+  const GAP_PX   = 24;
+  const EDGE_PAD = 20;
+
+  function buildLayout(fabrics) {
+    const n = fabrics.length;
+    if (!n) return [];
+    const aspect = window.innerWidth / window.innerHeight; // full-screen ratio ~16:9
+    const cols   = Math.max(4, Math.round(Math.sqrt(n * aspect)));
+    return fabrics.map((fab, idx) => ({
+      ...fab,
+      x: (idx % cols) * (CARD_PX + GAP_PX),
+      y: Math.floor(idx / cols) * (CARD_PX + GAP_PX),
+    }));
+  }
+
+  // ─────────────────────────────────────────────
+  // DOM
+  // ─────────────────────────────────────────────
+  const world = document.getElementById('grid-world');
+  const stage = document.getElementById('stage');
+  const hint  = document.getElementById('drag-hint');
+
+  let allLaid    = [];
+  let currentCat = 'all';
+
+  function renderCards(catFilter) {
+    world.innerHTML = '';
+    allLaid = [];
+
+    const filtered = catFilter === 'all'
+      ? FABRICS
+      : FABRICS.filter(f => f.cat.includes(catFilter));
+
+    const laid = buildLayout(filtered);
+    allLaid = laid;
+
+    laid.forEach(item => {
+      const card = document.createElement('div');
+      card.className = 'lb-card';
+      card.style.left = item.x + 'px';
+      card.style.top  = item.y + 'px';
+
+      const img = document.createElement('img');
+      img.src     = item.src;
+      img.alt     = item.name;
+      img.loading = 'lazy';
+      card.appendChild(img);
+
+      const overlay = document.createElement('div');
+      overlay.className = 'lb-overlay';
+      overlay.innerHTML = `
+        <div class="lb-overlay-eyebrow">${item.type}</div>
+        <div class="lb-overlay-name">${item.name}</div>
+        <div class="lb-overlay-desc">${item.desc}</div>
+      `;
+      card.appendChild(overlay);
+
+      world.appendChild(card);
+    });
+
+    fitToView(laid, true);
+  }
+
+  // ─────────────────────────────────────────────
+  // VIEWPORT / TRANSFORM
+  // ─────────────────────────────────────────────
+  let vx = 0, vy = 0, scale = 1;
+  let minScale = 0.14;
+  const MAX_SCALE = 2.4;
+
+  // Smooth zoom via CSS transition — only fires during wheel/button zoom
+  let zoomTid = null;
+  function applyZoomSmooth() {
+    world.style.transition = 'transform 0.32s cubic-bezier(0.22, 1, 0.36, 1)';
+    world.style.transform = `translate(${vx}px, ${vy}px) scale(${scale})`;
+    world.style.transformOrigin = '0 0';
+    clearTimeout(zoomTid);
+    zoomTid = setTimeout(() => { world.style.transition = 'none'; }, 340);
+  }
+
+  function applyTransform(animated = false) {
+    if (animated) {
+      world.style.transition = 'transform 0.6s cubic-bezier(0.25,1,0.5,1)';
+      setTimeout(() => { world.style.transition = 'none'; }, 620);
+    } else {
+      world.style.transition = 'none';
+    }
+    world.style.transform = `translate(${vx}px, ${vy}px) scale(${scale})`;
+    world.style.transformOrigin = '0 0';
+  }
+
+  function getContentBounds(laid) {
+    let minX = Infinity, minY = Infinity, maxX = -Infinity, maxY = -Infinity;
+    laid.forEach(item => {
+      minX = Math.min(minX, item.x);
+      minY = Math.min(minY, item.y);
+      maxX = Math.max(maxX, item.x + CARD_PX);
+      maxY = Math.max(maxY, item.y + CARD_PX);
+    });
+    return { minX, minY, maxX, maxY, cW: maxX - minX, cH: maxY - minY };
+  }
+
+  function getNavH() {
+    return document.getElementById('lb-nav').getBoundingClientRect().height;
+  }
+
+  function fitToView(laid, animated = false) {
+    if (!laid.length) return;
+    const vw   = window.innerWidth;
+    const vh   = window.innerHeight;
+    const navH = getNavH();
+    const { minX, minY, cW, cH } = getContentBounds(laid);
+    const availW = vw - EDGE_PAD * 2;
+    const availH = vh - navH - EDGE_PAD * 2;
+    const coverScale = Math.max(availW / cW, availH / cH);
+    minScale = coverScale;
+    scale    = coverScale;
+    vx = EDGE_PAD + (availW - cW * scale) / 2 - minX * scale;
+    vy = navH + EDGE_PAD - minY * scale;
+    clampPan();
+    applyTransform(animated);
+  }
+
+  // ─────────────────────────────────────────────
+  // PAN CLAMP — keep grid within padded display area
+  // ─────────────────────────────────────────────
+  function clampPan() {
+    if (!allLaid.length) return;
+    const vw   = window.innerWidth;
+    const vh   = window.innerHeight;
+    const navH = getNavH();
+    const { minX, minY, cW, cH } = getContentBounds(allLaid);
+
+    // Horizontal: content edges stay within [EDGE_PAD, vw-EDGE_PAD]
+    const maxVx = EDGE_PAD - minX * scale;
+    const minVx = (vw - EDGE_PAD) - (minX + cW) * scale;
+    if (minVx > maxVx) {
+      vx = (minVx + maxVx) / 2; // content narrower than available — center it
+    } else {
+      vx = Math.max(minVx, Math.min(maxVx, vx));
+    }
+
+    // Vertical: top bound = navH+EDGE_PAD, bottom bound = vh-EDGE_PAD
+    const maxVy = (navH + EDGE_PAD) - minY * scale;
+    const minVy = (vh - EDGE_PAD) - (minY + cH) * scale;
+    if (minVy > maxVy) {
+      vy = (minVy + maxVy) / 2; // content shorter than available — center it
+    } else {
+      vy = Math.max(minVy, Math.min(maxVy, vy));
+    }
+  }
+
+  // ─────────────────────────────────────────────
+  // DRAG + MOMENTUM
+  // ─────────────────────────────────────────────
+  let dragging = false, dragStartX = 0, dragStartY = 0;
+  let dvx = 0, dvy = 0, lastX = 0, lastY = 0;
+  let rafId = null, hasDragged = false;
+
+  stage.addEventListener('pointerdown', e => {
+    dragging = true;
+    dragStartX = e.clientX - vx;
+    dragStartY = e.clientY - vy;
+    dvx = dvy = 0;
+    lastX = e.clientX; lastY = e.clientY;
+    stage.classList.add('dragging');
+    cancelRaf();
+    stage.setPointerCapture(e.pointerId);
+  });
+
+  stage.addEventListener('pointermove', e => {
+    if (!dragging) return;
+    dvx = e.clientX - lastX; dvy = e.clientY - lastY;
+    lastX = e.clientX; lastY = e.clientY;
+    vx = e.clientX - dragStartX; vy = e.clientY - dragStartY;
+    clampPan();
+    applyTransform();
+    if (!hasDragged && (Math.abs(dvx) > 3 || Math.abs(dvy) > 3)) {
+      hasDragged = true;
+      hint.classList.add('hidden');
+    }
+  });
+
+  stage.addEventListener('pointerup', () => {
+    if (!dragging) return;
+    dragging = false;
+    stage.classList.remove('dragging');
+    startMomentum();
+  });
+  stage.addEventListener('pointercancel', () => {
+    dragging = false;
+    stage.classList.remove('dragging');
+  });
+
+  function startMomentum() {
+    cancelRaf();
+    let mx = dvx * 0.9, my = dvy * 0.9;
+    function tick() {
+      if (Math.abs(mx) < 0.3 && Math.abs(my) < 0.3) return;
+      vx += mx; vy += my; mx *= 0.93; my *= 0.93;
+      clampPan();
+      applyTransform();
+      rafId = requestAnimationFrame(tick);
+    }
+    rafId = requestAnimationFrame(tick);
+  }
+  function cancelRaf() { if (rafId) { cancelAnimationFrame(rafId); rafId = null; } }
+
+  // ─────────────────────────────────────────────
+  // WHEEL
+  // ─────────────────────────────────────────────
+  stage.addEventListener('wheel', e => {
+    e.preventDefault();
+    const mx = e.clientX, my = e.clientY;
+    if (e.ctrlKey || e.metaKey) {
+      const f = e.deltaY < 0 ? 1.04 : 0.962;
+      const ns = Math.max(minScale, Math.min(MAX_SCALE, scale * f));
+      const r = ns / scale;
+      vx = mx - r * (mx - vx); vy = my - r * (my - vy); scale = ns;
+      clampPan();
+      applyZoomSmooth();
+    } else {
+      vx -= e.deltaX; vy -= e.deltaY;
+      clampPan();
+      applyTransform();
+    }
+  }, { passive: false });
+
+  // ─────────────────────────────────────────────
+  // PINCH ZOOM
+  // ─────────────────────────────────────────────
+  let pinchD = null;
+  stage.addEventListener('touchstart', e => { if (e.touches.length === 2) pinchD = tDist(e); }, { passive: true });
+  stage.addEventListener('touchmove', e => {
+    if (e.touches.length !== 2 || pinchD === null) return;
+    e.preventDefault();
+    const d = tDist(e), r = d / pinchD;
+    const cx = (e.touches[0].clientX + e.touches[1].clientX) / 2;
+    const cy = (e.touches[0].clientY + e.touches[1].clientY) / 2;
+    const ns = Math.max(minScale, Math.min(MAX_SCALE, scale * r));
+    const ratio = ns / scale;
+    vx = cx - ratio * (cx - vx); vy = cy - ratio * (cy - vy);
+    scale = ns; pinchD = d; clampPan(); applyTransform();
+  }, { passive: false });
+  stage.addEventListener('touchend', () => { pinchD = null; });
+  function tDist(e) { return Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY); }
+
+  // ─────────────────────────────────────────────
+  // ZOOM BUTTONS
+  // ─────────────────────────────────────────────
+  function zoomBy(f) {
+    const cx = window.innerWidth / 2, cy = window.innerHeight / 2;
+    const ns = Math.max(minScale, Math.min(MAX_SCALE, scale * f));
+    const r = ns / scale;
+    vx = cx - r * (cx - vx); vy = cy - r * (cy - vy); scale = ns;
+    clampPan();
+    applyZoomSmooth();
+  }
+  document.getElementById('zoom-in').addEventListener('click',  () => zoomBy(1.25));
+  document.getElementById('zoom-out').addEventListener('click', () => zoomBy(0.8));
+
+  // ─────────────────────────────────────────────
+  // CATEGORY TABS
+  // ─────────────────────────────────────────────
+  function setActiveTab(cat) {
+    document.querySelectorAll('.cat-tab').forEach(b => {
+      b.classList.toggle('active', b.dataset.cat === cat);
+    });
+    currentCat = cat;
+    renderCards(cat);
+  }
+
+  document.querySelectorAll('.cat-tab').forEach(btn => {
+    btn.addEventListener('click', () => setActiveTab(btn.dataset.cat));
+  });
+
+  // ─────────────────────────────────────────────
+  // URL PRE-FILTER — ?cat=stripes etc.
+  // ─────────────────────────────────────────────
+  const urlCat = new URLSearchParams(window.location.search).get('cat');
+  const validCats = ['all','stripes','checks','prints','dobbies','plains','uniforms','premium'];
+  const initCat = (urlCat && validCats.includes(urlCat)) ? urlCat : 'all';
+
+  // ─────────────────────────────────────────────
+  // KEYBOARD
+  // ─────────────────────────────────────────────
+  document.addEventListener('keydown', e => {
+    const s = 90;
+    if (e.key === 'ArrowLeft')  { vx += s; clampPan(); applyTransform(true); }
+    if (e.key === 'ArrowRight') { vx -= s; clampPan(); applyTransform(true); }
+    if (e.key === 'ArrowUp')    { vy += s; clampPan(); applyTransform(true); }
+    if (e.key === 'ArrowDown')  { vy -= s; clampPan(); applyTransform(true); }
+    if (e.key === '+' || e.key === '=') zoomBy(1.2);
+    if (e.key === '-') zoomBy(0.83);
+    if (e.key === '0') fitToView(allLaid, true);
+  });
+
+  // ─────────────────────────────────────────────
+  // INIT
+  // ─────────────────────────────────────────────
+
+  // Measure actual nav height and keep --nav-h in sync
+  function syncNavHeight() {
+    const h = document.getElementById('lb-nav').getBoundingClientRect().height;
+    document.documentElement.style.setProperty('--nav-h', h + 'px');
+  }
+  syncNavHeight();
+
+  setActiveTab(initCat);
+  setTimeout(() => hint.classList.add('hidden'), 3500);
+  window.addEventListener('resize', () => { syncNavHeight(); renderCards(currentCat); });
+  </script>
+</body>
+</html>
