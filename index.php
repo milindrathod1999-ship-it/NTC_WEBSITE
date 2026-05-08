@@ -838,7 +838,7 @@
 
         <!-- Left: Lookbook -->
         <div class="flex items-center">
-          <a href="lookbook.html" class="btn-nav-text">Lookbook</a>
+          <a href="lookbook.php" class="btn-nav-text">Lookbook</a>
         </div>
 
         <!-- Center: Logo -->
@@ -879,7 +879,7 @@
       <a href="#heritage"    class="font-display text-3xl font-light text-ntc-ivory" style="letter-spacing:-0.01em;" onclick="closeMobile()">Heritage</a>
       <a href="#craft"       class="font-display text-3xl font-light text-ntc-ivory" style="letter-spacing:-0.01em;" onclick="closeMobile()">Process</a>
       <a href="#exports"      class="font-display text-3xl font-light text-ntc-ivory" style="letter-spacing:-0.01em;" onclick="closeMobile()">Global Reach</a>
-      <a href="lookbook.html" class="font-display text-3xl font-light text-ntc-ivory" style="letter-spacing:-0.01em;" onclick="closeMobile()">Lookbook</a>
+      <a href="lookbook.php" class="font-display text-3xl font-light text-ntc-ivory" style="letter-spacing:-0.01em;" onclick="closeMobile()">Lookbook</a>
       <a href="#contact"      class="font-display text-3xl font-light text-ntc-ivory" style="letter-spacing:-0.01em;" onclick="closeMobile()">Contact</a>
     </div>
     <div class="mt-auto">
@@ -1014,7 +1014,7 @@
         <div class="carousel-track" id="track-occasion" data-lenis-prevent>
 
           <!-- Boardroom Formal -->
-          <a href="lookbook.html" class="carousel-card gsap-reveal" style="text-decoration:none;display:block;">
+          <a href="lookbook.php" class="carousel-card gsap-reveal" style="text-decoration:none;display:block;">
 
             <div class="card-inner" style="background:#0E0E0C;overflow:hidden;position:relative;">
               <video muted loop playsinline preload="none"
@@ -1031,7 +1031,7 @@
           </a>
 
           <!-- Smart Casual -->
-          <a href="lookbook.html" class="carousel-card gsap-reveal" style="text-decoration:none;display:block;">
+          <a href="lookbook.php" class="carousel-card gsap-reveal" style="text-decoration:none;display:block;">
 
             <div class="card-inner" style="background:#2A2E38;overflow:hidden;position:relative;">
               <video muted loop playsinline preload="none"
@@ -1048,7 +1048,7 @@
           </a>
 
           <!-- Evening & Occasion -->
-          <a href="lookbook.html" class="carousel-card gsap-reveal" style="text-decoration:none;display:block;">
+          <a href="lookbook.php" class="carousel-card gsap-reveal" style="text-decoration:none;display:block;">
 
             <div class="card-inner" style="background:#1A0E08;overflow:hidden;position:relative;">
               <video muted loop playsinline preload="none"
@@ -1065,7 +1065,7 @@
           </a>
 
           <!-- Workwear & Uniform -->
-          <a href="lookbook.html" class="carousel-card gsap-reveal" style="text-decoration:none;display:block;">
+          <a href="lookbook.php" class="carousel-card gsap-reveal" style="text-decoration:none;display:block;">
 
             <div class="card-inner" style="background:#1A1810;overflow:hidden;position:relative;">
               <video muted loop playsinline preload="none"
@@ -1082,7 +1082,7 @@
           </a>
 
           <!-- Travel & Leisure -->
-          <a href="lookbook.html" class="carousel-card gsap-reveal" style="text-decoration:none;display:block;">
+          <a href="lookbook.php" class="carousel-card gsap-reveal" style="text-decoration:none;display:block;">
             <div class="card-inner" style="background:#1C2830;overflow:hidden;position:relative;">
               <div style="position:absolute;inset:0;background:linear-gradient(135deg,#1C2830 0%,#2A3A44 50%,#1C2830 100%);"></div>
               <div style="position:absolute;inset:0;background-image:repeating-linear-gradient(110deg,transparent 0,transparent 18px,rgba(197,169,122,0.06) 18px,rgba(197,169,122,0.06) 19px);"></div>
@@ -1105,7 +1105,7 @@
         <div class="carousel-track" id="track-pattern" data-lenis-prevent>
 
           <!-- Checks -->
-          <a href="lookbook.html?cat=checks" class="carousel-card gsap-reveal" style="text-decoration:none;display:block;">
+          <a href="lookbook.php?cat=checks" class="carousel-card gsap-reveal" style="text-decoration:none;display:block;">
 
             <div class="card-inner" style="
               background-color:#E8E0D0;
@@ -1122,7 +1122,7 @@
           </a>
 
           <!-- Stripes -->
-          <a href="lookbook.html?cat=stripes" class="carousel-card gsap-reveal" style="text-decoration:none;display:block;">
+          <a href="lookbook.php?cat=stripes" class="carousel-card gsap-reveal" style="text-decoration:none;display:block;">
 
             <div class="card-inner" style="
               background-color:#F4F1EA;
@@ -1144,7 +1144,7 @@
           </a>
 
           <!-- Dobbies -->
-          <a href="lookbook.html?cat=dobbies" class="carousel-card gsap-reveal" style="text-decoration:none;display:block;">
+          <a href="lookbook.php?cat=dobbies" class="carousel-card gsap-reveal" style="text-decoration:none;display:block;">
 
             <div class="card-inner" style="
               background-color:#1A1A18;
@@ -1160,7 +1160,7 @@
           </a>
 
           <!-- Plains -->
-          <a href="lookbook.html?cat=plains" class="carousel-card gsap-reveal" style="text-decoration:none;display:block;">
+          <a href="lookbook.php?cat=plains" class="carousel-card gsap-reveal" style="text-decoration:none;display:block;">
 
             <div class="card-inner" style="background:linear-gradient(160deg,#4A4E5A 0%,#3A3E48 100%);">
               <span class="card-number text-ntc-ivory">04</span>
@@ -1172,7 +1172,7 @@
           </a>
 
           <!-- Uniforms -->
-          <a href="lookbook.html?cat=uniforms" class="carousel-card gsap-reveal" style="text-decoration:none;display:block;">
+          <a href="lookbook.php?cat=uniforms" class="carousel-card gsap-reveal" style="text-decoration:none;display:block;">
 
             <div class="card-inner" style="
               background-color:#2A3040;

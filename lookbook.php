@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
-  <link rel="prefetch" href="index.html"/>
+  <link rel="prefetch" href="index.php"/>
   <style>
     @font-face {
       font-family: 'Bodoni Moda';
@@ -289,7 +289,7 @@
 
       <!-- Center: Logo -->
       <div class="lb-nav-col lb-nav-center">
-        <a href="index.html">
+        <a href="index.php">
           <img src="BRAND_ASSETS/napoleon logo-2.png" alt="Napoleon Textile Company"
                style="height:4.8rem;width:auto;display:block;"/>
         </a>
@@ -297,7 +297,7 @@
 
       <!-- Right: Back to Site -->
       <div class="lb-nav-col lb-nav-right">
-        <a href="index.html" class="btn-nav-text">← Back to Site</a>
+        <a href="index.php" class="btn-nav-text">← Back to Site</a>
       </div>
 
     </div>
