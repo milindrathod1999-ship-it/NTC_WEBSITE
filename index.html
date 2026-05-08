@@ -772,6 +772,58 @@
       background: #E8E0D0;
       padding: 36px 40px;
     }
+
+    /* ══ MOBILE OPTIMISATIONS ═══════════════════════════════════════════ */
+
+    /* 1. Hamburger lines adapt to nav mode — visible on light-bg sections */
+    #navbar.nav-light #menu-btn span { background-color: #1A1A18 !important; }
+
+    /* 2. Hero stats: 2×2 grid on phones instead of single cramped row */
+    @media (max-width: 639px) {
+      .hero-stats {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.25rem 0.75rem;
+        padding-left: 1.25rem !important;
+        margin-bottom: 2rem !important;
+      }
+      .hero-stats > div {
+        border-left: none !important;
+        padding-left: 0 !important;
+      }
+    }
+
+    /* 3. Collections lift: less aggressive pull-up on small screens */
+    @media (max-width: 639px) {
+      .collections-lift { margin-top: -100px !important; }
+    }
+    @media (min-width: 640px) and (max-width: 1023px) {
+      .collections-lift { margin-top: -200px !important; }
+    }
+
+    /* 4. Heritage city strip: full-width bottom text on mobile */
+    @media (max-width: 767px) {
+      .heritage-city-frame { height: 520px !important; }
+      .heritage-city-grad {
+        background: linear-gradient(to bottom, transparent 30%, rgba(10,10,8,0.72) 62%, rgba(10,10,8,0.96) 100%) !important;
+      }
+      .heritage-city-text {
+        width: 100% !important;
+        top: auto !important;
+        padding: 1.5rem 1.5rem 2rem !important;
+      }
+      .heritage-city-vr { display: none !important; }
+    }
+
+    /* 5. Heritage portrait cards: reduce height on phones */
+    @media (max-width: 639px) {
+      .heritage-portrait { height: 400px !important; }
+    }
+
+    /* 6. Contact email address wraps on narrow screens */
+    @media (max-width: 639px) {
+      #contact a[href^="mailto"] { overflow-wrap: anywhere; word-break: break-all; }
+    }
   </style>
 </head>
 <body class="bg-ivory text-ntc-obsidian">
@@ -852,7 +904,7 @@
       </h1>
 
       <!-- Key numbers -->
-      <div class="flex gap-8 lg:gap-14 gsap-hero-sub" style="margin-bottom:3rem;border-left:1.5px solid rgba(197,169,122,0.4);padding-left:1.75rem;">
+      <div class="hero-stats flex gap-8 lg:gap-14 gsap-hero-sub" style="margin-bottom:3rem;border-left:1.5px solid rgba(197,169,122,0.4);padding-left:1.75rem;">
         <div>
           <p style="font-size:2rem;font-weight:200;color:#F4F1EA;line-height:1;letter-spacing:0.06em;">30<span style="color:#C5A97A;font-size:0.65rem;letter-spacing:0.1em;vertical-align:super;"> YRS</span></p>
           <p class="eyebrow" style="color:rgba(244,241,234,0.4);margin-top:5px;">In Business</p>
@@ -927,7 +979,7 @@
   </section>
 
   <!-- ────── COLLECTIONS CAROUSELS ────── -->
-  <div id="collections" class="pt-10 lg:pt-14 pb-14 lg:pb-20 bg-ivory" style="position:relative;z-index:10;margin-top:-300px;border-radius:32px 32px 0 0;box-shadow:0 -48px 120px rgba(10,10,8,0.45),0 -2px 0 rgba(10,10,8,0.15);will-change:transform;">
+  <div id="collections" class="collections-lift pt-10 lg:pt-14 pb-14 lg:pb-20 bg-ivory" style="position:relative;z-index:10;margin-top:-300px;border-radius:32px 32px 0 0;box-shadow:0 -48px 120px rgba(10,10,8,0.45),0 -2px 0 rgba(10,10,8,0.15);will-change:transform;">
     <div class="max-w-screen-xl mx-auto px-6 lg:px-16">
 
       <!-- Section intro -->
@@ -1259,7 +1311,7 @@
 
         <!-- Founder — Mr. Sanjeev Rathod -->
         <div class="heritage-frame" style="margin:6px;">
-          <div class="relative overflow-hidden" style="height:560px;background:#1A1A18;">
+          <div class="heritage-portrait relative overflow-hidden" style="height:560px;background:#1A1A18;">
             <img src="BRAND_ASSETS/photo_2026-04-06 21.52.10.jpeg"
                  alt="Mr. Sanjeev Rathod — Founder, Napoleon Textile Company"
                  class="absolute inset-0 w-full h-full object-cover object-top"
@@ -1283,7 +1335,7 @@
 
         <!-- Managing Director — Mr. Milind Rathod -->
         <div class="heritage-frame" style="margin:6px;">
-          <div class="relative overflow-hidden" style="height:560px;background:#1A1A18;">
+          <div class="heritage-portrait relative overflow-hidden" style="height:560px;background:#1A1A18;">
             <img src="BRAND_ASSETS/MR_PIC.jpeg"
                  alt="Mr. Milind Rathod — Managing Director, Napoleon Textile Company"
                  class="absolute inset-0 w-full h-full object-cover"
@@ -1310,7 +1362,7 @@
       <!-- Mumbai editorial strip -->
       <div class="gsap-reveal mb-12 lg:mb-16" style="padding:10px;">
         <div class="heritage-frame">
-          <div class="relative overflow-hidden" style="height:400px;background:#1A1A18;">
+          <div class="heritage-city-frame relative overflow-hidden" style="height:400px;background:#1A1A18;">
 
             <!-- Full-bleed photo -->
             <img src="https://images.unsplash.com/photo-1570168007204-dfb528c6958f?w=1400&q=85&auto=format&fit=crop"
@@ -1320,7 +1372,7 @@
                  style="object-position:center 40%;filter:saturate(0.6) brightness(0.75) contrast(1.08);" />
 
             <!-- Left-to-right darkening — keeps left legible, right panel dark for text -->
-            <div class="absolute inset-0" style="background:linear-gradient(to right,rgba(10,10,8,0.15) 0%,rgba(10,10,8,0.1) 50%,rgba(10,10,8,0.88) 72%,rgba(10,10,8,0.96) 100%);"></div>
+            <div class="heritage-city-grad absolute inset-0" style="background:linear-gradient(to right,rgba(10,10,8,0.15) 0%,rgba(10,10,8,0.1) 50%,rgba(10,10,8,0.88) 72%,rgba(10,10,8,0.96) 100%);"></div>
             <!-- Bottom fade -->
             <div class="absolute inset-0" style="background:linear-gradient(to top,rgba(10,10,8,0.55) 0%,transparent 40%);"></div>
             <!-- Grain -->
@@ -1336,9 +1388,9 @@
             </div>
 
             <!-- Right panel: typographic -->
-            <div class="absolute top-0 bottom-0 right-0 flex flex-col justify-center" style="width:42%;padding:3rem 3rem 3rem 2rem;">
+            <div class="heritage-city-text absolute top-0 bottom-0 right-0 flex flex-col justify-center" style="width:42%;padding:3rem 3rem 3rem 2rem;">
               <!-- Vertical rule -->
-              <div style="width:1px;height:48px;background:rgba(197,169,122,0.35);margin-bottom:20px;"></div>
+              <div class="heritage-city-vr" style="width:1px;height:48px;background:rgba(197,169,122,0.35);margin-bottom:20px;"></div>
               <p style="font-size:9px;font-weight:600;letter-spacing:0.24em;text-transform:uppercase;color:rgba(197,169,122,0.55);margin-bottom:14px;">Our Origin</p>
               <p class="font-display text-ntc-ivory" style="font-size:clamp(2rem,4vw,3.25rem);font-weight:200;line-height:0.95;letter-spacing:-0.01em;margin-bottom:20px;">
                 Rooted in a<br /><em>city woven from</em><br />culture &amp; craft.
