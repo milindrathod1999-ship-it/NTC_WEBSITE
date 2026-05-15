@@ -964,7 +964,7 @@
 
     <!-- Full-bleed photo -->
     <div style="position:absolute;inset:0;z-index:1;">
-      <img src="BRAND_ASSETS/IMG_2963.jpg"
+      <img src="BRAND_ASSETS/IMG_2963.jpeg"
            alt="Napoleon shirting fabric range"
            style="width:100%;height:100%;object-fit:cover;object-position:center center;filter:saturate(1.15) brightness(1.0);" />
       <!-- Bottom darkening — deepens toward where collections card sits over it -->
