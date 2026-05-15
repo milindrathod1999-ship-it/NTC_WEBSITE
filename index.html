@@ -966,7 +966,7 @@
     <div style="position:absolute;inset:0;z-index:1;">
       <img src="BRAND_ASSETS/IMG_2963.jpeg"
            alt="Napoleon shirting fabric range"
-           style="width:100%;height:100%;object-fit:cover;object-position:center 70%;filter:saturate(1.15) brightness(1.0);" />
+           style="width:100%;height:100%;object-fit:cover;object-position:center 90%;filter:saturate(1.15) brightness(1.0);" />
       <!-- Bottom darkening — deepens toward where collections card sits over it -->
       <div style="position:absolute;inset:0;background:linear-gradient(to bottom,transparent 30%,rgba(10,10,8,0.5) 65%,rgba(10,10,8,0.82) 88%,rgba(10,10,8,0.95) 100%);"></div>
       <!-- Grain -->
