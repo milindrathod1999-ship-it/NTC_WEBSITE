@@ -208,7 +208,7 @@
       background:
         linear-gradient(to right, rgba(10,10,8,0.55) 0%, rgba(10,10,8,0.25) 50%, rgba(10,10,8,0.0) 100%),
         linear-gradient(to bottom, rgba(10,10,8,0.1) 0%, rgba(10,10,8,0) 30%, rgba(10,10,8,0.5) 100%),
-        url('BRAND_ASSETS/Fabric photos/Gemini_Generated_Image_sczswdsczswdsczs.png') center/cover no-repeat;
+        url('BRAND_ASSETS/IMG_2961.jpeg') center/cover no-repeat;
     }
 
     /* ── TYPOGRAPHY ── */
