@@ -1551,10 +1551,12 @@
               <p class="text-ntc-slate text-sm" style="line-height:1.85;">A defining commitment: full pivot to 100% cotton yarn-dyed shirting. Seasonal design collections, bespoke colour palettes, and reactive dyeing become the core of Napoleon's identity. Synthetic blends step aside — for good.</p>
               <span style="font-size:8px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:rgba(197,169,122,0.6);display:inline-block;margin-top:12px;">100% Cotton · Reactive Dyed · Seasonal Collections</span>
             </div>
-            <div class="journey-artwork" style="background:#1A1A18;background-image:repeating-linear-gradient(0deg,rgba(197,169,122,0.08) 0,rgba(197,169,122,0.08) 1px,transparent 1px,transparent 16px),repeating-linear-gradient(90deg,rgba(197,169,122,0.08) 0,rgba(197,169,122,0.08) 1px,transparent 1px,transparent 16px);">
-              <span class="artwork-year">2019</span>
-              <div class="artwork-icon">
-                <svg width="32" height="32" viewBox="0 0 48 48" fill="none"><path d="M14 4 C11 14 17 22 14 32 C11 40 14 44 14 44" stroke="#C5A97A" stroke-width="1.5"/><path d="M24 4 C21 14 27 22 24 32 C21 40 24 44 24 44" stroke="#C5A97A" stroke-width="1.5"/><path d="M34 4 C31 14 37 22 34 32 C31 40 34 44 34 44" stroke="#C5A97A" stroke-width="1.5"/><path d="M4 14 C12 11 20 17 28 14 C36 11 44 14 44 14" stroke="#C5A97A" stroke-width="1" opacity="0.65"/><path d="M4 24 C12 21 20 27 28 24 C36 21 44 24 44 24" stroke="#C5A97A" stroke-width="1" opacity="0.65"/><path d="M4 34 C12 31 20 37 28 34 C36 31 44 34 44 34" stroke="#C5A97A" stroke-width="1" opacity="0.65"/></svg>
+            <div class="journey-artwork" style="background:#1A1A18;padding:0;">
+              <img src="BRAND_ASSETS/Pure cotton .jpg" alt="Pure Cotton. Always. · 2019" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;" loading="lazy" decoding="async" />
+              <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(10,10,8,0.75) 0%,rgba(10,10,8,0.2) 60%,transparent 100%);"></div>
+              <span class="artwork-year" style="position:relative;z-index:1;">2019</span>
+              <div class="artwork-icon" style="display:none;">
+                <svg width="32" height="32" viewBox="0 0 48 48" fill="none"><path d="M14 4 C11 14 17 22 14 32 C11 40 14 44 14 44" stroke="#C5A97A" stroke-width="1.5"/></svg>
               </div>
               <span class="artwork-label">100% Cotton · 2019</span>
             </div>
@@ -1596,12 +1598,11 @@
 
           <!-- Today — Still Developing (artwork left) -->
           <div class="journey-row gsap-timeline-item" style="border-bottom:1px solid rgba(26,26,24,0.08);">
-            <div class="journey-artwork" style="background:#1A1A18;background-image:radial-gradient(circle,rgba(197,169,122,0.22) 1.5px,transparent 1.5px);background-size:26px 26px;">
-              <span class="artwork-year" style="font-size:clamp(2.5rem,5vw,4rem);">Today</span>
-              <div class="artwork-icon" style="border-color:rgba(197,169,122,0.5);background:rgba(197,169,122,0.08);">
-                <svg width="32" height="32" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="16" stroke="#C5A97A" stroke-width="1"/><ellipse cx="24" cy="24" rx="7" ry="16" stroke="#C5A97A" stroke-width="0.6" opacity="0.45"/><line x1="8" y1="24" x2="40" y2="24" stroke="#C5A97A" stroke-width="0.6" opacity="0.45"/><path d="M9 16 Q24 13 39 16" stroke="#C5A97A" stroke-width="0.5" opacity="0.4"/><path d="M9 32 Q24 35 39 32" stroke="#C5A97A" stroke-width="0.5" opacity="0.4"/><circle cx="30" cy="16" r="2" fill="#C5A97A"/><circle cx="18" cy="20" r="2" fill="#C5A97A"/><circle cx="32" cy="28" r="2" fill="#C5A97A"/><circle cx="20" cy="30" r="2" fill="#C5A97A"/></svg>
-              </div>
-              <span class="artwork-label">12 Countries · Today</span>
+            <div class="journey-artwork" style="background:#1A1A18;padding:0;">
+              <img src="BRAND_ASSETS/Still Dev.jpg" alt="Still Developing. Still Growing." style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;" loading="lazy" decoding="async" />
+              <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(10,10,8,0.75) 0%,rgba(10,10,8,0.2) 60%,transparent 100%);"></div>
+              <span class="artwork-year" style="position:relative;z-index:1;font-size:clamp(2.5rem,5vw,4rem);">Today</span>
+              <span class="artwork-label" style="position:relative;z-index:1;">12 Countries · Today</span>
             </div>
             <div class="journey-content">
               <span class="milestone-year">Today</span>
