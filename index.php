@@ -1017,9 +1017,9 @@
           <a href="lookbook.php" class="carousel-card gsap-reveal" style="text-decoration:none;display:block;">
 
             <div class="card-inner" style="background:#0E0E0C;overflow:hidden;position:relative;">
-              <video muted loop playsinline preload="none"
+              <video class="collection-video" muted loop playsinline autoplay preload="none"
                      style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;pointer-events:none;">
-                <source src="BRAND_ASSETS/Fabric photos/fabric-loop.mp4" type="video/mp4">
+                <source src="BRAND_ASSETS/Boardroom formal.mov" type="video/quicktime">
               </video>
               <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.72) 0%,rgba(0,0,0,0.18) 55%,transparent 100%);z-index:1;"></div>
               <span class="card-number text-ntc-ivory" style="z-index:2;">01</span>
@@ -1034,9 +1034,9 @@
           <a href="lookbook.php" class="carousel-card gsap-reveal" style="text-decoration:none;display:block;">
 
             <div class="card-inner" style="background:#2A2E38;overflow:hidden;position:relative;">
-              <video muted loop playsinline preload="none"
+              <video class="collection-video" muted loop playsinline autoplay preload="none"
                      style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;pointer-events:none;">
-                <source src="BRAND_ASSETS/Fabric photos/smartcasual-loop.mp4" type="video/mp4">
+                <source src="BRAND_ASSETS/Smart Casual.mov" type="video/quicktime">
               </video>
               <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.72) 0%,rgba(0,0,0,0.18) 55%,transparent 100%);z-index:1;"></div>
               <span class="card-number text-ntc-ivory" style="z-index:2;">02</span>
@@ -1051,9 +1051,9 @@
           <a href="lookbook.php" class="carousel-card gsap-reveal" style="text-decoration:none;display:block;">
 
             <div class="card-inner" style="background:#1A0E08;overflow:hidden;position:relative;">
-              <video muted loop playsinline preload="none"
+              <video class="collection-video" muted loop playsinline autoplay preload="none"
                      style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;pointer-events:none;">
-                <source src="BRAND_ASSETS/Fabric photos/evening-loop.mp4" type="video/mp4">
+                <source src="BRAND_ASSETS/Evening wear.mov" type="video/quicktime">
               </video>
               <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.72) 0%,rgba(0,0,0,0.18) 55%,transparent 100%);z-index:1;"></div>
               <span class="card-number text-ntc-champagne" style="z-index:2;">03</span>
@@ -1068,9 +1068,9 @@
           <a href="lookbook.php" class="carousel-card gsap-reveal" style="text-decoration:none;display:block;">
 
             <div class="card-inner" style="background:#1A1810;overflow:hidden;position:relative;">
-              <video muted loop playsinline preload="none"
+              <video class="collection-video" muted loop playsinline autoplay preload="none"
                      style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;pointer-events:none;">
-                <source src="BRAND_ASSETS/Fabric photos/uniform-loop.mp4" type="video/mp4">
+                <source src="BRAND_ASSETS/Workwear.mov" type="video/quicktime">
               </video>
               <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.72) 0%,rgba(0,0,0,0.18) 55%,transparent 100%);z-index:1;"></div>
               <span class="card-number text-ntc-champagne" style="z-index:2;">04</span>
@@ -1084,9 +1084,11 @@
           <!-- Travel & Leisure -->
           <a href="lookbook.php" class="carousel-card gsap-reveal" style="text-decoration:none;display:block;">
             <div class="card-inner" style="background:#1C2830;overflow:hidden;position:relative;">
-              <div style="position:absolute;inset:0;background:linear-gradient(135deg,#1C2830 0%,#2A3A44 50%,#1C2830 100%);"></div>
-              <div style="position:absolute;inset:0;background-image:repeating-linear-gradient(110deg,transparent 0,transparent 18px,rgba(197,169,122,0.06) 18px,rgba(197,169,122,0.06) 19px);"></div>
-              <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.68) 0%,rgba(0,0,0,0.12) 55%,transparent 100%);z-index:1;"></div>
+              <video class="collection-video" muted loop playsinline autoplay preload="none"
+                     style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;pointer-events:none;">
+                <source src="BRAND_ASSETS/Resort wear.mov" type="video/quicktime">
+              </video>
+              <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.72) 0%,rgba(0,0,0,0.18) 55%,transparent 100%);z-index:1;"></div>
               <span class="card-number text-ntc-ivory" style="z-index:2;">05</span>
               <div class="card-label" style="z-index:2;">
                 <p class="card-title">Travel<br />&amp; Leisure</p>
@@ -1846,11 +1848,11 @@
         </div>
         <p class="craft-step-desc hidden lg:block">Every season begins with research — global runway trends, buyer feedback, and fibre market intelligence combine to identify the next generation of base fabrics.</p>
         <div class="craft-step-photo">
-          <img src="BRAND_ASSETS/HWW01.jpg" alt="Research" loading="lazy" decoding="async" />
+          <img src="BRAND_ASSETS/HWW01.jpg" alt="Research" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;object-position:center center;" />
         </div>
       </div>
       <div class="craft-step-photo-mobile">
-        <img src="BRAND_ASSETS/HWW01.jpg" alt="Research" loading="lazy" decoding="async" />
+        <img src="BRAND_ASSETS/HWW01.jpg" alt="Research" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;object-position:center center;" />
       </div>
 
       <div class="craft-step craft-anim">
@@ -1863,11 +1865,11 @@
         </div>
         <p class="craft-step-desc hidden lg:block">Colour, texture, weight, and pattern are assembled into seasonal mood boards before any fabric is made. The collection has a point of view first.</p>
         <div class="craft-step-photo">
-          <img src="BRAND_ASSETS/HWW02.jpg" alt="Mood Boards" loading="lazy" decoding="async" />
+          <img src="BRAND_ASSETS/HWW02.jpg" alt="Mood Boards" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;object-position:center center;" />
         </div>
       </div>
       <div class="craft-step-photo-mobile">
-        <img src="BRAND_ASSETS/HWW02.jpg" alt="Mood Boards" loading="lazy" decoding="async" />
+        <img src="BRAND_ASSETS/HWW02.jpg" alt="Mood Boards" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;object-position:center center;" />
       </div>
 
       <div class="craft-step craft-anim">
@@ -1880,11 +1882,11 @@
         </div>
         <p class="craft-step-desc hidden lg:block">Indian cotton forms the core of most of our sourcing — selected for its clean spinning characteristics and fine staple. We also work with Australian cotton for superior softness, and bring in select Egyptian cotton blends where the construction calls for it. The right fibre is chosen per fabric, not per formula.</p>
         <div class="craft-step-photo">
-          <img src="BRAND_ASSETS/HWW03.jpg" alt="Yarn Sourcing" loading="lazy" decoding="async" />
+          <img src="BRAND_ASSETS/HWW03.jpg" alt="Yarn Sourcing" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;object-position:center center;" />
         </div>
       </div>
       <div class="craft-step-photo-mobile">
-        <img src="BRAND_ASSETS/HWW03.jpg" alt="Yarn Sourcing" loading="lazy" decoding="async" />
+        <img src="BRAND_ASSETS/HWW03.jpg" alt="Yarn Sourcing" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;object-position:center center;" />
       </div>
 
       <div class="craft-step craft-anim">
@@ -2096,6 +2098,21 @@
        SCRIPTS
   ══════════════════════════════════════════ -->
   <script>
+    // ════════════════════════════════════════
+    // COLLECTION VIDEOS — 0.5x speed, 6s loop
+    // ════════════════════════════════════════
+    document.addEventListener('DOMContentLoaded', function () {
+      document.querySelectorAll('.collection-video').forEach(function (video) {
+        video.playbackRate = 0.5;
+        // At 0.5x speed, 3 source seconds = 6 real seconds
+        video.addEventListener('timeupdate', function () {
+          if (video.currentTime >= 3) {
+            video.currentTime = 0;
+          }
+        });
+      });
+    });
+
     // ════════════════════════════════════════
     // LENIS SMOOTH SCROLL
     // ════════════════════════════════════════
