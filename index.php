@@ -1495,12 +1495,11 @@
 
           <!-- 2005 — Stripe Supremacy (artwork left) -->
           <div class="journey-row gsap-timeline-item">
-            <div class="journey-artwork" style="background:#2A2416;background-image:repeating-linear-gradient(180deg,rgba(197,169,122,0.18) 0,rgba(197,169,122,0.18) 4px,transparent 4px,transparent 20px);">
-              <span class="artwork-year">2005</span>
-              <div class="artwork-icon">
-                <svg width="32" height="32" viewBox="0 0 48 48" fill="none"><rect x="5" y="5" width="38" height="38" stroke="#C5A97A" stroke-width="1"/><rect x="5" y="9" width="38" height="5" fill="rgba(197,169,122,0.55)"/><rect x="5" y="19" width="38" height="5" fill="rgba(197,169,122,0.55)"/><rect x="5" y="29" width="38" height="5" fill="rgba(197,169,122,0.55)"/><rect x="5" y="39" width="38" height="4" fill="rgba(197,169,122,0.55)"/></svg>
-              </div>
-              <span class="artwork-label">Stripe Master · 2005</span>
+            <div class="journey-artwork" style="background:#1A1A18;padding:0;">
+              <img src="BRAND_ASSETS/StripeSub.jpeg" alt="Stripe Supremacy · 2005" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;" loading="lazy" decoding="async" />
+              <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(10,10,8,0.75) 0%,rgba(10,10,8,0.2) 60%,transparent 100%);"></div>
+              <span class="artwork-year" style="position:relative;z-index:1;">2005</span>
+              <span class="artwork-label" style="position:relative;z-index:1;">Stripe Master · 2005</span>
             </div>
             <div class="journey-content">
               <span class="milestone-year">2005</span>
