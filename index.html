@@ -1563,12 +1563,11 @@
 
           <!-- 2022 — We Blended Well (artwork left) -->
           <div class="journey-row gsap-timeline-item">
-            <div class="journey-artwork" style="background:#1A2B1C;background-image:repeating-linear-gradient(135deg,rgba(197,169,122,0.07) 0,rgba(197,169,122,0.07) 1px,transparent 1px,transparent 14px);">
-              <span class="artwork-year">2022</span>
-              <div class="artwork-icon">
-                <svg width="32" height="32" viewBox="0 0 48 48" fill="none"><path d="M24 24 Q18 14 10 10 Q12 20 24 24" stroke="#C5A97A" stroke-width="1" fill="rgba(197,169,122,0.12)"/><path d="M24 24 Q38 16 40 8 Q30 10 24 24" stroke="#C5A97A" stroke-width="1" fill="rgba(197,169,122,0.12)"/><path d="M24 24 Q20 36 22 44 Q28 40 24 24" stroke="#C5A97A" stroke-width="1" fill="rgba(197,169,122,0.1)"/><circle cx="24" cy="24" r="3" fill="#C5A97A" opacity="0.7"/></svg>
-              </div>
-              <span class="artwork-label">Tencel · Modal · 2022</span>
+            <div class="journey-artwork" style="background:#1A1A18;padding:0;">
+              <img src="BRAND_ASSETS/Tencel.jpeg" alt="We Blended Well · 2022" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;" loading="lazy" decoding="async" />
+              <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(10,10,8,0.75) 0%,rgba(10,10,8,0.2) 60%,transparent 100%);"></div>
+              <span class="artwork-year" style="position:relative;z-index:1;">2022</span>
+              <span class="artwork-label" style="position:relative;z-index:1;">Tencel · Modal · 2022</span>
             </div>
             <div class="journey-content">
               <span class="milestone-year">2022</span>
