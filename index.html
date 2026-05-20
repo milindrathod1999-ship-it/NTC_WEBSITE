@@ -1530,12 +1530,11 @@
 
           <!-- 2018 — Colour Enters (artwork left) -->
           <div class="journey-row gsap-timeline-item">
-            <div class="journey-artwork" style="background:#2D1820;background-image:repeating-linear-gradient(-45deg,rgba(197,169,122,0.07) 0,rgba(197,169,122,0.07) 1px,transparent 1px,transparent 12px);">
-              <span class="artwork-year">2018</span>
-              <div class="artwork-icon">
-                <svg width="32" height="32" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="5" stroke="#C5A97A" stroke-width="1" fill="rgba(197,169,122,0.15)"/><ellipse cx="24" cy="13" rx="3.5" ry="5.5" stroke="#C5A97A" stroke-width="0.8" fill="rgba(197,169,122,0.08)"/><ellipse cx="24" cy="13" rx="3.5" ry="5.5" stroke="#C5A97A" stroke-width="0.8" fill="rgba(197,169,122,0.08)" transform="rotate(60,24,24)"/><ellipse cx="24" cy="13" rx="3.5" ry="5.5" stroke="#C5A97A" stroke-width="0.8" fill="rgba(197,169,122,0.08)" transform="rotate(120,24,24)"/><ellipse cx="24" cy="13" rx="3.5" ry="5.5" stroke="#C5A97A" stroke-width="0.8" fill="rgba(197,169,122,0.08)" transform="rotate(180,24,24)"/><ellipse cx="24" cy="13" rx="3.5" ry="5.5" stroke="#C5A97A" stroke-width="0.8" fill="rgba(197,169,122,0.08)" transform="rotate(240,24,24)"/><ellipse cx="24" cy="13" rx="3.5" ry="5.5" stroke="#C5A97A" stroke-width="0.8" fill="rgba(197,169,122,0.08)" transform="rotate(300,24,24)"/></svg>
-              </div>
-              <span class="artwork-label">Prints · 2018</span>
+            <div class="journey-artwork" style="background:#1A1A18;padding:0;">
+              <img src="BRAND_ASSETS/PRINTES.jpg" alt="Colour Enters the Story · 2018" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;" loading="lazy" decoding="async" />
+              <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(10,10,8,0.75) 0%,rgba(10,10,8,0.2) 60%,transparent 100%);"></div>
+              <span class="artwork-year" style="position:relative;z-index:1;">2018</span>
+              <span class="artwork-label" style="position:relative;z-index:1;">Prints · 2018</span>
             </div>
             <div class="journey-content">
               <span class="milestone-year">2018</span>
