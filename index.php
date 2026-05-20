@@ -1108,53 +1108,46 @@
 
           <!-- Checks -->
           <a href="lookbook.php?cat=checks" class="carousel-card gsap-reveal" style="text-decoration:none;display:block;">
-
-            <div class="card-inner" style="
-              background-color:#E8E0D0;
-              background-image:
-                repeating-linear-gradient(0deg,transparent 0,transparent 14px,rgba(74,78,90,0.18) 14px,rgba(74,78,90,0.18) 15px),
-                repeating-linear-gradient(90deg,transparent 0,transparent 14px,rgba(74,78,90,0.18) 14px,rgba(74,78,90,0.18) 15px);
-              ">
-              <span class="card-number" style="color:rgba(26,26,24,0.1)">01</span>
-              <div class="card-label">
-                <p class="card-title" style="color:#1A1A18;">Checks &<br />Windowpanes</p>
-                <p class="card-sub" style="color:rgba(26,26,24,0.5);">Tattersall · Prince of Wales · Gingham</p>
+            <div class="card-inner" style="background:#0E0E0C;overflow:hidden;position:relative;">
+              <video class="collection-video" muted loop playsinline autoplay preload="none"
+                     style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;pointer-events:none;">
+                <source src="BRAND_ASSETS/Checks.mov" type="video/quicktime">
+              </video>
+              <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.72) 0%,rgba(0,0,0,0.18) 55%,transparent 100%);z-index:1;"></div>
+              <span class="card-number text-ntc-ivory" style="z-index:2;">01</span>
+              <div class="card-label" style="z-index:2;">
+                <p class="card-title">Checks &<br />Windowpanes</p>
+                <p class="card-sub">Tattersall · Prince of Wales · Gingham</p>
               </div>
             </div>
           </a>
 
           <!-- Stripes -->
           <a href="lookbook.php?cat=stripes" class="carousel-card gsap-reveal" style="text-decoration:none;display:block;">
-
-            <div class="card-inner" style="
-              background-color:#F4F1EA;
-              background-image:repeating-linear-gradient(
-                0deg,
-                transparent 0,transparent 9px,
-                rgba(28,37,64,0.18) 9px,rgba(28,37,64,0.18) 11px,
-                transparent 11px,transparent 22px,
-                rgba(28,37,64,0.1) 22px,rgba(28,37,64,0.1) 23px,
-                transparent 23px,transparent 32px
-              );
-              ">
-              <span class="card-number" style="color:rgba(28,37,64,0.1)">02</span>
-              <div class="card-label">
-                <p class="card-title" style="color:#1A1A18;">Stripes &<br />Pinstripes</p>
-                <p class="card-sub" style="color:rgba(26,26,24,0.5);">Bengal · Chalk stripe · Multicolor</p>
+            <div class="card-inner" style="background:#0E0E0C;overflow:hidden;position:relative;">
+              <video class="collection-video" muted loop playsinline autoplay preload="none"
+                     style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;pointer-events:none;">
+                <source src="BRAND_ASSETS/Stripes.mov" type="video/quicktime">
+              </video>
+              <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.72) 0%,rgba(0,0,0,0.18) 55%,transparent 100%);z-index:1;"></div>
+              <span class="card-number text-ntc-ivory" style="z-index:2;">02</span>
+              <div class="card-label" style="z-index:2;">
+                <p class="card-title">Stripes &<br />Pinstripes</p>
+                <p class="card-sub">Bengal · Chalk stripe · Multicolor</p>
               </div>
             </div>
           </a>
 
           <!-- Dobbies -->
           <a href="lookbook.php?cat=dobbies" class="carousel-card gsap-reveal" style="text-decoration:none;display:block;">
-
-            <div class="card-inner" style="
-              background-color:#1A1A18;
-              background-image:repeating-linear-gradient(45deg,rgba(197,169,122,0.12) 0,rgba(197,169,122,0.12) 1px,transparent 1px,transparent 10px),
-              repeating-linear-gradient(-45deg,rgba(197,169,122,0.08) 0,rgba(197,169,122,0.08) 1px,transparent 1px,transparent 10px);
-              ">
-              <span class="card-number text-ntc-champagne">03</span>
-              <div class="card-label">
+            <div class="card-inner" style="background:#0E0E0C;overflow:hidden;position:relative;">
+              <video class="collection-video" muted loop playsinline autoplay preload="none"
+                     style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;pointer-events:none;">
+                <source src="BRAND_ASSETS/Dobbies.mov" type="video/quicktime">
+              </video>
+              <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.72) 0%,rgba(0,0,0,0.18) 55%,transparent 100%);z-index:1;"></div>
+              <span class="card-number text-ntc-champagne" style="z-index:2;">03</span>
+              <div class="card-label" style="z-index:2;">
                 <p class="card-title">Dobbies &<br />Jacquards</p>
                 <p class="card-sub">Woven texture · Self-pattern · Birdseye</p>
               </div>
@@ -1163,28 +1156,32 @@
 
           <!-- Plains -->
           <a href="lookbook.php?cat=plains" class="carousel-card gsap-reveal" style="text-decoration:none;display:block;">
-
-            <div class="card-inner" style="background:linear-gradient(160deg,#4A4E5A 0%,#3A3E48 100%);">
-              <span class="card-number text-ntc-ivory">04</span>
-              <div class="card-label">
+            <div class="card-inner" style="background:#0E0E0C;overflow:hidden;position:relative;">
+              <video class="collection-video" muted loop playsinline autoplay preload="none"
+                     style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;pointer-events:none;">
+                <source src="BRAND_ASSETS/Plains.mov" type="video/quicktime">
+              </video>
+              <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.72) 0%,rgba(0,0,0,0.18) 55%,transparent 100%);z-index:1;"></div>
+              <span class="card-number text-ntc-ivory" style="z-index:2;">04</span>
+              <div class="card-label" style="z-index:2;">
                 <p class="card-title">Plains &<br />Solids</p>
                 <p class="card-sub">Poplin · Oxford · Broadcloth</p>
               </div>
             </div>
           </a>
 
-          <!-- Uniforms -->
-          <a href="lookbook.php?cat=uniforms" class="carousel-card gsap-reveal" style="text-decoration:none;display:block;">
-
-            <div class="card-inner" style="
-              background-color:#2A3040;
-              background-image:repeating-linear-gradient(0deg,rgba(255,255,255,0.04) 0,rgba(255,255,255,0.04) 1px,transparent 1px,transparent 10px),
-              repeating-linear-gradient(90deg,rgba(255,255,255,0.03) 0,rgba(255,255,255,0.03) 1px,transparent 1px,transparent 10px);
-              ">
-              <span class="card-number text-ntc-ivory">05</span>
-              <div class="card-label">
-                <p class="card-title">Uniforms<br />&amp; Workwear</p>
-                <p class="card-sub">Durable · Structured · Institutional</p>
+          <!-- Prints -->
+          <a href="lookbook.php?cat=prints" class="carousel-card gsap-reveal" style="text-decoration:none;display:block;">
+            <div class="card-inner" style="background:#0E0E0C;overflow:hidden;position:relative;">
+              <video class="collection-video" muted loop playsinline autoplay preload="none"
+                     style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;pointer-events:none;">
+                <source src="BRAND_ASSETS/Prints.mov" type="video/quicktime">
+              </video>
+              <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.72) 0%,rgba(0,0,0,0.18) 55%,transparent 100%);z-index:1;"></div>
+              <span class="card-number text-ntc-champagne" style="z-index:2;">05</span>
+              <div class="card-label" style="z-index:2;">
+                <p class="card-title">Prints</p>
+                <p class="card-sub">Geometric · Floral · Abstract</p>
               </div>
             </div>
           </a>
