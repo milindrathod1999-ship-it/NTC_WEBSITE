@@ -2099,16 +2099,19 @@
   ══════════════════════════════════════════ -->
   <script>
     // ════════════════════════════════════════
-    // COLLECTION VIDEOS — 0.5x speed, 6s loop
+    // COLLECTION VIDEOS — 0.7x speed, same real-time duration as original
     // ════════════════════════════════════════
     document.addEventListener('DOMContentLoaded', function () {
       document.querySelectorAll('.collection-video').forEach(function (video) {
-        video.playbackRate = 0.5;
-        // At 0.5x speed, 3 source seconds = 6 real seconds
-        video.addEventListener('timeupdate', function () {
-          if (video.currentTime >= 3) {
-            video.currentTime = 0;
-          }
+        video.playbackRate = 0.7;
+        // Crop at 70% of source duration so real-time loop = original video length
+        video.addEventListener('loadedmetadata', function () {
+          var cropAt = video.duration * 0.7;
+          video.addEventListener('timeupdate', function () {
+            if (video.currentTime >= cropAt) {
+              video.currentTime = 0;
+            }
+          });
         });
       });
     });
