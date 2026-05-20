@@ -1847,11 +1847,11 @@
         </div>
         <p class="craft-step-desc hidden lg:block">Every season begins with research — global runway trends, buyer feedback, and fibre market intelligence combine to identify the next generation of base fabrics.</p>
         <div class="craft-step-photo">
-          <img src="https://placehold.co/440x280/1A1A18/C5A97A?text=Research" alt="Research" loading="lazy" decoding="async" />
+          <img src="BRAND_ASSETS/HWW01.jpg" alt="Research" loading="lazy" decoding="async" />
         </div>
       </div>
       <div class="craft-step-photo-mobile">
-        <img src="https://placehold.co/800x360/1A1A18/C5A97A?text=Research" alt="Research" loading="lazy" decoding="async" />
+        <img src="BRAND_ASSETS/HWW01.jpg" alt="Research" loading="lazy" decoding="async" />
       </div>
 
       <div class="craft-step craft-anim">
@@ -1864,11 +1864,11 @@
         </div>
         <p class="craft-step-desc hidden lg:block">Colour, texture, weight, and pattern are assembled into seasonal mood boards before any fabric is made. The collection has a point of view first.</p>
         <div class="craft-step-photo">
-          <img src="https://placehold.co/440x280/1A1A18/C5A97A?text=Mood+Boards" alt="Mood Boards" loading="lazy" decoding="async" />
+          <img src="BRAND_ASSETS/HWW02.jpg" alt="Mood Boards" loading="lazy" decoding="async" />
         </div>
       </div>
       <div class="craft-step-photo-mobile">
-        <img src="https://placehold.co/800x360/1A1A18/C5A97A?text=Mood+Boards" alt="Mood Boards" loading="lazy" decoding="async" />
+        <img src="BRAND_ASSETS/HWW02.jpg" alt="Mood Boards" loading="lazy" decoding="async" />
       </div>
 
       <div class="craft-step craft-anim">
@@ -1881,11 +1881,11 @@
         </div>
         <p class="craft-step-desc hidden lg:block">Indian cotton forms the core of most of our sourcing — selected for its clean spinning characteristics and fine staple. We also work with Australian cotton for superior softness, and bring in select Egyptian cotton blends where the construction calls for it. The right fibre is chosen per fabric, not per formula.</p>
         <div class="craft-step-photo">
-          <img src="https://placehold.co/440x280/1A1A18/C5A97A?text=Yarn+Sourcing" alt="Yarn Sourcing" loading="lazy" decoding="async" />
+          <img src="BRAND_ASSETS/HWW03.jpg" alt="Yarn Sourcing" loading="lazy" decoding="async" />
         </div>
       </div>
       <div class="craft-step-photo-mobile">
-        <img src="https://placehold.co/800x360/1A1A18/C5A97A?text=Yarn+Sourcing" alt="Yarn Sourcing" loading="lazy" decoding="async" />
+        <img src="BRAND_ASSETS/HWW03.jpg" alt="Yarn Sourcing" loading="lazy" decoding="async" />
       </div>
 
       <div class="craft-step craft-anim">
