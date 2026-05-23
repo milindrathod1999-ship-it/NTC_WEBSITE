@@ -5,7 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Napoleon Textile Company — A Design House in Fabric</title>
 
-  <!-- Fonts — self-hosted Bodoni Moda, loads reliably without network dependency -->
+  <!-- Preload critical fonts so body text renders without FOUT -->
+  <link rel="preload" href="fonts/bodoni-400.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/bodoni-700.woff2" as="font" type="font/woff2" crossorigin>
+  <!-- Preload hero image — discovered early, above-fold critical path -->
+  <link rel="preload" href="BRAND_ASSETS/IMG_2961.jpeg" as="image" fetchpriority="high">
 
   <!-- Scripts -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -205,10 +209,16 @@
       inset: 0;
       will-change: transform;
       transform: translateZ(0);
-      background:
-        linear-gradient(to right, rgba(10,10,8,0.55) 0%, rgba(10,10,8,0.25) 50%, rgba(10,10,8,0.0) 100%),
-        linear-gradient(to bottom, rgba(10,10,8,0.1) 0%, rgba(10,10,8,0) 30%, rgba(10,10,8,0.5) 100%),
-        url('BRAND_ASSETS/IMG_2961.jpeg') center/cover no-repeat;
+      overflow: hidden;
+    }
+    .hero-bg-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      z-index: 0;
     }
 
     /* ── TYPOGRAPHY ── */
@@ -355,25 +365,46 @@
       flex-direction: column;
       justify-content: flex-end;
       padding: 28px;
-      /* Pinking-shears — 8 teeth per side (down from 32; looks identical, 4× faster to rasterize) */
+      will-change: transform;      /* promote to GPU layer so clip-path is rasterized once */
+      transform: translateZ(0);
       clip-path: polygon(
+        /* top — 16 teeth */
         0% 0%,
-        6.25% 1.5%,   12.5% 0%,  18.75% 1.5%,  25% 0%,
-        31.25% 1.5%,  37.5% 0%,  43.75% 1.5%,  50% 0%,
-        56.25% 1.5%,  62.5% 0%,  68.75% 1.5%,  75% 0%,
-        81.25% 1.5%,  87.5% 0%,  93.75% 1.5%,  100% 0%,
-        98.5% 6.25%,  100% 12.5%, 98.5% 18.75%, 100% 25%,
-        98.5% 31.25%, 100% 37.5%, 98.5% 43.75%, 100% 50%,
-        98.5% 56.25%, 100% 62.5%, 98.5% 68.75%, 100% 75%,
-        98.5% 81.25%, 100% 87.5%, 98.5% 93.75%, 100% 100%,
-        93.75% 98.5%, 87.5% 100%, 81.25% 98.5%, 75% 100%,
-        68.75% 98.5%, 62.5% 100%, 56.25% 98.5%, 50% 100%,
-        43.75% 98.5%, 37.5% 100%, 31.25% 98.5%, 25% 100%,
-        18.75% 98.5%, 12.5% 100%,  6.25% 98.5%,  0% 100%,
-        1.5% 93.75%, 0% 87.5%, 1.5% 81.25%, 0% 75%,
-        1.5% 68.75%, 0% 62.5%, 1.5% 56.25%, 0% 50%,
-        1.5% 43.75%, 0% 37.5%, 1.5% 31.25%, 0% 25%,
-        1.5% 18.75%, 0% 12.5%, 1.5%  6.25%, 0%  0%
+        3.125% 1.5%,  6.25% 0%,   9.375% 1.5%,  12.5% 0%,
+        15.625% 1.5%, 18.75% 0%,  21.875% 1.5%, 25% 0%,
+        28.125% 1.5%, 31.25% 0%,  34.375% 1.5%, 37.5% 0%,
+        40.625% 1.5%, 43.75% 0%,  46.875% 1.5%, 50% 0%,
+        53.125% 1.5%, 56.25% 0%,  59.375% 1.5%, 62.5% 0%,
+        65.625% 1.5%, 68.75% 0%,  71.875% 1.5%, 75% 0%,
+        78.125% 1.5%, 81.25% 0%,  84.375% 1.5%, 87.5% 0%,
+        90.625% 1.5%, 93.75% 0%,  96.875% 1.5%, 100% 0%,
+        /* right — 16 teeth */
+        98.5% 3.125%,  100% 6.25%,  98.5% 9.375%,  100% 12.5%,
+        98.5% 15.625%, 100% 18.75%, 98.5% 21.875%, 100% 25%,
+        98.5% 28.125%, 100% 31.25%, 98.5% 34.375%, 100% 37.5%,
+        98.5% 40.625%, 100% 43.75%, 98.5% 46.875%, 100% 50%,
+        98.5% 53.125%, 100% 56.25%, 98.5% 59.375%, 100% 62.5%,
+        98.5% 65.625%, 100% 68.75%, 98.5% 71.875%, 100% 75%,
+        98.5% 78.125%, 100% 81.25%, 98.5% 84.375%, 100% 87.5%,
+        98.5% 90.625%, 100% 93.75%, 98.5% 96.875%, 100% 100%,
+        /* bottom — 16 teeth */
+        96.875% 98.5%, 93.75% 100%, 90.625% 98.5%, 87.5% 100%,
+        84.375% 98.5%, 81.25% 100%, 78.125% 98.5%, 75% 100%,
+        71.875% 98.5%, 68.75% 100%, 65.625% 98.5%, 62.5% 100%,
+        59.375% 98.5%, 56.25% 100%, 53.125% 98.5%, 50% 100%,
+        46.875% 98.5%, 43.75% 100%, 40.625% 98.5%, 37.5% 100%,
+        34.375% 98.5%, 31.25% 100%, 28.125% 98.5%, 25% 100%,
+        21.875% 98.5%, 18.75% 100%, 15.625% 98.5%, 12.5% 100%,
+        9.375% 98.5%,  6.25% 100%,  3.125% 98.5%,  0% 100%,
+        /* left — 16 teeth */
+        1.5% 96.875%, 0% 93.75%, 1.5% 90.625%, 0% 87.5%,
+        1.5% 84.375%, 0% 81.25%, 1.5% 78.125%, 0% 75%,
+        1.5% 71.875%, 0% 68.75%, 1.5% 65.625%, 0% 62.5%,
+        1.5% 59.375%, 0% 56.25%, 1.5% 53.125%, 0% 50%,
+        1.5% 46.875%, 0% 43.75%, 1.5% 40.625%, 0% 37.5%,
+        1.5% 34.375%, 0% 31.25%, 1.5% 28.125%, 0% 25%,
+        1.5% 21.875%, 0% 18.75%, 1.5% 15.625%, 0% 12.5%,
+        1.5% 9.375%,  0% 6.25%,  1.5% 3.125%,  0% 0%
       );
     }
     .carousel-card .card-number {
@@ -478,12 +509,47 @@
       display: grid;
       grid-template-columns: 1fr;
       border-top: 1px solid rgba(26,26,24,0.08);
+      position: relative;
     }
     @media (min-width: 768px) {
-      .journey-row { grid-template-columns: 5fr 7fr; }
-      .journey-row-flip { grid-template-columns: 7fr 5fr; }
+      .journey-row { grid-template-columns: 1fr 1fr; column-gap: 20px; }
+      .journey-row-flip { grid-template-columns: 1fr 1fr; column-gap: 20px; }
     }
     .journey-row:last-child { border-bottom: 1px solid rgba(26,26,24,0.08); }
+    .timeline-track {
+      left: 0;
+      width: 2px;
+      background: rgba(197,169,122,0.35);
+    }
+    @media (min-width: 768px) {
+      .timeline-track {
+        left: calc(50% - 1px);
+        width: 2px;
+        background: rgba(197,169,122,0.35);
+      }
+    }
+    .journey-dot { display: none; }
+    @media (min-width: 768px) {
+      .journey-dot {
+        display: block;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: rgba(197,169,122,0.4);
+        z-index: 10;
+        box-shadow: 0 0 0 3px #F4F1EA, 0 0 0 4px rgba(197,169,122,0.35);
+        transition: background 0.35s ease, box-shadow 0.35s ease;
+        pointer-events: none;
+      }
+      .journey-dot.is-active {
+        background: #9A7230;
+        box-shadow: 0 0 0 3px #F4F1EA, 0 0 0 5px #C5A97A;
+      }
+    }
     .journey-artwork {
       position: relative;
       overflow: hidden;
@@ -564,8 +630,7 @@
     .gsap-reveal {}
     .reveal {}
 
-    /* Pause marquee & pulse during scroll to cut paint load */
-    .is-scrolling .marquee-track { animation-play-state: paused; }
+    /* Pause map pulse during scroll to cut paint load */
 
     /* ── MAP ── */
     .map-dot {
@@ -893,7 +958,11 @@
        HERO
   ══════════════════════════════════════════ -->
   <section class="hero-section">
-    <div class="hero-bg"></div>
+    <div class="hero-bg">
+      <img src="BRAND_ASSETS/IMG_2961.jpeg" alt="" aria-hidden="true" class="hero-bg-img" fetchpriority="high" decoding="sync" loading="eager" />
+      <div style="position:absolute;inset:0;z-index:1;background:linear-gradient(to right,rgba(10,10,8,0.55) 0%,rgba(10,10,8,0.25) 50%,rgba(10,10,8,0) 100%);"></div>
+      <div style="position:absolute;inset:0;z-index:1;background:linear-gradient(to bottom,rgba(10,10,8,0.1) 0%,rgba(10,10,8,0) 30%,rgba(10,10,8,0.5) 100%);"></div>
+    </div>
 
     <div class="relative z-10 w-full max-w-screen-xl mx-auto px-6 lg:px-12 pb-16 lg:pb-24">
       <p class="eyebrow text-ntc-champagne mb-7 gsap-hero-sub" style="letter-spacing:0.32em;opacity:0.65;">Est. 1995 &nbsp;·&nbsp; Mumbai, India</p>
@@ -983,15 +1052,17 @@
     <div class="max-w-screen-xl mx-auto px-6 lg:px-16">
 
       <!-- Section intro -->
-      <div class="mb-10 gsap-reveal" style="max-width:640px;">
-        <p class="eyebrow text-ntc-champagne mb-3" style="letter-spacing:0.28em;">Our Collections</p>
-        <p style="font-size:15px;line-height:1.8;color:#4A4E5A;margin-bottom:1.25rem;">
-          Each season we conceive fabric before the market calls for it — building collections around proportion, texture, and colour with genuine design intent. For the brands and labels that deserve more than a catalogue.
-        </p>
-        <div style="display:flex;flex-wrap:wrap;gap:8px;">
-          <span style="border:1px solid rgba(26,26,24,0.18);color:rgba(26,26,24,0.65);font-size:10px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;padding:6px 14px;display:inline-block;">500+ Developments / Season</span>
-          <span style="border:1px solid rgba(26,26,24,0.18);color:rgba(26,26,24,0.65);font-size:10px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;padding:6px 14px;display:inline-block;">Private Label &amp; Brand Supply</span>
-          <span style="border:1px solid rgba(26,26,24,0.18);color:rgba(26,26,24,0.65);font-size:10px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;padding:6px 14px;display:inline-block;">Global Export</span>
+      <div class="mb-10 gsap-reveal" style="display:flex;align-items:flex-start;justify-content:space-between;gap:2.5rem;flex-wrap:wrap;">
+        <div style="flex:1;min-width:280px;max-width:540px;">
+          <p class="display-md text-ntc-champagne mb-3">Our Collections</p>
+          <p style="font-size:15px;line-height:1.8;color:#4A4E5A;">
+            Each season we conceive fabric before the market calls for it — building collections around proportion, texture, and colour with genuine design intent. For the brands and labels that deserve more than a catalogue.
+          </p>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px;padding-top:0.25rem;flex-shrink:0;">
+          <span style="border:1px solid rgba(26,26,24,0.18);color:rgba(26,26,24,0.65);font-size:10px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;padding:8px 16px;display:inline-block;white-space:nowrap;">500+ Developments / Season</span>
+          <span style="border:1px solid rgba(26,26,24,0.18);color:rgba(26,26,24,0.65);font-size:10px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;padding:8px 16px;display:inline-block;white-space:nowrap;">Private Label &amp; Brand Supply</span>
+          <span style="border:1px solid rgba(26,26,24,0.18);color:rgba(26,26,24,0.65);font-size:10px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;padding:8px 16px;display:inline-block;white-space:nowrap;">Global Export</span>
         </div>
       </div>
 
@@ -1011,15 +1082,15 @@
       <!-- Occasion Carousel — full bleed -->
       <div id="carousel-occasion" class="carousel-panel">
         <div class="carousel-wrapper">
-        <div class="carousel-track" id="track-occasion" data-lenis-prevent>
+        <div class="carousel-track" id="track-occasion">
 
           <!-- Boardroom Formal -->
           <a href="lookbook.php" class="carousel-card gsap-reveal" style="text-decoration:none;display:block;">
 
             <div class="card-inner" style="background:#0E0E0C;overflow:hidden;position:relative;">
-              <video class="collection-video" muted loop playsinline autoplay preload="none"
+              <video class="collection-video" muted loop playsinline preload="none"
                      style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;pointer-events:none;">
-                <source src="BRAND_ASSETS/Boardroom formal.mov" type="video/quicktime">
+                <source data-src="BRAND_ASSETS/Boardroom formal.mov" type="video/quicktime">
               </video>
               <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.72) 0%,rgba(0,0,0,0.18) 55%,transparent 100%);z-index:1;"></div>
               <span class="card-number text-ntc-ivory" style="z-index:2;">01</span>
@@ -1034,9 +1105,9 @@
           <a href="lookbook.php" class="carousel-card gsap-reveal" style="text-decoration:none;display:block;">
 
             <div class="card-inner" style="background:#2A2E38;overflow:hidden;position:relative;">
-              <video class="collection-video" muted loop playsinline autoplay preload="none"
+              <video class="collection-video" muted loop playsinline preload="none"
                      style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;pointer-events:none;">
-                <source src="BRAND_ASSETS/Smart Casual.mov" type="video/quicktime">
+                <source data-src="BRAND_ASSETS/Smart Casual.mov" type="video/quicktime">
               </video>
               <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.72) 0%,rgba(0,0,0,0.18) 55%,transparent 100%);z-index:1;"></div>
               <span class="card-number text-ntc-ivory" style="z-index:2;">02</span>
@@ -1051,9 +1122,9 @@
           <a href="lookbook.php" class="carousel-card gsap-reveal" style="text-decoration:none;display:block;">
 
             <div class="card-inner" style="background:#1A0E08;overflow:hidden;position:relative;">
-              <video class="collection-video" muted loop playsinline autoplay preload="none"
+              <video class="collection-video" muted loop playsinline preload="none"
                      style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;pointer-events:none;">
-                <source src="BRAND_ASSETS/Evening wear.mov" type="video/quicktime">
+                <source data-src="BRAND_ASSETS/Evening wear.mov" type="video/quicktime">
               </video>
               <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.72) 0%,rgba(0,0,0,0.18) 55%,transparent 100%);z-index:1;"></div>
               <span class="card-number text-ntc-champagne" style="z-index:2;">03</span>
@@ -1068,9 +1139,9 @@
           <a href="lookbook.php" class="carousel-card gsap-reveal" style="text-decoration:none;display:block;">
 
             <div class="card-inner" style="background:#1A1810;overflow:hidden;position:relative;">
-              <video class="collection-video" muted loop playsinline autoplay preload="none"
+              <video class="collection-video" muted loop playsinline preload="none"
                      style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;pointer-events:none;">
-                <source src="BRAND_ASSETS/Workwear.mov" type="video/quicktime">
+                <source data-src="BRAND_ASSETS/Workwear.mov" type="video/quicktime">
               </video>
               <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.72) 0%,rgba(0,0,0,0.18) 55%,transparent 100%);z-index:1;"></div>
               <span class="card-number text-ntc-champagne" style="z-index:2;">04</span>
@@ -1084,9 +1155,9 @@
           <!-- Travel & Leisure -->
           <a href="lookbook.php" class="carousel-card gsap-reveal" style="text-decoration:none;display:block;">
             <div class="card-inner" style="background:#1C2830;overflow:hidden;position:relative;">
-              <video class="collection-video" muted loop playsinline autoplay preload="none"
+              <video class="collection-video" muted loop playsinline preload="none"
                      style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;pointer-events:none;">
-                <source src="BRAND_ASSETS/Resort wear.mov" type="video/quicktime">
+                <source data-src="BRAND_ASSETS/Resort wear.mov" type="video/quicktime">
               </video>
               <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.72) 0%,rgba(0,0,0,0.18) 55%,transparent 100%);z-index:1;"></div>
               <span class="card-number text-ntc-ivory" style="z-index:2;">05</span>
@@ -1104,14 +1175,14 @@
       <!-- Pattern Carousel (hidden by default) — full bleed -->
       <div id="carousel-pattern" class="carousel-panel hidden">
         <div class="carousel-wrapper">
-        <div class="carousel-track" id="track-pattern" data-lenis-prevent>
+        <div class="carousel-track" id="track-pattern">
 
           <!-- Checks -->
           <a href="lookbook.php?cat=checks" class="carousel-card gsap-reveal" style="text-decoration:none;display:block;">
             <div class="card-inner" style="background:#0E0E0C;overflow:hidden;position:relative;">
-              <video class="collection-video" muted loop playsinline autoplay preload="none"
+              <video class="collection-video" muted loop playsinline preload="none"
                      style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;pointer-events:none;">
-                <source src="BRAND_ASSETS/Checks.mov" type="video/quicktime">
+                <source data-src="BRAND_ASSETS/Checks.mov" type="video/quicktime">
               </video>
               <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.72) 0%,rgba(0,0,0,0.18) 55%,transparent 100%);z-index:1;"></div>
               <span class="card-number text-ntc-ivory" style="z-index:2;">01</span>
@@ -1125,9 +1196,9 @@
           <!-- Stripes -->
           <a href="lookbook.php?cat=stripes" class="carousel-card gsap-reveal" style="text-decoration:none;display:block;">
             <div class="card-inner" style="background:#0E0E0C;overflow:hidden;position:relative;">
-              <video class="collection-video" muted loop playsinline autoplay preload="none"
+              <video class="collection-video" muted loop playsinline preload="none"
                      style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;pointer-events:none;">
-                <source src="BRAND_ASSETS/Stripes.mov" type="video/quicktime">
+                <source data-src="BRAND_ASSETS/Stripes.mov" type="video/quicktime">
               </video>
               <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.72) 0%,rgba(0,0,0,0.18) 55%,transparent 100%);z-index:1;"></div>
               <span class="card-number text-ntc-ivory" style="z-index:2;">02</span>
@@ -1141,9 +1212,9 @@
           <!-- Dobbies -->
           <a href="lookbook.php?cat=dobbies" class="carousel-card gsap-reveal" style="text-decoration:none;display:block;">
             <div class="card-inner" style="background:#0E0E0C;overflow:hidden;position:relative;">
-              <video class="collection-video" muted loop playsinline autoplay preload="none"
+              <video class="collection-video" muted loop playsinline preload="none"
                      style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;pointer-events:none;">
-                <source src="BRAND_ASSETS/Dobbies.mov" type="video/quicktime">
+                <source data-src="BRAND_ASSETS/Dobbies.mov" type="video/quicktime">
               </video>
               <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.72) 0%,rgba(0,0,0,0.18) 55%,transparent 100%);z-index:1;"></div>
               <span class="card-number text-ntc-champagne" style="z-index:2;">03</span>
@@ -1157,9 +1228,9 @@
           <!-- Plains -->
           <a href="lookbook.php?cat=plains" class="carousel-card gsap-reveal" style="text-decoration:none;display:block;">
             <div class="card-inner" style="background:#0E0E0C;overflow:hidden;position:relative;">
-              <video class="collection-video" muted loop playsinline autoplay preload="none"
+              <video class="collection-video" muted loop playsinline preload="none"
                      style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;pointer-events:none;">
-                <source src="BRAND_ASSETS/Plains.mov" type="video/quicktime">
+                <source data-src="BRAND_ASSETS/Plains.mov" type="video/quicktime">
               </video>
               <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.72) 0%,rgba(0,0,0,0.18) 55%,transparent 100%);z-index:1;"></div>
               <span class="card-number text-ntc-ivory" style="z-index:2;">04</span>
@@ -1173,9 +1244,9 @@
           <!-- Prints -->
           <a href="lookbook.php?cat=prints" class="carousel-card gsap-reveal" style="text-decoration:none;display:block;">
             <div class="card-inner" style="background:#0E0E0C;overflow:hidden;position:relative;">
-              <video class="collection-video" muted loop playsinline autoplay preload="none"
+              <video class="collection-video" muted loop playsinline preload="none"
                      style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;pointer-events:none;">
-                <source src="BRAND_ASSETS/Prints.mov" type="video/quicktime">
+                <source data-src="BRAND_ASSETS/Prints.mov" type="video/quicktime">
               </video>
               <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.72) 0%,rgba(0,0,0,0.18) 55%,transparent 100%);z-index:1;"></div>
               <span class="card-number text-ntc-champagne" style="z-index:2;">05</span>
@@ -1194,15 +1265,15 @@
       <!-- Blends + Finishes — elevated two-column panel -->
       <div class="mt-10 mb-0 gsap-reveal" style="border-top:1px solid rgba(26,26,24,0.08);padding-top:2.5rem;">
 
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-0">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-0" style="align-items:stretch;">
 
           <!-- ── OUR FABRIC BLENDS ── -->
-          <div class="lg:pr-12">
+          <div class="lg:pr-12" style="display:flex;flex-direction:column;">
             <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.75rem;">
               <p class="eyebrow" style="color:#C5A97A;letter-spacing:0.28em;white-space:nowrap;">Our Fabric Blends</p>
               <div style="flex:1;height:1px;background:rgba(197,169,122,0.25);"></div>
             </div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px;">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px;flex:1;grid-auto-rows:1fr;align-content:stretch;">
 
               <div style="background:#EDE8DF;padding:20px 22px;">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#C5A97A" stroke-width="1.2"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 0 0 20"/><path d="M2 12h20"/></svg>
@@ -1232,12 +1303,12 @@
           </div>
 
           <!-- ── OUR SPECIAL FINISHES ── -->
-          <div class="lg:pl-12 lg:border-l" style="border-color:rgba(26,26,24,0.08);">
+          <div class="lg:pl-12 lg:border-l" style="border-color:rgba(26,26,24,0.08);display:flex;flex-direction:column;">
             <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.75rem;">
               <p class="eyebrow" style="color:#C5A97A;letter-spacing:0.28em;white-space:nowrap;">Our Special Finishes</p>
               <div style="flex:1;height:1px;background:rgba(197,169,122,0.25);"></div>
             </div>
-            <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:2px;">
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;flex:1;grid-auto-rows:1fr;align-content:stretch;">
 
               <div style="background:#EDE8DF;padding:18px 20px;display:flex;align-items:center;gap:10px;">
                 <div style="width:5px;height:5px;background:#C5A97A;flex-shrink:0;"></div>
@@ -1249,22 +1320,22 @@
                 <p style="font-size:10.5px;font-weight:600;color:#1A1A18;letter-spacing:0.1em;text-transform:uppercase;">Liquid Ammonia</p>
               </div>
 
-              <div style="background:#E8E0D0;padding:18px 20px;display:flex;align-items:center;gap:10px;margin-top:2px;">
+              <div style="background:#EDE8DF;padding:18px 20px;display:flex;align-items:center;gap:10px;">
                 <div style="width:5px;height:5px;background:#C5A97A;flex-shrink:0;"></div>
                 <p style="font-size:10.5px;font-weight:600;color:#1A1A18;letter-spacing:0.1em;text-transform:uppercase;">Mech. Stretch</p>
               </div>
 
-              <div style="background:#EDE8DF;padding:18px 20px;display:flex;align-items:center;gap:10px;margin-top:2px;">
+              <div style="background:#E8E0D0;padding:18px 20px;display:flex;align-items:center;gap:10px;">
                 <div style="width:5px;height:5px;background:#C5A97A;flex-shrink:0;"></div>
                 <p style="font-size:10.5px;font-weight:600;color:#1A1A18;letter-spacing:0.1em;text-transform:uppercase;">Anti Bacterial</p>
               </div>
 
-              <div style="background:#EDE8DF;padding:18px 20px;display:flex;align-items:center;gap:10px;margin-top:2px;">
+              <div style="background:#EDE8DF;padding:18px 20px;display:flex;align-items:center;gap:10px;">
                 <div style="width:5px;height:5px;background:#C5A97A;flex-shrink:0;"></div>
-                <p style="font-size:10.5px;font-weight:600;color:#1A1A18;letter-spacing:0.1em;text-transform:uppercase;">Moisture Management</p>
+                <p style="font-size:10.5px;font-weight:600;color:#1A1A18;letter-spacing:0.1em;text-transform:uppercase;">Moisture Mgmt.</p>
               </div>
 
-              <div style="background:#E8E0D0;padding:18px 20px;display:flex;align-items:center;gap:10px;margin-top:2px;">
+              <div style="background:#E8E0D0;padding:18px 20px;display:flex;align-items:center;gap:10px;">
                 <div style="width:5px;height:5px;background:#C5A97A;flex-shrink:0;"></div>
                 <p style="font-size:10.5px;font-weight:600;color:#1A1A18;letter-spacing:0.1em;text-transform:uppercase;">UV Protek</p>
               </div>
@@ -1305,57 +1376,14 @@
         </div>
       </div>
 
-      <!-- Leadership: two portrait cards -->
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-0 mb-10 lg:mb-14 gsap-reveal" style="padding:10px;">
-
-        <!-- Founder — Mr. Sanjeev Rathod -->
-        <div class="heritage-frame" style="margin:6px;">
-          <div class="heritage-portrait relative overflow-hidden" style="height:560px;background:#1A1A18;">
-            <img src="BRAND_ASSETS/photo_2026-04-06 21.52.10.jpeg"
-                 alt="Mr. Sanjeev Rathod — Founder, Napoleon Textile Company"
-                 class="absolute inset-0 w-full h-full object-cover object-top"
-                 loading="lazy" decoding="async"
-                 style="filter:grayscale(18%) contrast(1.06);" />
-            <!-- Grain -->
-            <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:0.06;pointer-events:none;z-index:1;" xmlns="http://www.w3.org/2000/svg">
-              <filter id="hgrain1"><feTurbulence type="fractalNoise" baseFrequency="0.68" numOctaves="4" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter>
-              <rect width="100%" height="100%" filter="url(#hgrain1)"/>
-            </svg>
-            <!-- Gradient -->
-            <div class="absolute inset-0" style="background:linear-gradient(to top,rgba(10,10,8,0.92) 0%,rgba(10,10,8,0.42) 45%,transparent 75%);z-index:2;"></div>
-            <!-- Info bottom -->
-            <div class="absolute bottom-0 left-0 right-0 p-8" style="z-index:3;">
-              <div style="width:36px;height:1px;background:#C5A97A;margin-bottom:16px;"></div>
-              <p class="font-display text-ntc-ivory" style="font-size:1.75rem;font-weight:300;line-height:1.05;letter-spacing:0.01em;">Mr. Sanjeev Rathod</p>
-              <p style="font-size:9px;font-weight:600;letter-spacing:0.24em;text-transform:uppercase;color:#C5A97A;margin-top:8px;">Founder</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Managing Director — Mr. Milind Rathod -->
-        <div class="heritage-frame" style="margin:6px;">
-          <div class="heritage-portrait relative overflow-hidden" style="height:560px;background:#1A1A18;">
-            <img src="BRAND_ASSETS/MR_PIC.jpeg"
-                 alt="Mr. Milind Rathod — Managing Director, Napoleon Textile Company"
-                 class="absolute inset-0 w-full h-full object-cover"
-                 loading="lazy" decoding="async"
-                 style="object-position:center 15%;filter:grayscale(18%) contrast(1.06);" />
-            <!-- Grain -->
-            <svg style="position:absolute;inset:0;width:100%;height:100%;opacity:0.06;pointer-events:none;z-index:1;" xmlns="http://www.w3.org/2000/svg">
-              <filter id="hgrain2"><feTurbulence type="fractalNoise" baseFrequency="0.68" numOctaves="4" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter>
-              <rect width="100%" height="100%" filter="url(#hgrain2)"/>
-            </svg>
-            <!-- Gradient -->
-            <div class="absolute inset-0" style="background:linear-gradient(to top,rgba(10,10,8,0.92) 0%,rgba(10,10,8,0.42) 45%,transparent 75%);z-index:2;"></div>
-            <!-- Info bottom -->
-            <div class="absolute bottom-0 left-0 right-0 p-8" style="z-index:3;">
-              <div style="width:36px;height:1px;background:#C5A97A;margin-bottom:16px;"></div>
-              <p class="font-display text-ntc-ivory" style="font-size:1.75rem;font-weight:300;line-height:1.05;letter-spacing:0.01em;">Mr. Milind Rathod</p>
-              <p style="font-size:9px;font-weight:600;letter-spacing:0.24em;text-transform:uppercase;color:#C5A97A;margin-top:8px;">Managing Director</p>
-            </div>
-          </div>
-        </div>
-
+      <!-- Founder quote — plain typography, blends into Gateway section below -->
+      <div class="gsap-reveal" style="text-align:center;padding:2rem 1rem 3.5rem;max-width:820px;margin:0 auto;">
+        <div style="font-family:'Bodoni Moda',serif;font-size:5rem;font-weight:700;line-height:0.6;color:rgba(197,169,122,0.3);margin-bottom:1.25rem;">&ldquo;</div>
+        <p class="font-display" style="font-size:clamp(1.2rem,2.8vw,2rem);font-weight:300;line-height:1.35;letter-spacing:-0.01em;color:#1A1A18;font-style:italic;margin-bottom:2rem;">
+          Thirty years in this trade has taught us that the finest thing a fabric company can produce is not a collection — it is a reputation. Every metre we weave is a quiet commitment to the label it will carry.
+        </p>
+        <div style="width:28px;height:1px;background:#C5A97A;margin:0 auto 1rem;"></div>
+        <p style="font-size:9px;font-weight:700;letter-spacing:0.24em;text-transform:uppercase;color:#C5A97A;">Mr. Sanjeev Rathod &nbsp;·&nbsp; Founder, Napoleon Textile Company</p>
       </div>
 
       <!-- Mumbai editorial strip -->
@@ -1364,7 +1392,7 @@
           <div class="heritage-city-frame relative overflow-hidden" style="height:400px;background:#1A1A18;">
 
             <!-- Full-bleed photo -->
-            <img src="https://images.unsplash.com/photo-1570168007204-dfb528c6958f?w=1400&q=85&auto=format&fit=crop"
+            <img src="BRAND_ASSETS/Fabric photos/Gateway.jpg"
                  alt="Mumbai — India"
                  class="absolute inset-0 w-full h-full object-cover"
                  loading="lazy" decoding="async"
@@ -1451,22 +1479,21 @@
       </div>
 
       <div class="relative" id="timeline-container">
-        <!-- Scroll-progress fill line — left edge -->
-        <div class="absolute top-0 bottom-0" style="left:0;width:1px;background:rgba(26,26,24,0.07);">
-          <div id="timeline-progress" class="w-full" style="height:100%;background:#C5A97A;transform:scaleY(0);transform-origin:top;transition:none;"></div>
-        </div>
         <div id="timeline-progress-mob" style="display:none;"></div>
 
-        <div style="padding-left:1px;">
+        <div style="position:relative;">
+          <!-- Scroll-progress fill line — centered on desktop, starts 28px above first row -->
+          <div class="timeline-track absolute bottom-0" style="top:-28px;">
+            <div id="timeline-progress" class="w-full" style="height:100%;background:#9A7230;transform:scaleY(0);transform-origin:top;transition:none;"></div>
+          </div>
 
           <!-- 1995 — The Foundation (artwork left) -->
           <div class="journey-row gsap-timeline-item">
-            <div class="journey-artwork" style="background:#1A1A18;background-image:repeating-linear-gradient(45deg,rgba(197,169,122,0.07) 0,rgba(197,169,122,0.07) 1px,transparent 1px,transparent 14px);">
-              <span class="artwork-year">1995</span>
-              <div class="artwork-icon">
-                <svg width="32" height="32" viewBox="0 0 48 48" fill="none"><path d="M6 40 L6 24 L24 10 L42 24 L42 40 Z" stroke="#C5A97A" stroke-width="1" fill="rgba(197,169,122,0.08)"/><line x1="14" y1="40" x2="14" y2="28" stroke="#C5A97A" stroke-width="1"/><line x1="24" y1="40" x2="24" y2="28" stroke="#C5A97A" stroke-width="1"/><line x1="34" y1="40" x2="34" y2="28" stroke="#C5A97A" stroke-width="1"/><rect x="18" y="30" width="12" height="10" stroke="#C5A97A" stroke-width="0.8" fill="none"/><line x1="4" y1="40" x2="44" y2="40" stroke="#C5A97A" stroke-width="1.5"/></svg>
-              </div>
-              <span class="artwork-label">Kalbadevi · Est. 1995</span>
+            <div class="journey-artwork" style="background:#1A1A18;padding:0;">
+              <img src="BRAND_ASSETS/Fabric photos/foundation.jpg" alt="The Foundation · 1995" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;" loading="lazy" decoding="async" />
+              <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(10,10,8,0.75) 0%,rgba(10,10,8,0.2) 60%,transparent 100%);"></div>
+              <span class="artwork-year" style="position:absolute;bottom:2.6rem;left:1.25rem;z-index:1;font-size:clamp(1rem,2vw,1.25rem);color:rgba(244,241,234,0.95);">1995</span>
+              <span class="artwork-label" style="position:absolute;bottom:1rem;left:1.25rem;z-index:1;">Kalbadevi · Est. 1995</span>
             </div>
             <div class="journey-content">
               <span class="milestone-year">1995</span>
@@ -1484,12 +1511,11 @@
               <p class="text-ntc-slate text-sm" style="line-height:1.85;">Just two years after founding, Napoleon's quality earns its first international recognition. A consignment ships to Sri Lanka — the seed of what would grow into a 12-country export network spanning three continents.</p>
               <span style="font-size:8px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:rgba(197,169,122,0.6);display:inline-block;margin-top:12px;">First Destination · Sri Lanka</span>
             </div>
-            <div class="journey-artwork" style="background:#1C2540;background-image:repeating-linear-gradient(180deg,rgba(197,169,122,0.07) 0,rgba(197,169,122,0.07) 1px,transparent 1px,transparent 20px);">
-              <span class="artwork-year">1997</span>
-              <div class="artwork-icon">
-                <svg width="32" height="32" viewBox="0 0 48 48" fill="none"><path d="M5 30 L10 22 L38 22 L43 30 Z" stroke="#C5A97A" stroke-width="1" fill="rgba(197,169,122,0.08)"/><rect x="16" y="14" width="16" height="8" stroke="#C5A97A" stroke-width="0.8" fill="none"/><line x1="24" y1="6" x2="24" y2="14" stroke="#C5A97A" stroke-width="1"/><path d="M24 6 L31 9 L24 12" stroke="#C5A97A" stroke-width="0.8" fill="rgba(197,169,122,0.3)"/><path d="M4 34 Q12 32 20 34 Q28 36 36 34 Q44 32 48 34" stroke="#C5A97A" stroke-width="0.8" opacity="0.5"/></svg>
-              </div>
-              <span class="artwork-label">Sri Lanka · 1997</span>
+            <div class="journey-artwork" style="background:#1A1A18;padding:0;">
+              <img src="BRAND_ASSETS/Fabric photos/Srilankaship.jpg" alt="First Export Shipment · 1997" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;" loading="lazy" decoding="async" />
+              <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(10,10,8,0.75) 0%,rgba(10,10,8,0.2) 60%,transparent 100%);"></div>
+              <span class="artwork-year" style="position:absolute;bottom:2.6rem;left:1.25rem;z-index:1;font-size:clamp(1rem,2vw,1.25rem);color:rgba(244,241,234,0.95);">1997</span>
+              <span class="artwork-label" style="position:absolute;bottom:1rem;left:1.25rem;z-index:1;">Sri Lanka · 1997</span>
             </div>
           </div>
 
@@ -1498,8 +1524,8 @@
             <div class="journey-artwork" style="background:#1A1A18;padding:0;">
               <img src="BRAND_ASSETS/StripeSub.jpeg" alt="Stripe Supremacy · 2005" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;" loading="lazy" decoding="async" />
               <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(10,10,8,0.75) 0%,rgba(10,10,8,0.2) 60%,transparent 100%);"></div>
-              <span class="artwork-year" style="position:relative;z-index:1;">2005</span>
-              <span class="artwork-label" style="position:relative;z-index:1;">Stripe Master · 2005</span>
+              <span class="artwork-year" style="position:absolute;bottom:2.6rem;left:1.25rem;z-index:1;font-size:clamp(1rem,2vw,1.25rem);color:rgba(244,241,234,0.95);">2005</span>
+              <span class="artwork-label" style="position:absolute;bottom:1rem;left:1.25rem;z-index:1;">Stripe Master · 2005</span>
             </div>
             <div class="journey-content">
               <span class="milestone-year">2005</span>
@@ -1517,12 +1543,11 @@
               <p class="text-ntc-slate text-sm" style="line-height:1.85;">Global buyers begin demanding more natural, breathable fabric. Napoleon pivots the core range toward cotton-rich constructions early. Hand-feel improves, repeat orders multiply, and the brand's quality reputation takes a decisive step forward.</p>
               <span style="font-size:8px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:rgba(197,169,122,0.6);display:inline-block;margin-top:12px;">Cotton-Rich Range · 70%+ of Orders</span>
             </div>
-            <div class="journey-artwork" style="background:#1F2D20;background-image:radial-gradient(circle,rgba(197,169,122,0.18) 1px,transparent 1px);background-size:22px 22px;">
-              <span class="artwork-year">2015</span>
-              <div class="artwork-icon">
-                <svg width="32" height="32" viewBox="0 0 48 48" fill="none"><circle cx="24" cy="16" r="7" stroke="#C5A97A" stroke-width="1" fill="rgba(197,169,122,0.08)"/><circle cx="14" cy="23" r="6" stroke="#C5A97A" stroke-width="0.8" fill="rgba(197,169,122,0.06)"/><circle cx="34" cy="23" r="6" stroke="#C5A97A" stroke-width="0.8" fill="rgba(197,169,122,0.06)"/><path d="M24 29 L24 42" stroke="#C5A97A" stroke-width="1"/><path d="M24 38 Q16 33 15 38" stroke="#C5A97A" stroke-width="0.8"/><path d="M24 34 Q32 29 33 34" stroke="#C5A97A" stroke-width="0.8"/></svg>
-              </div>
-              <span class="artwork-label">Cotton Era · 2015</span>
+            <div class="journey-artwork" style="background:#1A1A18;padding:0;">
+              <img src="BRAND_ASSETS/Fabric photos/Cottonfirst.jpg" alt="Cotton First · 2015" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;" loading="lazy" decoding="async" />
+              <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(10,10,8,0.75) 0%,rgba(10,10,8,0.2) 60%,transparent 100%);"></div>
+              <span class="artwork-year" style="position:absolute;bottom:2.6rem;left:1.25rem;z-index:1;font-size:clamp(1rem,2vw,1.25rem);color:rgba(244,241,234,0.95);">2015</span>
+              <span class="artwork-label" style="position:absolute;bottom:1rem;left:1.25rem;z-index:1;">Cotton Era · 2015</span>
             </div>
           </div>
 
@@ -1531,8 +1556,8 @@
             <div class="journey-artwork" style="background:#1A1A18;padding:0;">
               <img src="BRAND_ASSETS/PRINTES.jpg" alt="Colour Enters the Story · 2018" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;" loading="lazy" decoding="async" />
               <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(10,10,8,0.75) 0%,rgba(10,10,8,0.2) 60%,transparent 100%);"></div>
-              <span class="artwork-year" style="position:relative;z-index:1;">2018</span>
-              <span class="artwork-label" style="position:relative;z-index:1;">Prints · 2018</span>
+              <span class="artwork-year" style="position:absolute;bottom:2.6rem;left:1.25rem;z-index:1;font-size:clamp(1rem,2vw,1.25rem);color:rgba(244,241,234,0.95);">2018</span>
+              <span class="artwork-label" style="position:absolute;bottom:1rem;left:1.25rem;z-index:1;">Prints · 2018</span>
             </div>
             <div class="journey-content">
               <span class="milestone-year">2018</span>
@@ -1553,21 +1578,21 @@
             <div class="journey-artwork" style="background:#1A1A18;padding:0;">
               <img src="BRAND_ASSETS/Pure cotton .jpg" alt="Pure Cotton. Always. · 2019" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;" loading="lazy" decoding="async" />
               <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(10,10,8,0.75) 0%,rgba(10,10,8,0.2) 60%,transparent 100%);"></div>
-              <span class="artwork-year" style="position:relative;z-index:1;">2019</span>
+              <span class="artwork-year" style="position:absolute;bottom:2.6rem;left:1.25rem;z-index:1;font-size:clamp(1rem,2vw,1.25rem);color:rgba(244,241,234,0.95);">2019</span>
               <div class="artwork-icon" style="display:none;">
                 <svg width="32" height="32" viewBox="0 0 48 48" fill="none"><path d="M14 4 C11 14 17 22 14 32 C11 40 14 44 14 44" stroke="#C5A97A" stroke-width="1.5"/></svg>
               </div>
-              <span class="artwork-label">100% Cotton · 2019</span>
+              <span class="artwork-label" style="position:absolute;bottom:1rem;left:1.25rem;z-index:1;">100% Cotton · 2019</span>
             </div>
           </div>
 
           <!-- 2022 — We Blended Well (artwork left) -->
           <div class="journey-row gsap-timeline-item">
             <div class="journey-artwork" style="background:#1A1A18;padding:0;">
-              <img src="BRAND_ASSETS/Tencel.jpeg" alt="We Blended Well · 2022" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;" loading="lazy" decoding="async" />
+              <img src="BRAND_ASSETS/Tencel.jpeg" alt="We Blended Well · 2022" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;transform:scale(1.3);" loading="lazy" decoding="async" />
               <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(10,10,8,0.75) 0%,rgba(10,10,8,0.2) 60%,transparent 100%);"></div>
-              <span class="artwork-year" style="position:relative;z-index:1;">2022</span>
-              <span class="artwork-label" style="position:relative;z-index:1;">Tencel · Modal · 2022</span>
+              <span class="artwork-year" style="position:absolute;bottom:2.6rem;left:1.25rem;z-index:1;font-size:clamp(1rem,2vw,1.25rem);color:rgba(244,241,234,0.95);">2022</span>
+              <span class="artwork-label" style="position:absolute;bottom:1rem;left:1.25rem;z-index:1;">Tencel · Modal · 2022</span>
             </div>
             <div class="journey-content">
               <span class="milestone-year">2022</span>
@@ -1585,12 +1610,11 @@
               <p class="text-ntc-slate text-sm" style="line-height:1.85;">Premium shirt labels call for finer, more luxurious fabric. Napoleon begins developing 2-ply constructions — 2/80s and 2/100s — with softer hand, higher lustre, and elevated character. Each metre a statement of craft.</p>
               <span style="font-size:8px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:rgba(197,169,122,0.6);display:inline-block;margin-top:12px;">2/80s · 2/100s · Fine 2-Ply Counts</span>
             </div>
-            <div class="journey-artwork" style="background:#221E14;background-image:repeating-linear-gradient(180deg,rgba(197,169,122,0.12) 0,rgba(197,169,122,0.12) 1px,transparent 1px,transparent 8px);">
-              <span class="artwork-year">2023</span>
-              <div class="artwork-icon">
-                <svg width="32" height="32" viewBox="0 0 48 48" fill="none"><path d="M8 12 C16 8 24 16 32 12 C40 8 46 14 46 14" stroke="#C5A97A" stroke-width="1.5"/><path d="M8 20 C16 16 24 24 32 20 C40 16 46 22 46 22" stroke="#C5A97A" stroke-width="1.5" opacity="0.65"/><path d="M8 28 C16 24 24 32 32 28 C40 24 46 30 46 30" stroke="#C5A97A" stroke-width="1.5"/><path d="M8 36 C16 32 24 40 32 36 C40 32 46 38 46 38" stroke="#C5A97A" stroke-width="1.5" opacity="0.65"/><circle cx="10" cy="8" r="6" stroke="#C5A97A" stroke-width="0.8"/><text x="10" y="11" text-anchor="middle" fill="#C5A97A" font-size="6" font-family="serif">2×</text></svg>
-              </div>
-              <span class="artwork-label">Fine 2-Ply · 2023</span>
+            <div class="journey-artwork" style="background:#1A1A18;padding:0;">
+              <img src="BRAND_ASSETS/Fabric photos/Fineline.jpg" alt="The Fine Line · 2023" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;" loading="lazy" decoding="async" />
+              <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(10,10,8,0.75) 0%,rgba(10,10,8,0.2) 60%,transparent 100%);"></div>
+              <span class="artwork-year" style="position:absolute;bottom:2.6rem;left:1.25rem;z-index:1;font-size:clamp(1rem,2vw,1.25rem);color:rgba(244,241,234,0.95);">2023</span>
+              <span class="artwork-label" style="position:absolute;bottom:1rem;left:1.25rem;z-index:1;">Fine 2-Ply · 2023</span>
             </div>
           </div>
 
@@ -1599,8 +1623,8 @@
             <div class="journey-artwork" style="background:#1A1A18;padding:0;">
               <img src="BRAND_ASSETS/Still Dev.jpg" alt="Still Developing. Still Growing." style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;" loading="lazy" decoding="async" />
               <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(10,10,8,0.75) 0%,rgba(10,10,8,0.2) 60%,transparent 100%);"></div>
-              <span class="artwork-year" style="position:relative;z-index:1;font-size:clamp(2.5rem,5vw,4rem);">Today</span>
-              <span class="artwork-label" style="position:relative;z-index:1;">12 Countries · Today</span>
+              <span class="artwork-year" style="position:absolute;bottom:2.6rem;left:1.25rem;z-index:1;font-size:clamp(1rem,2vw,1.25rem);color:rgba(244,241,234,0.95);">Today</span>
+              <span class="artwork-label" style="position:absolute;bottom:1rem;left:1.25rem;z-index:1;">12 Countries · Today</span>
             </div>
             <div class="journey-content">
               <span class="milestone-year">Today</span>
@@ -1878,7 +1902,7 @@
         </div>
         <p class="craft-step-desc hidden lg:block">Indian cotton forms the core of most of our sourcing — selected for its clean spinning characteristics and fine staple. We also work with Australian cotton for superior softness, and bring in select Egyptian cotton blends where the construction calls for it. The right fibre is chosen per fabric, not per formula.</p>
         <div class="craft-step-photo">
-          <img src="BRAND_ASSETS/HWW03.jpg" alt="Yarn Sourcing" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;object-position:center center;" />
+          <img src="BRAND_ASSETS/HWW03.jpg" alt="Yarn Sourcing" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;object-position:center center;transform:scale(1.3);" />
         </div>
       </div>
       <div class="craft-step-photo-mobile">
@@ -1895,11 +1919,11 @@
         </div>
         <p class="craft-step-desc hidden lg:block">We work with established weaving mills, providing precise specifications for every fabric — thread count, weave structure, yarn count, and construction. Our merchandising team liaises directly with mill partners to ensure each production run is executed to our design intent, metre by metre.</p>
         <div class="craft-step-photo">
-          <img src="https://placehold.co/440x280/1A1A18/C5A97A?text=Weaving" alt="Weaving" loading="lazy" decoding="async" />
+          <img src="BRAND_ASSETS/Fabric photos/Millpartner.jpg" alt="Weaving" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;" />
         </div>
       </div>
       <div class="craft-step-photo-mobile">
-        <img src="https://placehold.co/800x360/1A1A18/C5A97A?text=Weaving" alt="Weaving" loading="lazy" decoding="async" />
+        <img src="BRAND_ASSETS/Fabric photos/Millpartner.jpg" alt="Weaving" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;" />
       </div>
 
       <div class="craft-step craft-anim">
@@ -1912,11 +1936,11 @@
         </div>
         <p class="craft-step-desc hidden lg:block">Dyeing, mercerisation, sanforising, and finishing are carried out by trusted processing partners working to our written specifications. Our team oversees colour standards, shrinkage parameters, and finish requirements — validating each lot before it is cleared for the next stage.</p>
         <div class="craft-step-photo">
-          <img src="https://placehold.co/440x280/1A1A18/C5A97A?text=Processing" alt="Processing" loading="lazy" decoding="async" />
+          <img src="BRAND_ASSETS/Fabric photos/Fabric process.jpg" alt="Processing" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;transform:scale(1.2);" />
         </div>
       </div>
       <div class="craft-step-photo-mobile">
-        <img src="https://placehold.co/800x360/1A1A18/C5A97A?text=Processing" alt="Processing" loading="lazy" decoding="async" />
+        <img src="BRAND_ASSETS/Fabric photos/Fabric process.jpg" alt="Processing" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;" />
       </div>
 
       <div class="craft-step craft-anim">
@@ -1929,7 +1953,7 @@
         </div>
         <p class="craft-step-desc hidden lg:block">Every roll is physically inspected by our in-house quality team using dedicated checking machines. We apply the 4-Point System across every piece — only fabric that clears our standard is passed for packing and dispatch. Defect rates held below 0.2%.</p>
         <div class="craft-step-photo">
-          <img src="https://placehold.co/440x280/1A1A18/C5A97A?text=Quality+Check" alt="Quality Assurance" loading="lazy" decoding="async" />
+          <img src="BRAND_ASSETS/Fabric photos/Checkingmachine.jpg" alt="Quality Assurance" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;" />
         </div>
       </div>
       <div class="craft-step-photo-mobile">
@@ -1946,11 +1970,11 @@
         </div>
         <p class="craft-step-desc hidden lg:block">Every order, defect, and buyer response is catalogued. This intelligence feeds directly back into next season's design brief — a continuous loop of refinement.</p>
         <div class="craft-step-photo">
-          <img src="https://placehold.co/440x280/1A1A18/C5A97A?text=Data+%26+Insights" alt="Season Data" loading="lazy" decoding="async" />
+          <img src="BRAND_ASSETS/Fabric photos/Datacross.jpg" alt="Season Data" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;" />
         </div>
       </div>
       <div class="craft-step-photo-mobile" style="border-bottom:1px solid rgba(197,169,122,0.14);">
-        <img src="https://placehold.co/800x360/1A1A18/C5A97A?text=Data+%26+Insights" alt="Season Data" loading="lazy" decoding="async" />
+        <img src="BRAND_ASSETS/Fabric photos/Datacross.jpg" alt="Season Data" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;" />
       </div>
 
     </div>
@@ -2065,27 +2089,65 @@
   <!-- ══════════════════════════════════════════
        FOOTER
   ══════════════════════════════════════════ -->
-  <footer class="py-12 lg:py-16" style="background:#0E0E0C;">
+  <footer class="py-10 lg:py-12" style="background:#0E0E0C;">
     <div class="max-w-screen-xl mx-auto px-6 lg:px-12">
-      <div class="flex flex-col lg:flex-row justify-between items-start gap-10 mb-10">
-        <div class="max-w-xs">
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-8">
+
+        <!-- Brand -->
+        <div>
           <img src="BRAND_ASSETS/napoleon logo-2.png" alt="Napoleon Textile Company"
-               class="h-14 w-auto mb-4" style="filter:invert(1);opacity:0.7;" />
-          <p class="text-ntc-ivory/25 text-xs leading-relaxed" style="font-weight:400;">A Design House in Fabric.<br />Premium Men's Shirting.<br />Mumbai · India · Est. 1995</p>
+               class="h-20 w-auto mb-5" style="filter:invert(1);opacity:0.8;" />
+          <p style="font-size:9px;font-weight:400;color:rgba(244,241,234,0.28);line-height:1.9;">A Design House in Fabric.<br />Premium Men's Shirting.<br />Mumbai · India · Est. 1995</p>
+          <div style="width:28px;height:1px;background:rgba(197,169,122,0.4);margin-top:1.25rem;"></div>
+          <p style="font-size:9px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:rgba(197,169,122,0.55);margin-top:0.9rem;">500+ Designs · Season</p>
         </div>
-        <div class="grid grid-cols-2 sm:grid-cols-3 gap-x-12 gap-y-4">
-          <a href="#collections" style="font-size:10px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;text-decoration:none;color:rgba(244,241,234,0.35);transition:color 0.2s ease;" onmouseover="this.style.color='rgba(244,241,234,0.7)'" onmouseout="this.style.color='rgba(244,241,234,0.35)'">Collections</a>
-          <a href="#heritage"    style="font-size:10px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;text-decoration:none;color:rgba(244,241,234,0.35);transition:color 0.2s ease;" onmouseover="this.style.color='rgba(244,241,234,0.7)'" onmouseout="this.style.color='rgba(244,241,234,0.35)'">Heritage</a>
-          <a href="#craft"       style="font-size:10px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;text-decoration:none;color:rgba(244,241,234,0.35);transition:color 0.2s ease;" onmouseover="this.style.color='rgba(244,241,234,0.7)'" onmouseout="this.style.color='rgba(244,241,234,0.35)'">Process</a>
-          <a href="#exports"     style="font-size:10px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;text-decoration:none;color:rgba(244,241,234,0.35);transition:color 0.2s ease;" onmouseover="this.style.color='rgba(244,241,234,0.7)'" onmouseout="this.style.color='rgba(244,241,234,0.35)'">Global Reach</a>
-          <a href="#contact"     style="font-size:10px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;text-decoration:none;color:rgba(244,241,234,0.35);transition:color 0.2s ease;" onmouseover="this.style.color='rgba(244,241,234,0.7)'" onmouseout="this.style.color='rgba(244,241,234,0.35)'">Contact</a>
+
+        <!-- Navigate -->
+        <div>
+          <p style="font-size:8px;font-weight:700;letter-spacing:0.24em;text-transform:uppercase;color:rgba(197,169,122,0.5);margin-bottom:1.1rem;">Navigate</p>
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <a href="#collections" style="font-size:10px;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;text-decoration:none;color:rgba(244,241,234,0.4);transition:color 0.2s ease;" onmouseover="this.style.color='rgba(244,241,234,0.75)'" onmouseout="this.style.color='rgba(244,241,234,0.4)'">Collections</a>
+            <a href="#heritage"    style="font-size:10px;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;text-decoration:none;color:rgba(244,241,234,0.4);transition:color 0.2s ease;" onmouseover="this.style.color='rgba(244,241,234,0.75)'" onmouseout="this.style.color='rgba(244,241,234,0.4)'">Heritage</a>
+            <a href="#craft"       style="font-size:10px;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;text-decoration:none;color:rgba(244,241,234,0.4);transition:color 0.2s ease;" onmouseover="this.style.color='rgba(244,241,234,0.75)'" onmouseout="this.style.color='rgba(244,241,234,0.4)'">Process</a>
+            <a href="#exports"     style="font-size:10px;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;text-decoration:none;color:rgba(244,241,234,0.4);transition:color 0.2s ease;" onmouseover="this.style.color='rgba(244,241,234,0.75)'" onmouseout="this.style.color='rgba(244,241,234,0.4)'">Global Reach</a>
+            <a href="lookbook.php" style="font-size:10px;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;text-decoration:none;color:rgba(244,241,234,0.4);transition:color 0.2s ease;" onmouseover="this.style.color='rgba(244,241,234,0.75)'" onmouseout="this.style.color='rgba(244,241,234,0.4)'">Lookbook</a>
+            <a href="#contact"     style="font-size:10px;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;text-decoration:none;color:rgba(244,241,234,0.4);transition:color 0.2s ease;" onmouseover="this.style.color='rgba(244,241,234,0.75)'" onmouseout="this.style.color='rgba(244,241,234,0.4)'">Contact</a>
+          </div>
         </div>
+
+        <!-- Export Markets -->
+        <div>
+          <p style="font-size:8px;font-weight:700;letter-spacing:0.24em;text-transform:uppercase;color:rgba(197,169,122,0.5);margin-bottom:1.1rem;">Export Markets</p>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px 12px;">
+            <p style="font-size:9px;color:rgba(244,241,234,0.35);letter-spacing:0.06em;">India</p>
+            <p style="font-size:9px;color:rgba(244,241,234,0.35);letter-spacing:0.06em;">Sri Lanka</p>
+            <p style="font-size:9px;color:rgba(244,241,234,0.35);letter-spacing:0.06em;">UAE</p>
+            <p style="font-size:9px;color:rgba(244,241,234,0.35);letter-spacing:0.06em;">Saudi Arabia</p>
+            <p style="font-size:9px;color:rgba(244,241,234,0.35);letter-spacing:0.06em;">United Kingdom</p>
+            <p style="font-size:9px;color:rgba(244,241,234,0.35);letter-spacing:0.06em;">Germany</p>
+            <p style="font-size:9px;color:rgba(244,241,234,0.35);letter-spacing:0.06em;">Bangladesh</p>
+            <p style="font-size:9px;color:rgba(244,241,234,0.35);letter-spacing:0.06em;">Nepal</p>
+            <p style="font-size:9px;color:rgba(244,241,234,0.35);letter-spacing:0.06em;">South Africa</p>
+            <p style="font-size:9px;color:rgba(244,241,234,0.35);letter-spacing:0.06em;">+ More</p>
+          </div>
+        </div>
+
+        <!-- Contact -->
+        <div>
+          <p style="font-size:8px;font-weight:700;letter-spacing:0.24em;text-transform:uppercase;color:rgba(197,169,122,0.5);margin-bottom:1.1rem;">Get In Touch</p>
+          <p style="font-size:9px;color:rgba(244,241,234,0.35);line-height:1.9;margin-bottom:1rem;">Kalbadevi, Mumbai<br />Maharashtra 400 002<br />India</p>
+          <a href="#contact" style="display:inline-block;padding:8px 18px;border:1px solid rgba(197,169,122,0.4);font-size:8px;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:#C5A97A;text-decoration:none;transition:all 0.2s ease;" onmouseover="this.style.borderColor='#C5A97A';this.style.background='rgba(197,169,122,0.08)'" onmouseout="this.style.borderColor='rgba(197,169,122,0.4)';this.style.background='transparent'">Enquire Now</a>
+        </div>
+
       </div>
+
       <div style="height:1px;background:rgba(244,241,234,0.06);"></div>
-      <div class="flex flex-col sm:flex-row justify-between items-center gap-4 mt-7">
-        <p class="text-ntc-ivory/18 text-xs" style="font-size:9px;font-weight:400;">© 2024 Napoleon Textile Company. All rights reserved.</p>
-        <p class="text-ntc-ivory/18 text-xs" style="font-size:9px;font-weight:400;">Mumbai, Maharashtra, India &nbsp;·&nbsp; Design House · Men's Shirting</p>
+      <div class="flex flex-col sm:flex-row justify-between items-center gap-3 mt-5">
+        <p style="font-size:9px;font-weight:400;color:rgba(244,241,234,0.18);">© 2025 Napoleon Textile Company. All rights reserved.</p>
+        <p style="font-size:9px;font-weight:400;color:rgba(244,241,234,0.18);">100% Cotton · Yarn-Dyed · Premium Shirting · Mumbai, India</p>
       </div>
+
     </div>
   </footer>
 
@@ -2095,20 +2157,38 @@
   ══════════════════════════════════════════ -->
   <script>
     // ════════════════════════════════════════
-    // COLLECTION VIDEOS — 0.7x speed, same real-time duration as original
+    // COLLECTION VIDEOS — lazy load on scroll, 0.7x speed
+    // Videos have no src until they enter the viewport — prevents blocking page
+    // load with ~400MB of .mov files on every navigation.
     // ════════════════════════════════════════
     document.addEventListener('DOMContentLoaded', function () {
-      document.querySelectorAll('.collection-video').forEach(function (video) {
-        video.playbackRate = 0.7;
-        // Crop at 70% of source duration so real-time loop = original video length
-        video.addEventListener('loadedmetadata', function () {
-          var cropAt = video.duration * 0.7;
-          video.addEventListener('timeupdate', function () {
-            if (video.currentTime >= cropAt) {
-              video.currentTime = 0;
-            }
+      var videoObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          var video = entry.target;
+          videoObserver.unobserve(video);
+          if (video.dataset.lazyLoaded) return;
+          video.dataset.lazyLoaded = '1';
+
+          // Assign src from data-src so browser starts fetching only now
+          video.querySelectorAll('source[data-src]').forEach(function (source) {
+            source.src = source.dataset.src;
+          });
+          video.load();
+          video.playbackRate = 0.7;
+
+          video.addEventListener('loadedmetadata', function () {
+            var cropAt = video.duration * 0.7;
+            video.addEventListener('timeupdate', function () {
+              if (video.currentTime >= cropAt) video.currentTime = 0;
+            });
+            video.play().catch(function () {});
           });
         });
+      }, { rootMargin: '300px 0px' }); // start loading 300px before entering view
+
+      document.querySelectorAll('.collection-video').forEach(function (video) {
+        videoObserver.observe(video);
       });
     });
 
@@ -2287,8 +2367,8 @@
     if (tlContainer) {
       ScrollTrigger.create({
         trigger: tlContainer,
-        start: 'top 55%',
-        end:   'bottom 55%',
+        start: 'top center',
+        end:   'bottom center',
         scrub: 1.5,
         onUpdate(self) {
           const s = self.progress;
@@ -2297,6 +2377,21 @@
         }
       });
     }
+
+    // ════════════════════════════════════════
+    // TIMELINE MILESTONE DOTS
+    // ════════════════════════════════════════
+    document.querySelectorAll('.journey-row').forEach(function(row) {
+      const dot = document.createElement('span');
+      dot.className = 'journey-dot';
+      row.appendChild(dot);
+      ScrollTrigger.create({
+        trigger: row,
+        start: 'center center',
+        onEnter: () => dot.classList.add('is-active'),
+        onLeaveBack: () => dot.classList.remove('is-active'),
+      });
+    });
 
     // ════════════════════════════════════════
     // TIMELINE MILESTONE TEXT ANIMATIONS

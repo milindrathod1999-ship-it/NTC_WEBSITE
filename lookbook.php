@@ -8,6 +8,13 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
   <link rel="prefetch" href="index.php"/>
+  <!-- Prefetch index.php's CDN scripts so they're in browser cache on back-navigation -->
+  <link rel="prefetch" href="https://cdn.tailwindcss.com" as="script"/>
+  <link rel="prefetch" href="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" as="script"/>
+  <link rel="prefetch" href="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" as="script"/>
+  <link rel="prefetch" href="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js" as="script"/>
+  <link rel="prefetch" href="https://d3js.org/d3.v7.min.js" as="script"/>
+  <link rel="prefetch" href="https://unpkg.com/topojson-client@3/dist/topojson-client.min.js" as="script"/>
   <style>
     @font-face {
       font-family: 'Bodoni Moda';
@@ -289,7 +296,7 @@
 
       <!-- Center: Logo -->
       <div class="lb-nav-col lb-nav-center">
-        <a href="index.php">
+        <a href="index.php" onclick="if(history.length>1){event.preventDefault();history.back();}">
           <img src="BRAND_ASSETS/napoleon logo-2.png" alt="Napoleon Textile Company"
                style="height:4.8rem;width:auto;display:block;"/>
         </a>
@@ -297,7 +304,7 @@
 
       <!-- Right: Back to Site -->
       <div class="lb-nav-col lb-nav-right">
-        <a href="index.php" class="btn-nav-text">← Back to Site</a>
+        <a href="index.php" class="btn-nav-text" onclick="if(history.length>1){event.preventDefault();history.back();}">← Back to Site</a>
       </div>
 
     </div>
@@ -328,13 +335,10 @@
   <!-- CATEGORY TABS -->
   <div id="cat-tabs">
     <button class="cat-tab active" data-cat="all">All</button>
+    <button class="cat-tab" data-cat="dobbies">Dobbies &amp; Jacquards</button>
+    <button class="cat-tab" data-cat="checks">Checks &amp; Windowpanes</button>
     <button class="cat-tab" data-cat="stripes">Stripes</button>
-    <button class="cat-tab" data-cat="checks">Checks</button>
-    <button class="cat-tab" data-cat="dobbies">Dobbies</button>
     <button class="cat-tab" data-cat="prints">Prints</button>
-    <button class="cat-tab" data-cat="plains">Plains</button>
-    <button class="cat-tab" data-cat="uniforms">Uniforms</button>
-    <button class="cat-tab" data-cat="premium">Premium</button>
   </div>
 
   <script>
@@ -342,334 +346,54 @@
   // FABRIC DATA
   // ─────────────────────────────────────────────
   const FABRICS = [
+    // ── DOBBIES & JACQUARDS ──
+    { src: 'BRAND_ASSETS/Fabric photos/LOOKBOOK PHOTOS/BF-01-DOB.jpg', name: 'BF-01', type: 'Dobbies & Jacquards', cat: ['dobbies'], desc: '' },
+    { src: 'BRAND_ASSETS/Fabric photos/LOOKBOOK PHOTOS/BF-02-DOB.jpg', name: 'BF-02', type: 'Dobbies & Jacquards', cat: ['dobbies'], desc: '' },
+    { src: 'BRAND_ASSETS/Fabric photos/LOOKBOOK PHOTOS/BF-05-DOB.jpg', name: 'BF-05', type: 'Dobbies & Jacquards', cat: ['dobbies'], desc: '' },
+    { src: 'BRAND_ASSETS/Fabric photos/LOOKBOOK PHOTOS/BF-06-DOB.jpg', name: 'BF-06', type: 'Dobbies & Jacquards', cat: ['dobbies'], desc: '' },
+    { src: 'BRAND_ASSETS/Fabric photos/LOOKBOOK PHOTOS/BF-07-DOB.jpg', name: 'BF-07', type: 'Dobbies & Jacquards', cat: ['dobbies'], desc: '' },
+    { src: 'BRAND_ASSETS/Fabric photos/LOOKBOOK PHOTOS/BF-08-DOB.jpg', name: 'BF-08', type: 'Dobbies & Jacquards', cat: ['dobbies'], desc: '' },
+    { src: 'BRAND_ASSETS/Fabric photos/LOOKBOOK PHOTOS/BF-09-DOB.jpg', name: 'BF-09', type: 'Dobbies & Jacquards', cat: ['dobbies'], desc: '' },
+    // ── CHECKS & WINDOWPANES ──
+    { src: 'BRAND_ASSETS/Fabric photos/LOOKBOOK PHOTOS/BF-03-CHK.jpg', name: 'BF-03', type: 'Checks & Windowpanes', cat: ['checks'], desc: '' },
+    { src: 'BRAND_ASSETS/Fabric photos/LOOKBOOK PHOTOS/BF-04-CHK.jpg', name: 'BF-04', type: 'Checks & Windowpanes', cat: ['checks'], desc: '' },
+    { src: 'BRAND_ASSETS/Fabric photos/LOOKBOOK PHOTOS/BF-10-CHK.jpg', name: 'BF-10', type: 'Checks & Windowpanes', cat: ['checks'], desc: '' },
+    { src: 'BRAND_ASSETS/Fabric photos/LOOKBOOK PHOTOS/WW-02-CHK.jpg', name: 'WW-02', type: 'Checks & Windowpanes', cat: ['checks'], desc: '' },
+    { src: 'BRAND_ASSETS/Fabric photos/LOOKBOOK PHOTOS/WW-03-CHK.jpg', name: 'WW-03', type: 'Checks & Windowpanes', cat: ['checks'], desc: '' },
+    { src: 'BRAND_ASSETS/Fabric photos/LOOKBOOK PHOTOS/WW-04-CHK.jpg', name: 'WW-04', type: 'Checks & Windowpanes', cat: ['checks'], desc: '' },
+    { src: 'BRAND_ASSETS/Fabric photos/LOOKBOOK PHOTOS/WW-08-CHK.jpg', name: 'WW-08', type: 'Checks & Windowpanes', cat: ['checks'], desc: '' },
+    { src: 'BRAND_ASSETS/Fabric photos/LOOKBOOK PHOTOS/SF-01-CHK.jpg', name: 'SF-01', type: 'Checks & Windowpanes', cat: ['checks'], desc: '' },
+    { src: 'BRAND_ASSETS/Fabric photos/LOOKBOOK PHOTOS/SF-02-CHK.jpg', name: 'SF-02', type: 'Checks & Windowpanes', cat: ['checks'], desc: '' },
+    { src: 'BRAND_ASSETS/Fabric photos/LOOKBOOK PHOTOS/SF-03-CHK.jpg', name: 'SF-03', type: 'Checks & Windowpanes', cat: ['checks'], desc: '' },
+    { src: 'BRAND_ASSETS/Fabric photos/LOOKBOOK PHOTOS/SF-04-CHK.jpg', name: 'SF-04', type: 'Checks & Windowpanes', cat: ['checks'], desc: '' },
+    { src: 'BRAND_ASSETS/Fabric photos/LOOKBOOK PHOTOS/SF-05-CHK.jpg', name: 'SF-05', type: 'Checks & Windowpanes', cat: ['checks'], desc: '' },
+    { src: 'BRAND_ASSETS/Fabric photos/LOOKBOOK PHOTOS/SF-07-CHK.jpg', name: 'SF-07', type: 'Checks & Windowpanes', cat: ['checks'], desc: '' },
+    { src: 'BRAND_ASSETS/Fabric photos/LOOKBOOK PHOTOS/SF-08-CHK.jpg', name: 'SF-08', type: 'Checks & Windowpanes', cat: ['checks'], desc: '' },
+    { src: 'BRAND_ASSETS/Fabric photos/LOOKBOOK PHOTOS/SF-09-CHK.jpg', name: 'SF-09', type: 'Checks & Windowpanes', cat: ['checks'], desc: '' },
+    { src: 'BRAND_ASSETS/Fabric photos/LOOKBOOK PHOTOS/SF-10-CHK.jpg', name: 'SF-10', type: 'Checks & Windowpanes', cat: ['checks'], desc: '' },
     // ── STRIPES ──
-    {
-      src:  'https://placehold.co/600x600/1C2540/C5A97A?text=Navy+PC+Stripe',
-      name: 'Navy PC Stripe',
-      type: 'Poly-Cotton · 60s',
-      cat:  ['stripes'],
-      desc: 'Napoleon\'s signature yarn-dyed PC stripe in navy and white. Tight poplin construction with excellent colourfastness. The fabric that built our reputation.',
-    },
-    {
-      src:  'https://placehold.co/600x600/162030/C5A97A?text=Royal+Bengal+Stripe',
-      name: 'Royal Bengal Stripe',
-      type: 'Oxford Weave · 80s',
-      cat:  ['stripes'],
-      desc: 'Classic Bengal stripe in royal blue and ivory. Oxford basket weave adds subtle texture and exceptional durability for everyday wear.',
-    },
-    {
-      src:  'https://placehold.co/600x600/2A2416/C5A97A?text=Ecru+Tan+Stripe',
-      name: 'Ecru Tan Stripe',
-      type: 'Poplin · 80s',
-      cat:  ['stripes'],
-      desc: 'Warm earth-tone stripes in ecru and tan poplin. Lightweight and breathable — ideal for resort and smart-casual shirting.',
-    },
-    {
-      src:  'https://placehold.co/600x600/1F2D20/C5A97A?text=Forest+Stripe',
-      name: 'Forest Dobby Stripe',
-      type: 'Dobby · 100s',
-      cat:  ['stripes', 'dobbies'],
-      desc: 'Yarn-dyed forest green stripe with a dobby weave that adds micro-texture to each band. 100s two-ply for premium hand-feel.',
-    },
-    {
-      src:  'https://placehold.co/600x600/1A1A18/C5A97A?text=Charcoal+Pinstripe',
-      name: 'Charcoal Pinstripe',
-      type: 'Broadcloth · 100s',
-      cat:  ['stripes', 'premium'],
-      desc: 'Refined charcoal pinstripe in 100s combed broadcloth. Ultra-fine stripe pitch for boardroom-ready formal shirting with understated elegance.',
-    },
-    {
-      src:  'https://placehold.co/600x600/2D1820/C5A97A?text=Burgundy+Stripe',
-      name: 'Burgundy Stripe',
-      type: 'Twill · 80s',
-      cat:  ['stripes'],
-      desc: 'Deep burgundy and cream yarn-dyed stripe in 80s twill. The diagonal weave structure gives excellent drape and wrinkle resistance.',
-    },
-    {
-      src:  'https://placehold.co/600x600/18283A/C5A97A?text=Sky+Stripe',
-      name: 'Sky Poplin Stripe',
-      type: 'Poplin · 68s',
-      cat:  ['stripes'],
-      desc: 'Airy sky-blue and white poplin stripe. Reactive-dyed for vivid, wash-fast colour. 68s yarn count delivers a crisp, cool hand perfect for summer shirting.',
-    },
-    {
-      src:  'https://placehold.co/600x600/221E14/C5A97A?text=Khaki+Stripe',
-      name: 'Khaki Bengal',
-      type: 'Oxford · 80s',
-      cat:  ['stripes'],
-      desc: 'Earthy khaki Bengal stripe in 80s Oxford weave. The basketwork construction catches light subtly, giving the stripe depth without loud contrast.',
-    },
-
-    // ── CHECKS ──
-    {
-      src:  'BRAND_ASSETS/Fabric photos/White-and-Blue-Small-Checks-Handloom-Cotton-Khadi-Fabric-40040.jpg',
-      name: 'Indigo Khadi Check',
-      type: 'Handloom Cotton · 40s',
-      cat:  ['checks'],
-      desc: 'Hand-woven on traditional pit looms. Breathable 40-count yarn with natural slubs that give each metre a unique character. Pre-washed for minimal shrinkage.',
-    },
-    {
-      src:  'BRAND_ASSETS/Fabric photos/LSBRSH56NBLBGRDGRYCHKTWFEB.jpg',
-      name: 'Navy Graph Check',
-      type: 'Twill Weave · 80s',
-      cat:  ['checks'],
-      desc: '80s two-ply combed cotton in a precise graph-check twill. Dense, wrinkle-resistant weave with a subtle sheen. Ideal for formal shirting.',
-    },
-    {
-      src:  'BRAND_ASSETS/Fabric photos/LSIYASH85OGRNBGBKCHKTW180NOV.jpg',
-      name: 'Olive Ground Check',
-      type: 'Broadcloth · 100s',
-      cat:  ['checks'],
-      desc: '100s single-ply broadcloth woven on air-jet looms. Exceptionally smooth hand-feel with uniform thread count and excellent colour fastness.',
-    },
-    {
-      src:  'BRAND_ASSETS/Fabric photos/LSIYASH85PINEGRNWHLBRNCHKTW180NOV.jpg',
-      name: 'Pine Green Plaid',
-      type: 'Oxford Weave · 80s',
-      cat:  ['checks', 'premium'],
-      desc: 'Classic Oxford basket weave in premium 80s yarn. The dual-thread construction adds subtle texture and exceptional durability.',
-    },
-    {
-      src:  'BRAND_ASSETS/Fabric photos/LSRAYSH68BLWHCHKPOPSEP.jpg',
-      name: 'Sky Blue Poplin Check',
-      type: 'Poplin · 68s',
-      cat:  ['checks'],
-      desc: 'Fine 68s poplin with a crisp, lustrous finish. Lightweight and breathable — the benchmark fabric for dress shirts in tropical climates.',
-    },
-    {
-      src:  'https://placehold.co/600x600/221E14/C5A97A?text=Gingham',
-      name: 'Warm Gingham',
-      type: 'Plain Weave · 60s',
-      cat:  ['checks'],
-      desc: 'Even-sided gingham in warm earth tones. Classic plain weave with reactive-dyed yarns for consistent colour on both faces of the cloth.',
-    },
-    {
-      src:  'https://placehold.co/600x600/1C2540/C5A97A?text=Window+Pane',
-      name: 'Navy Window Pane',
-      type: 'Twill · 100s',
-      cat:  ['checks', 'premium'],
-      desc: 'Overcheck window pane in 100s two-ply twill. The open grid is woven in contrasting yarn — sharp, precise, and refined for suiting-grade shirts.',
-    },
-    {
-      src:  'https://placehold.co/600x600/2A1E10/C5A97A?text=Brown+Tattersall',
-      name: 'Tobacco Tattersall',
-      type: 'Oxford · 80s',
-      cat:  ['checks'],
-      desc: 'Traditional tattersall in tobacco and ivory. Widely spaced overcheck on an Oxford ground. Timeless country-shirting pattern reinterpreted for modern tailoring.',
-    },
-
+    { src: 'BRAND_ASSETS/Fabric photos/LOOKBOOK PHOTOS/WW-01-STR.jpg', name: 'WW-01', type: 'Stripes', cat: ['stripes'], desc: '' },
+    { src: 'BRAND_ASSETS/Fabric photos/LOOKBOOK PHOTOS/WW-07-STR.jpg', name: 'WW-07', type: 'Stripes', cat: ['stripes'], desc: '' },
+    { src: 'BRAND_ASSETS/Fabric photos/LOOKBOOK PHOTOS/WW-09-STR.jpg', name: 'WW-09', type: 'Stripes', cat: ['stripes'], desc: '' },
+    { src: 'BRAND_ASSETS/Fabric photos/LOOKBOOK PHOTOS/WW-10-STR.jpg', name: 'WW-10', type: 'Stripes', cat: ['stripes'], desc: '' },
+    { src: 'BRAND_ASSETS/Fabric photos/LOOKBOOK PHOTOS/SF-06-STR.jpg', name: 'SF-06', type: 'Stripes', cat: ['stripes'], desc: '' },
     // ── PRINTS ──
-    {
-      src:  'BRAND_ASSETS/Fabric photos/Untitled-design-2024-04-23T144215.043.png',
-      name: 'Blush Floral Print',
-      type: 'Digital Print · 60s',
-      cat:  ['prints'],
-      desc: 'Digital floral print on 60s cotton voile base. 16-colour process with reactive inks for vivid, wash-fast colour. Resort and smart-casual shirting.',
-    },
-    {
-      src:  'https://placehold.co/600x600/2D1820/F4F1EA?text=Geometric+Block',
-      name: 'Geometric Block Print',
-      type: 'Screen Print · 60s',
-      cat:  ['prints'],
-      desc: 'Bold geometric screen print on white poplin. 8-colour screen process with eco-certified reactive inks. Each colour registered to ±0.5mm accuracy.',
-    },
-    {
-      src:  'https://placehold.co/600x600/1C2540/C5A97A?text=Indigo+Floral',
-      name: 'Indigo Botanical',
-      type: 'Digital Print · 80s',
-      cat:  ['prints'],
-      desc: 'Dense indigo botanical print on 80s broadcloth. Digital pigment printing with outstanding wash fastness — Grade 4–5 on all ISO colour fastness tests.',
-    },
-    {
-      src:  'https://placehold.co/600x600/2A2416/C5A97A?text=Abstract+Brush',
-      name: 'Abstract Brushstroke',
-      type: 'Digital Print · 60s',
-      cat:  ['prints'],
-      desc: 'Artist-inspired brushstroke print in earthy tones. Digitally printed on soft cambric. Limited seasonal development — 500+ colourways per season.',
-    },
-    {
-      src:  'https://placehold.co/600x600/1A2B1C/C5A97A?text=Tropical+Print',
-      name: 'Tropical Digital',
-      type: 'Digital Print · 80s',
-      cat:  ['prints'],
-      desc: 'Vibrant tropical motif on 80s cotton broadcloth. Designed in-house from original artwork. Reactive ink for colour that lasts 50+ washes.',
-    },
-    {
-      src:  'https://placehold.co/600x600/1A1A18/C5A97A?text=Micro+Print',
-      name: 'Micro Repeat Print',
-      type: 'Screen Print · 100s',
-      cat:  ['prints', 'premium'],
-      desc: 'Precision micro-pattern screen print on 100s combed cotton. Registration accuracy of ±0.2mm. The pattern reads as a texture from arm\'s length — refined and distinctive.',
-    },
-
-    // ── DOBBY ──
-    {
-      src:  'BRAND_ASSETS/Fabric photos/image00014_7a68f7f3-33b9-4da8-a129-605278fc48b8.jpg',
-      name: 'Slate Dobby Texture',
-      type: 'Dobby Weave · 80s',
-      cat:  ['dobbies'],
-      desc: 'Geometric dobby pattern woven on a 24-shaft loom. The raised surface creates subtle visual depth without adding bulk or weight.',
-    },
-    {
-      src:  'BRAND_ASSETS/Fabric photos/image00030_7b4091a1-7225-4d77-bc07-c3978eca3986.jpg',
-      name: 'Ecru Herringbone',
-      type: 'Herringbone Twill · 100s',
-      cat:  ['dobbies'],
-      desc: 'Classic herringbone in 100s two-ply yarn. The diagonal zigzag weave gives excellent shape retention and a distinguished texture.',
-    },
-    {
-      src:  'BRAND_ASSETS/Fabric photos/image00053_0d13f820-0cf5-4b10-811e-8b4e0cd8a053.jpg',
-      name: 'Midnight Jacquard',
-      type: 'Jacquard · 120s',
-      cat:  ['dobbies', 'premium'],
-      desc: 'Intricate jacquard pattern woven on computerised looms. 120s combed cotton with a self-colour tone-on-tone motif. Exceptional definition and hand-feel.',
-    },
-    {
-      src:  'https://placehold.co/600x600/221E14/C5A97A?text=Tonal+Dobby',
-      name: 'Tonal Dobby Stripe',
-      type: 'Dobby Stripe · 80s',
-      cat:  ['dobbies', 'stripes'],
-      desc: 'Self-colour dobby stripe woven in 80s two-ply combed cotton. The tone-on-tone effect is achieved entirely through weave structure — no dye variation.',
-    },
-    {
-      src:  'https://placehold.co/600x600/1A1A18/C5A97A?text=Shadow+Jacquard',
-      name: 'Shadow Jacquard',
-      type: 'Jacquard · 100s',
-      cat:  ['dobbies', 'premium'],
-      desc: 'Monochromatic shadow jacquard in 100s combed cotton. The subtle pattern emerges from the interplay of warp and weft — visible only in directional light.',
-    },
-    {
-      src:  'https://placehold.co/600x600/1C2540/C5A97A?text=Diamond+Dobby',
-      name: 'Diamond Dobby',
-      type: 'Dobby · 80s',
-      cat:  ['dobbies'],
-      desc: 'Repeating diamond motif woven on a 16-shaft dobby loom. The geometric pattern is created by selective lifting of warp threads — no printing involved.',
-    },
-
-    // ── SOLIDS ──
-    {
-      src:  'BRAND_ASSETS/Fabric photos/670d3cfac965327bea30548b10d786d9.jpg',
-      name: 'Warm Earth Solid',
-      type: 'Cambric · 60s',
-      cat:  ['plains'],
-      desc: 'Soft mercerised cambric in 60s combed cotton. A tight plain weave delivers a silky surface and excellent print uptake for dye lots.',
-    },
-    {
-      src:  'BRAND_ASSETS/Fabric photos/81JgX46aSvL._AC_UY1100_.jpg',
-      name: 'Classic White Voile',
-      type: 'Voile · 120s',
-      cat:  ['plains', 'premium'],
-      desc: 'Ultra-fine 120s Egyptian cotton voile. Semi-sheer with a delicate drape. ISO-certified for colour fastness Grade 5 — the highest standard.',
-    },
-    {
-      src:  'https://placehold.co/600x600/1C2540/F4F1EA?text=Pale+Blue+Poplin',
-      name: 'Pale Blue Poplin',
-      type: 'Poplin · 80s',
-      cat:  ['plains'],
-      desc: 'Crisp pale blue poplin in 80s combed cotton. Reactive-dyed for consistent colour throughout. The essential dress-shirt solid.',
-    },
-    {
-      src:  'https://placehold.co/600x600/E0D8C8/1A1A18?text=Warm+Ecru',
-      name: 'Warm Ecru Plain',
-      type: 'Plain Weave · 60s',
-      cat:  ['plains'],
-      desc: 'Natural ecru in 60s plain weave. Undyed and chemical-free — woven from natural cotton with its inherent warm tone. Ideal for sustainable collections.',
-    },
-    {
-      src:  'https://placehold.co/600x600/1F2D20/C5A97A?text=Sage+Oxford',
-      name: 'Sage Oxford',
-      type: 'Oxford · 80s',
-      cat:  ['plains'],
-      desc: 'Muted sage green Oxford weave in 80s two-ply cotton. The basket structure adds subtle texture while the solid ground reads clean and contemporary.',
-    },
-    {
-      src:  'https://placehold.co/600x600/2A2416/C5A97A?text=Stone+Twill',
-      name: 'Stone Twill',
-      type: 'Twill · 100s',
-      cat:  ['plains'],
-      desc: 'Warm stone-coloured 100s twill in a 2×1 weave. The diagonal rib creates excellent drape and a soft, smooth hand ideal for luxury shirting.',
-    },
-    {
-      src:  'https://placehold.co/600x600/2D1820/C5A97A?text=Blush+Poplin',
-      name: 'Blush Poplin',
-      type: 'Poplin · 80s',
-      cat:  ['plains'],
-      desc: 'Delicate blush poplin in 80s combed cotton. Reactive-dyed in a soft rose tone. A feminine statement solid for contemporary resort and occasion wear.',
-    },
-
-    // ── PREMIUM ──
-    {
-      src:  'BRAND_ASSETS/Fabric photos/image00060_0699734e-9def-4913-af71-30d1801e7181.jpg',
-      name: 'Ivory Supima',
-      type: 'Supima Cotton · 140s',
-      cat:  ['premium', 'plains'],
-      desc: 'Extra-long staple Supima cotton at 140s count. Silkier than silk, stronger than standard cotton. Our finest offering for the discerning shirtmaker.',
-    },
-    {
-      src:  'https://placehold.co/600x600/1A2B1C/C5A97A?text=Tencel+Blend',
-      name: 'Tencel Blend Solid',
-      type: 'Tencel · Modal · 80s',
-      cat:  ['premium'],
-      desc: 'Tencel-modal blend in a plain weave construction. Naturally moisture-wicking with an exceptional drape. OEKO-TEX Standard 100 certified.',
-    },
-    {
-      src:  'https://placehold.co/600x600/221E14/C5A97A?text=Fine+2-Ply',
-      name: 'Fine 2-Ply Shirting',
-      type: '2/100s Two-Ply',
-      cat:  ['premium'],
-      desc: '2/100s two-ply construction — the finest thread count in our range. Woven on precision air-jet looms with zero deviation across the full roll width.',
-    },
-    {
-      src:  'https://placehold.co/600x600/1C2540/C5A97A?text=Organic+Cotton',
-      name: 'Organic Cotton Poplin',
-      type: 'Organic Cotton · 80s',
-      cat:  ['premium', 'plains'],
-      desc: 'GOTS-certified organic cotton poplin. No pesticides, no synthetic dyes — reactive colours from natural pigment sources. Full-chain transparency.',
-    },
-    {
-      src:  'https://placehold.co/600x600/1A1A18/C5A97A?text=Giza+Sateen',
-      name: 'Giza Sateen',
-      type: 'Sateen · 120s',
-      cat:  ['premium'],
-      desc: 'Extra-long staple Giza cotton in a 4×1 sateen weave. The floating warp threads create a mirror-smooth surface with natural lustre. Grade A certified.',
-    },
-
-    // ── UNIFORMS ──
-    {
-      src:  'BRAND_ASSETS/Fabric photos/Gemini_Generated_Image_sczswdsczswdsczs.png',
-      name: 'Institutional Shirting',
-      type: 'PC Blend · 60s',
-      cat:  ['uniforms'],
-      desc: 'High-performance poly-cotton blend engineered for volume uniform programmes. Dimensional stability across 80+ industrial wash cycles. Minimum order from 3,000 metres.',
-    },
-    {
-      src:  'BRAND_ASSETS/Fabric photos/image.png',
-      name: 'Corporate Navy Range',
-      type: 'Poplin · Oxford · Twill',
-      cat:  ['uniforms', 'plains'],
-      desc: 'Full navy spectrum across poplin, Oxford, and twill constructions — colour-matched to ΔE < 1.0. Designed for multi-piece corporate wardrobe programmes with exact shade consistency roll to roll.',
-    },
-    {
-      src:  'BRAND_ASSETS/Fabric photos/LSBRSH56NBLBGRDGRYCHKTWFEB.jpg',
-      name: 'Hospitality Check',
-      type: 'Twill Weave · 80s',
-      cat:  ['uniforms', 'checks'],
-      desc: 'Subdued graph check in hospitality-grade 80s twill. Shrinkage under 1% after 40 commercial washes. Available in navy, grey, and slate colourways across full roll widths.',
-    },
-    {
-      src:  'https://placehold.co/600x600/1C2540/F4F1EA?text=Corporate+Stripe',
-      name: 'Corporate Stripe',
-      type: 'Poplin · 68s',
-      cat:  ['uniforms', 'stripes'],
-      desc: 'Quiet authority stripe in 68s poplin — engineered for airline, hospitality, and banking uniform programmes. Reactive-dyed for colour consistency across large yardage orders.',
-    },
-    {
-      src:  'https://placehold.co/600x600/2A3040/C5A97A?text=Durable+Oxford',
-      name: 'Durable Oxford',
-      type: 'Oxford Weave · 40s',
-      cat:  ['uniforms'],
-      desc: '40-count Oxford weave built for longevity. Double-yarn warp construction resists abrasion and maintains shape through heavy institutional use. Tested to AATCC standards.',
-    },
+    { src: 'BRAND_ASSETS/Fabric photos/LOOKBOOK PHOTOS/WW-05-PR.jpg', name: 'WW-05', type: 'Prints', cat: ['prints'], desc: '' },
+    { src: 'BRAND_ASSETS/Fabric photos/LOOKBOOK PHOTOS/WW-06-PR.jpg', name: 'WW-06', type: 'Prints', cat: ['prints'], desc: '' },
+    { src: 'BRAND_ASSETS/Fabric photos/LOOKBOOK PHOTOS/EVE-01-PR.jpg', name: 'EVE-01', type: 'Prints', cat: ['prints'], desc: '' },
+    { src: 'BRAND_ASSETS/Fabric photos/LOOKBOOK PHOTOS/EVE-02-PR.jpg', name: 'EVE-02', type: 'Prints', cat: ['prints'], desc: '' },
+    { src: 'BRAND_ASSETS/Fabric photos/LOOKBOOK PHOTOS/EVE-03-PR.jpg', name: 'EVE-03', type: 'Prints', cat: ['prints'], desc: '' },
+    { src: 'BRAND_ASSETS/Fabric photos/LOOKBOOK PHOTOS/EVE-04-PR.jpg', name: 'EVE-04', type: 'Prints', cat: ['prints'], desc: '' },
+    { src: 'BRAND_ASSETS/Fabric photos/LOOKBOOK PHOTOS/EVE-05-PR.jpg', name: 'EVE-05', type: 'Prints', cat: ['prints'], desc: '' },
+    { src: 'BRAND_ASSETS/Fabric photos/LOOKBOOK PHOTOS/EVE-06-PR.jpg', name: 'EVE-06', type: 'Prints', cat: ['prints'], desc: '' },
+    { src: 'BRAND_ASSETS/Fabric photos/LOOKBOOK PHOTOS/EVE-07-PR.jpg', name: 'EVE-07', type: 'Prints', cat: ['prints'], desc: '' },
+    { src: 'BRAND_ASSETS/Fabric photos/LOOKBOOK PHOTOS/HCA-01-PR.jpg', name: 'HCA-01', type: 'Prints', cat: ['prints'], desc: '' },
+    // ── HCA CHECKS ──
+    { src: 'BRAND_ASSETS/Fabric photos/LOOKBOOK PHOTOS/HCA-02-CHK.jpg', name: 'HCA-02', type: 'Checks & Windowpanes', cat: ['checks'], desc: '' },
+    { src: 'BRAND_ASSETS/Fabric photos/LOOKBOOK PHOTOS/HCA-03-CHK.jpg', name: 'HCA-03', type: 'Checks & Windowpanes', cat: ['checks'], desc: '' },
+    { src: 'BRAND_ASSETS/Fabric photos/LOOKBOOK PHOTOS/HCA-04-CHK.jpg', name: 'HCA-04', type: 'Checks & Windowpanes', cat: ['checks'], desc: '' },
+    { src: 'BRAND_ASSETS/Fabric photos/LOOKBOOK PHOTOS/HCA-05-CHK.jpg', name: 'HCA-05', type: 'Checks & Windowpanes', cat: ['checks'], desc: '' },
+    { src: 'BRAND_ASSETS/Fabric photos/LOOKBOOK PHOTOS/HCA-06-CHK.jpg', name: 'HCA-06', type: 'Checks & Windowpanes', cat: ['checks'], desc: '' },
   ];
 
   // ─────────────────────────────────────────────
