@@ -71,6 +71,19 @@
     .lb-nav-center { justify-content: center; }
     .lb-nav-right { justify-content: flex-end; }
 
+    /* Mobile logo — hidden on desktop, shown on mobile in left column */
+    #lb-logo-mob { display: none; }
+
+    @media (max-width: 767px) {
+      #lb-nav-inner {
+        grid-template-columns: 1fr auto;
+        padding: 10px 20px;
+      }
+      .lb-nav-center { display: none; }
+      #lb-eyebrow    { display: none; }
+      #lb-logo-mob   { display: block; }
+    }
+
     /* Exact copy of home page .btn-nav-text — font-family explicit since lookbook body uses Inter */
     .btn-nav-text {
       font-family: 'Bodoni Moda', Georgia, serif;
@@ -120,6 +133,22 @@
       padding: 5px 6px;
       box-shadow: 0 4px 24px rgba(26,26,24,0.10);
       white-space: nowrap;
+    }
+    @media (max-width: 767px) {
+      #cat-tabs {
+        max-width: calc(100vw - 32px);
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        bottom: max(14px, env(safe-area-inset-bottom, 0px) + 10px);
+        left: 16px;
+        right: 16px;
+        transform: none;
+        border-radius: 100px;
+      }
+      #cat-tabs::-webkit-scrollbar { display: none; }
+      .cat-tab { padding: 7px 11px; font-size: 8px; }
+      #zoom-ctrl { bottom: max(68px, env(safe-area-inset-bottom, 0px) + 56px); right: 14px; }
     }
     .cat-tab {
       font-size: 9px;
@@ -178,6 +207,7 @@
       background: var(--bg);
       cursor: grab;
       overflow: hidden;
+      touch-action: none; /* hand all touch events to JS — no browser scroll/zoom */
     }
     #stage.dragging { cursor: grabbing; }
 
@@ -289,9 +319,13 @@
   <nav id="lb-nav">
     <div id="lb-nav-inner">
 
-      <!-- Left -->
+      <!-- Left: eyebrow on desktop, logo on mobile -->
       <div class="lb-nav-col lb-nav-left">
         <span id="lb-eyebrow">Lookbook &nbsp;·&nbsp; S/S 2026</span>
+        <a id="lb-logo-mob" href="index.php" onclick="if(history.length>1){event.preventDefault();history.back();}">
+          <img src="BRAND_ASSETS/napoleon logo-2.png" alt="Napoleon Textile Company"
+               style="height:3.5rem;width:auto;display:block;"/>
+        </a>
       </div>
 
       <!-- Center: Logo -->
@@ -445,7 +479,7 @@
       const img = document.createElement('img');
       img.src     = item.src;
       img.alt     = item.name;
-      img.loading = 'lazy';
+      img.loading = 'eager'; // lazy fails with CSS-transform canvases
       card.appendChild(img);
 
       const overlay = document.createElement('div');
@@ -470,16 +504,7 @@
   let minScale = 0.14;
   const MAX_SCALE = 2.4;
 
-  // Smooth zoom via CSS transition — only fires during wheel/button zoom
-  let zoomTid = null;
-  function applyZoomSmooth() {
-    world.style.transition = 'transform 0.32s cubic-bezier(0.22, 1, 0.36, 1)';
-    world.style.transform = `translate(${vx}px, ${vy}px) scale(${scale})`;
-    world.style.transformOrigin = '0 0';
-    clearTimeout(zoomTid);
-    zoomTid = setTimeout(() => { world.style.transition = 'none'; }, 340);
-  }
-
+  // Always use translate3d — keeps grid-world on GPU composite layer
   function applyTransform(animated = false) {
     if (animated) {
       world.style.transition = 'transform 0.6s cubic-bezier(0.25,1,0.5,1)';
@@ -487,8 +512,37 @@
     } else {
       world.style.transition = 'none';
     }
-    world.style.transform = `translate(${vx}px, ${vy}px) scale(${scale})`;
+    world.style.transform = `translate3d(${vx}px,${vy}px,0) scale(${scale})`;
     world.style.transformOrigin = '0 0';
+  }
+
+  // Smooth zoom via RAF lerp — avoids CSS transition vs drag conflicts
+  let zoomTarget = null, zoomRafId = null;
+  function applyZoomSmooth() {
+    if (!zoomTarget) zoomTarget = { vx, vy, scale };
+    zoomTarget.vx = vx; zoomTarget.vy = vy; zoomTarget.scale = scale;
+    if (!zoomRafId) zoomRafId = requestAnimationFrame(zoomTick);
+  }
+  // Lerp state — updated in fitToView after first render
+  let lerpVx = 0, lerpVy = 0, lerpScale = 1;
+  function zoomTick() {
+    const FACTOR = 0.22;
+    lerpVx    += (zoomTarget.vx    - lerpVx)    * FACTOR;
+    lerpVy    += (zoomTarget.vy    - lerpVy)    * FACTOR;
+    lerpScale += (zoomTarget.scale - lerpScale) * FACTOR;
+    world.style.transition = 'none';
+    world.style.transform = `translate3d(${lerpVx}px,${lerpVy}px,0) scale(${lerpScale})`;
+    world.style.transformOrigin = '0 0';
+    const done = Math.abs(zoomTarget.vx - lerpVx) < 0.05 &&
+                 Math.abs(zoomTarget.vy - lerpVy) < 0.05 &&
+                 Math.abs(zoomTarget.scale - lerpScale) < 0.0002;
+    if (done) {
+      lerpVx = zoomTarget.vx; lerpVy = zoomTarget.vy; lerpScale = zoomTarget.scale;
+      world.style.transform = `translate3d(${lerpVx}px,${lerpVy}px,0) scale(${lerpScale})`;
+      zoomRafId = null;
+    } else {
+      zoomRafId = requestAnimationFrame(zoomTick);
+    }
   }
 
   function getContentBounds(laid) {
@@ -520,6 +574,8 @@
     vx = EDGE_PAD + (availW - cW * scale) / 2 - minX * scale;
     vy = navH + EDGE_PAD - minY * scale;
     clampPan();
+    // Keep lerp state in sync so zoom buttons start from correct position
+    lerpVx = vx; lerpVy = vy; lerpScale = scale;
     applyTransform(animated);
   }
 
@@ -553,46 +609,100 @@
   }
 
   // ─────────────────────────────────────────────
-  // DRAG + MOMENTUM
+  // DRAG + PINCH — unified pointer events
+  // (touch-action:none on #stage ensures no browser interference)
   // ─────────────────────────────────────────────
+  const activePointers = new Map(); // pointerId → {x, y}
   let dragging = false, dragStartX = 0, dragStartY = 0;
   let dvx = 0, dvy = 0, lastX = 0, lastY = 0;
+  let lastPinchDist = null;
   let rafId = null, hasDragged = false;
 
   stage.addEventListener('pointerdown', e => {
-    dragging = true;
-    dragStartX = e.clientX - vx;
-    dragStartY = e.clientY - vy;
-    dvx = dvy = 0;
-    lastX = e.clientX; lastY = e.clientY;
-    stage.classList.add('dragging');
-    cancelRaf();
-    stage.setPointerCapture(e.pointerId);
-  });
+    // Cancel any zoom animation so drag takes over immediately
+    if (zoomRafId) { cancelAnimationFrame(zoomRafId); zoomRafId = null; }
+    // Sync lerp state to current transform to avoid snap
+    lerpVx = vx; lerpVy = vy; lerpScale = scale;
+    world.style.transition = 'none';
 
-  stage.addEventListener('pointermove', e => {
-    if (!dragging) return;
-    dvx = e.clientX - lastX; dvy = e.clientY - lastY;
-    lastX = e.clientX; lastY = e.clientY;
-    vx = e.clientX - dragStartX; vy = e.clientY - dragStartY;
-    clampPan();
-    applyTransform();
-    if (!hasDragged && (Math.abs(dvx) > 3 || Math.abs(dvy) > 3)) {
-      hasDragged = true;
-      hint.classList.add('hidden');
+    activePointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    stage.setPointerCapture(e.pointerId);
+
+    if (activePointers.size === 1) {
+      // Single finger/mouse — start drag
+      dragging = true;
+      dragStartX = e.clientX - vx;
+      dragStartY = e.clientY - vy;
+      dvx = dvy = 0;
+      lastX = e.clientX; lastY = e.clientY;
+      lastPinchDist = null;
+      stage.classList.add('dragging');
+      cancelRaf();
+    } else if (activePointers.size === 2) {
+      // Second finger arrived — switch to pinch mode
+      dragging = false;
+      stage.classList.remove('dragging');
+      cancelRaf();
+      const pts = [...activePointers.values()];
+      lastPinchDist = Math.hypot(pts[0].x - pts[1].x, pts[0].y - pts[1].y);
     }
   });
 
-  stage.addEventListener('pointerup', () => {
-    if (!dragging) return;
-    dragging = false;
-    stage.classList.remove('dragging');
-    startMomentum();
+  stage.addEventListener('pointermove', e => {
+    if (!activePointers.has(e.pointerId)) return;
+    activePointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+
+    if (activePointers.size === 2) {
+      // ── Pinch zoom ──
+      const pts = [...activePointers.values()];
+      const d  = Math.hypot(pts[0].x - pts[1].x, pts[0].y - pts[1].y);
+      const cx = (pts[0].x + pts[1].x) / 2;
+      const cy = (pts[0].y + pts[1].y) / 2;
+      if (lastPinchDist !== null) {
+        const r  = d / lastPinchDist;
+        const ns = Math.max(minScale, Math.min(MAX_SCALE, scale * r));
+        const ratio = ns / scale;
+        vx = cx - ratio * (cx - vx);
+        vy = cy - ratio * (cy - vy);
+        scale = ns;
+        clampPan();
+        applyTransform();
+      }
+      lastPinchDist = d;
+    } else if (activePointers.size === 1 && dragging) {
+      // ── Pan ──
+      dvx = e.clientX - lastX; dvy = e.clientY - lastY;
+      lastX = e.clientX; lastY = e.clientY;
+      vx = e.clientX - dragStartX; vy = e.clientY - dragStartY;
+      clampPan();
+      applyTransform();
+      if (!hasDragged && (Math.abs(dvx) > 3 || Math.abs(dvy) > 3)) {
+        hasDragged = true;
+        hint.classList.add('hidden');
+      }
+    }
   });
-  stage.addEventListener('pointercancel', () => {
-    dragging = false;
-    stage.classList.remove('dragging');
-  });
+
+  function onPointerEnd(e) {
+    activePointers.delete(e.pointerId);
+    if (activePointers.size === 0) {
+      // All fingers up
+      if (dragging) startMomentum();
+      dragging = false;
+      stage.classList.remove('dragging');
+      lastPinchDist = null;
+    } else if (activePointers.size === 1) {
+      // Went from 2→1 finger — restart drag from remaining finger
+      lastPinchDist = null;
+      const [rem] = activePointers.values();
+      dragging = true;
+      dragStartX = rem.x - vx; dragStartY = rem.y - vy;
+      lastX = rem.x; lastY = rem.y; dvx = dvy = 0;
+      stage.classList.add('dragging');
+    }
+  }
+  stage.addEventListener('pointerup',     onPointerEnd);
+  stage.addEventListener('pointercancel', e => { activePointers.delete(e.pointerId); if (!activePointers.size) { dragging = false; stage.classList.remove('dragging'); } });
 
   function startMomentum() {
     cancelRaf();
@@ -609,7 +719,7 @@
   function cancelRaf() { if (rafId) { cancelAnimationFrame(rafId); rafId = null; } }
 
   // ─────────────────────────────────────────────
-  // WHEEL
+  // WHEEL (desktop trackpad / mouse wheel)
   // ─────────────────────────────────────────────
   stage.addEventListener('wheel', e => {
     e.preventDefault();
@@ -619,8 +729,9 @@
       const ns = Math.max(minScale, Math.min(MAX_SCALE, scale * f));
       const r = ns / scale;
       vx = mx - r * (mx - vx); vy = my - r * (my - vy); scale = ns;
+      lerpVx = vx; lerpVy = vy; lerpScale = scale;
       clampPan();
-      applyZoomSmooth();
+      applyTransform();
     } else {
       vx -= e.deltaX; vy -= e.deltaY;
       clampPan();
@@ -629,26 +740,7 @@
   }, { passive: false });
 
   // ─────────────────────────────────────────────
-  // PINCH ZOOM
-  // ─────────────────────────────────────────────
-  let pinchD = null;
-  stage.addEventListener('touchstart', e => { if (e.touches.length === 2) pinchD = tDist(e); }, { passive: true });
-  stage.addEventListener('touchmove', e => {
-    if (e.touches.length !== 2 || pinchD === null) return;
-    e.preventDefault();
-    const d = tDist(e), r = d / pinchD;
-    const cx = (e.touches[0].clientX + e.touches[1].clientX) / 2;
-    const cy = (e.touches[0].clientY + e.touches[1].clientY) / 2;
-    const ns = Math.max(minScale, Math.min(MAX_SCALE, scale * r));
-    const ratio = ns / scale;
-    vx = cx - ratio * (cx - vx); vy = cy - ratio * (cy - vy);
-    scale = ns; pinchD = d; clampPan(); applyTransform();
-  }, { passive: false });
-  stage.addEventListener('touchend', () => { pinchD = null; });
-  function tDist(e) { return Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY); }
-
-  // ─────────────────────────────────────────────
-  // ZOOM BUTTONS
+  // ZOOM BUTTONS — lerp-smooth, no CSS transition
   // ─────────────────────────────────────────────
   function zoomBy(f) {
     const cx = window.innerWidth / 2, cy = window.innerHeight / 2;
@@ -656,6 +748,12 @@
     const r = ns / scale;
     vx = cx - r * (cx - vx); vy = cy - r * (cy - vy); scale = ns;
     clampPan();
+    // Kick off lerp if not already running (lerpVx/Y/Scale are current position)
+    if (!zoomRafId) {
+      if (!zoomTarget) zoomTarget = { vx: lerpVx, vy: lerpVy, scale: lerpScale };
+    } else {
+      cancelAnimationFrame(zoomRafId); zoomRafId = null;
+    }
     applyZoomSmooth();
   }
   document.getElementById('zoom-in').addEventListener('click',  () => zoomBy(1.25));
