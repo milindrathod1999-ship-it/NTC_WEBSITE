@@ -1743,97 +1743,123 @@
         <!-- Double the set for seamless loop (translateX(-50%) in keyframes) -->
         <div class="testimonial-track">
 
-          <!-- Card A1 -->
+          <!-- ── SET A ── -->
+
+          <!-- Shoppers Stop -->
           <div class="testimonial-card">
-            <div style="margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid rgba(26,26,24,0.1);display:flex;align-items:center;gap:12px;">
-              <img src="BRAND_ASSETS/napoleon logo-2.png" alt="" style="height:22px;width:auto;opacity:0.18;filter:saturate(0);" />
-              <p style="font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:rgba(26,26,24,0.35);">Bombay Shirt Co.</p>
+            <div style="margin-bottom:18px;padding-bottom:16px;border-bottom:1px solid rgba(26,26,24,0.1);">
+              <div style="display:inline-flex;align-items:center;justify-content:center;background:#0D0D0D;padding:8px 14px;margin-bottom:10px;">
+                <img src="BRAND_ASSETS/clients/shoppers-stop.png" alt="Shoppers Stop" style="height:26px;width:auto;display:block;" />
+              </div>
+              <p style="font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:rgba(26,26,24,0.4);">Shoppers Stop</p>
             </div>
-            <p style="font-size:13.5px;font-style:italic;line-height:1.85;color:#1A1A18;margin-bottom:20px;">"Napoleon fabrics consistently deliver on colour accuracy and shrinkage control. Our production team trusts them implicitly — defect rates under 0.2%."</p>
-            <div style="height:1px;background:rgba(26,26,24,0.1);margin-bottom:14px;"></div>
-            <p style="font-size:12px;font-weight:500;color:#1A1A18;">Rajiv Mehta</p>
-            <p style="font-size:9px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:#4A4E5A;margin-top:4px;">Head of Sourcing</p>
+            <p style="font-size:13px;font-style:italic;line-height:1.9;color:#1A1A18;margin-bottom:18px;">"Napoleon has been our go-to for formal yarn-dyed shirting across multiple seasons under our In-Tune label. The colour accuracy season-on-season is something we simply cannot compromise — they have never let us down."</p>
+            <p style="font-size:8px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#C5A97A;">Formal Shirting · Seasonal Supply</p>
           </div>
 
-          <!-- Card A2 -->
+          <!-- White House -->
           <div class="testimonial-card">
-            <div style="margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid rgba(26,26,24,0.1);display:flex;align-items:center;gap:12px;">
-              <img src="BRAND_ASSETS/napoleon logo-2.png" alt="" style="height:22px;width:auto;opacity:0.18;filter:saturate(0);" />
-              <p style="font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:rgba(26,26,24,0.35);">Prestige Menswear</p>
+            <div style="margin-bottom:18px;padding-bottom:16px;border-bottom:1px solid rgba(26,26,24,0.1);">
+              <div style="display:inline-flex;align-items:center;justify-content:center;background:#F5F5F5;padding:8px 14px;margin-bottom:10px;">
+                <img src="BRAND_ASSETS/clients/white-house.png" alt="White House" style="height:32px;width:auto;display:block;" />
+              </div>
+              <p style="font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:rgba(26,26,24,0.4);">White House</p>
             </div>
-            <p style="font-size:13.5px;font-style:italic;line-height:1.85;color:#1A1A18;margin-bottom:20px;">"The Dobby Jacquard range is extraordinary. Our label shirts made from NTC fabric outsell every other SKU. The handle and drape speak for themselves."</p>
-            <div style="height:1px;background:rgba(26,26,24,0.1);margin-bottom:14px;"></div>
-            <p style="font-size:12px;font-weight:500;color:#1A1A18;">Priya Sharma</p>
-            <p style="font-size:9px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:#4A4E5A;margin-top:4px;">Creative Director</p>
+            <p style="font-size:13px;font-style:italic;line-height:1.9;color:#1A1A18;margin-bottom:18px;">"From our Sateen plains to tailored checks and clean-cut stripes — Napoleon covers our full fabric programme with precision. Their core range has become the backbone of our production cycle, season after season."</p>
+            <p style="font-size:8px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#C5A97A;">Checks · Stripes · Sateen Core</p>
           </div>
 
-          <!-- Card A3 -->
+          <!-- Cobb Italy -->
           <div class="testimonial-card">
-            <div style="margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid rgba(26,26,24,0.1);display:flex;align-items:center;gap:12px;">
-              <img src="BRAND_ASSETS/napoleon logo-2.png" alt="" style="height:22px;width:auto;opacity:0.18;filter:saturate(0);" />
-              <p style="font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:rgba(26,26,24,0.35);">Elegance Apparels</p>
+            <div style="margin-bottom:18px;padding-bottom:16px;border-bottom:1px solid rgba(26,26,24,0.1);">
+              <div style="display:inline-flex;align-items:center;justify-content:center;background:#F5F5F5;padding:8px 14px;margin-bottom:10px;">
+                <img src="BRAND_ASSETS/clients/cobb-italy.png" alt="Cobb Italy" style="height:28px;width:auto;display:block;" />
+              </div>
+              <p style="font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:rgba(26,26,24,0.4);">Cobb Italy</p>
             </div>
-            <p style="font-size:13.5px;font-style:italic;line-height:1.85;color:#1A1A18;margin-bottom:20px;">"In 8 years of working with NTC, I've never had a late shipment. Their logistics and communication set the benchmark for the industry."</p>
-            <div style="height:1px;background:rgba(26,26,24,0.1);margin-bottom:14px;"></div>
-            <p style="font-size:12px;font-weight:500;color:#1A1A18;">Anil Kapoor</p>
-            <p style="font-size:9px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:#4A4E5A;margin-top:4px;">Chief Executive Officer</p>
+            <p style="font-size:13px;font-style:italic;line-height:1.9;color:#1A1A18;margin-bottom:18px;">"Napoleon supplies both ends of our range — the casual 100% cotton checks carry exactly the texture our weekend line demands, while the poly-cotton blended formals hold structure through the season. Two categories, one reliable source."</p>
+            <p style="font-size:8px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#C5A97A;">Cotton Checks · Poly-Cotton Formals</p>
           </div>
 
-          <!-- Card A4 -->
+          <!-- Raymond -->
           <div class="testimonial-card">
-            <div style="margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid rgba(26,26,24,0.1);display:flex;align-items:center;gap:12px;">
-              <img src="BRAND_ASSETS/napoleon logo-2.png" alt="" style="height:22px;width:auto;opacity:0.18;filter:saturate(0);" />
-              <p style="font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:rgba(26,26,24,0.35);">Heritage Fabric House</p>
+            <div style="margin-bottom:18px;padding-bottom:16px;border-bottom:1px solid rgba(26,26,24,0.1);">
+              <div style="display:inline-flex;align-items:center;justify-content:center;background:#D0202A;padding:8px 16px;margin-bottom:10px;">
+                <img src="BRAND_ASSETS/clients/raymond.png" alt="Raymond" style="height:26px;width:auto;display:block;" />
+              </div>
+              <p style="font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:rgba(26,26,24,0.4);">Raymond</p>
             </div>
-            <p style="font-size:13.5px;font-style:italic;line-height:1.85;color:#1A1A18;margin-bottom:20px;">"The Giza blend range opened a new price tier for us — clients immediately notice the lustre and hand feel. NTC's consistency batch-to-batch is unmatched."</p>
-            <div style="height:1px;background:rgba(26,26,24,0.1);margin-bottom:14px;"></div>
-            <p style="font-size:12px;font-weight:500;color:#1A1A18;">Omar Al-Farouq</p>
-            <p style="font-size:9px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:#4A4E5A;margin-top:4px;">Director of Procurement, UAE</p>
+            <p style="font-size:13px;font-style:italic;line-height:1.9;color:#1A1A18;margin-bottom:18px;">"Napoleon's high-end formal fabric elevates our online brand portfolio in both appearance and wear life. Their ability to honour precise repeat quantities — across poly-cotton and pure cotton blends — without variation in quality is what keeps them on our vendor list."</p>
+            <p style="font-size:8px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#C5A97A;">Pure Formals · High-End Blends</p>
           </div>
 
-          <!-- Duplicate set B (identical) for seamless loop -->
+          <!-- Watchler -->
           <div class="testimonial-card">
-            <div style="margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid rgba(26,26,24,0.1);display:flex;align-items:center;gap:12px;">
-              <img src="BRAND_ASSETS/napoleon logo-2.png" alt="" style="height:22px;width:auto;opacity:0.18;filter:saturate(0);" />
-              <p style="font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:rgba(26,26,24,0.35);">Bombay Shirt Co.</p>
+            <div style="margin-bottom:18px;padding-bottom:16px;border-bottom:1px solid rgba(26,26,24,0.1);">
+              <div style="display:inline-flex;align-items:center;justify-content:center;background:#2B2B2B;padding:8px 14px;margin-bottom:10px;">
+                <img src="BRAND_ASSETS/clients/watchler.png" alt="Watchler" style="height:30px;width:auto;display:block;" />
+              </div>
+              <p style="font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:rgba(26,26,24,0.4);">Watchler Shirts</p>
             </div>
-            <p style="font-size:13.5px;font-style:italic;line-height:1.85;color:#1A1A18;margin-bottom:20px;">"Napoleon fabrics consistently deliver on colour accuracy and shrinkage control. Our production team trusts them implicitly — defect rates under 0.2%."</p>
-            <div style="height:1px;background:rgba(26,26,24,0.1);margin-bottom:14px;"></div>
-            <p style="font-size:12px;font-weight:500;color:#1A1A18;">Rajiv Mehta</p>
-            <p style="font-size:9px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:#4A4E5A;margin-top:4px;">Head of Sourcing</p>
+            <p style="font-size:13px;font-style:italic;line-height:1.9;color:#1A1A18;margin-bottom:18px;">"Our quantities are selective, but Napoleon never treats them that way. The casual cotton checks are exactly right — the weave, the feel, the finish. And their collection depth means we always discover more than we came looking for."</p>
+            <p style="font-size:8px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#C5A97A;">Casual Cotton Checks · Curated Basket</p>
           </div>
 
-          <div class="testimonial-card">
-            <div style="margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid rgba(26,26,24,0.1);display:flex;align-items:center;gap:12px;">
-              <img src="BRAND_ASSETS/napoleon logo-2.png" alt="" style="height:22px;width:auto;opacity:0.18;filter:saturate(0);" />
-              <p style="font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:rgba(26,26,24,0.35);">Prestige Menswear</p>
-            </div>
-            <p style="font-size:13.5px;font-style:italic;line-height:1.85;color:#1A1A18;margin-bottom:20px;">"The Dobby Jacquard range is extraordinary. Our label shirts made from NTC fabric outsell every other SKU. The handle and drape speak for themselves."</p>
-            <div style="height:1px;background:rgba(26,26,24,0.1);margin-bottom:14px;"></div>
-            <p style="font-size:12px;font-weight:500;color:#1A1A18;">Priya Sharma</p>
-            <p style="font-size:9px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:#4A4E5A;margin-top:4px;">Creative Director</p>
-          </div>
+          <!-- ── SET B (duplicate for seamless loop) ── -->
 
           <div class="testimonial-card">
-            <div style="margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid rgba(26,26,24,0.1);display:flex;align-items:center;gap:12px;">
-              <img src="BRAND_ASSETS/napoleon logo-2.png" alt="" style="height:22px;width:auto;opacity:0.18;filter:saturate(0);" />
-              <p style="font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:rgba(26,26,24,0.35);">Elegance Apparels</p>
+            <div style="margin-bottom:18px;padding-bottom:16px;border-bottom:1px solid rgba(26,26,24,0.1);">
+              <div style="display:inline-flex;align-items:center;justify-content:center;background:#0D0D0D;padding:8px 14px;margin-bottom:10px;">
+                <img src="BRAND_ASSETS/clients/shoppers-stop.png" alt="Shoppers Stop" style="height:26px;width:auto;display:block;" />
+              </div>
+              <p style="font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:rgba(26,26,24,0.4);">Shoppers Stop</p>
             </div>
-            <p style="font-size:13.5px;font-style:italic;line-height:1.85;color:#1A1A18;margin-bottom:20px;">"In 8 years of working with NTC, I've never had a late shipment. Their logistics and communication set the benchmark for the industry."</p>
-            <div style="height:1px;background:rgba(26,26,24,0.1);margin-bottom:14px;"></div>
-            <p style="font-size:12px;font-weight:500;color:#1A1A18;">Anil Kapoor</p>
-            <p style="font-size:9px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:#4A4E5A;margin-top:4px;">Chief Executive Officer</p>
+            <p style="font-size:13px;font-style:italic;line-height:1.9;color:#1A1A18;margin-bottom:18px;">"Napoleon has been our go-to for formal yarn-dyed shirting across multiple seasons under our In-Tune label. The colour accuracy season-on-season is something we simply cannot compromise — they have never let us down."</p>
+            <p style="font-size:8px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#C5A97A;">Formal Shirting · Seasonal Supply</p>
           </div>
 
           <div class="testimonial-card">
-            <div style="margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid rgba(26,26,24,0.1);display:flex;align-items:center;gap:12px;">
-              <img src="BRAND_ASSETS/napoleon logo-2.png" alt="" style="height:22px;width:auto;opacity:0.18;filter:saturate(0);" />
-              <p style="font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:rgba(26,26,24,0.35);">Heritage Fabric House</p>
+            <div style="margin-bottom:18px;padding-bottom:16px;border-bottom:1px solid rgba(26,26,24,0.1);">
+              <div style="display:inline-flex;align-items:center;justify-content:center;background:#F5F5F5;padding:8px 14px;margin-bottom:10px;">
+                <img src="BRAND_ASSETS/clients/white-house.png" alt="White House" style="height:32px;width:auto;display:block;" />
+              </div>
+              <p style="font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:rgba(26,26,24,0.4);">White House</p>
             </div>
-            <p style="font-size:13.5px;font-style:italic;line-height:1.85;color:#1A1A18;margin-bottom:20px;">"The Giza blend range opened a new price tier for us — clients immediately notice the lustre and hand feel. NTC's consistency batch-to-batch is unmatched."</p>
-            <div style="height:1px;background:rgba(26,26,24,0.1);margin-bottom:14px;"></div>
-            <p style="font-size:12px;font-weight:500;color:#1A1A18;">Omar Al-Farouq</p>
-            <p style="font-size:9px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:#4A4E5A;margin-top:4px;">Director of Procurement, UAE</p>
+            <p style="font-size:13px;font-style:italic;line-height:1.9;color:#1A1A18;margin-bottom:18px;">"From our Sateen plains to tailored checks and clean-cut stripes — Napoleon covers our full fabric programme with precision. Their core range has become the backbone of our production cycle, season after season."</p>
+            <p style="font-size:8px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#C5A97A;">Checks · Stripes · Sateen Core</p>
+          </div>
+
+          <div class="testimonial-card">
+            <div style="margin-bottom:18px;padding-bottom:16px;border-bottom:1px solid rgba(26,26,24,0.1);">
+              <div style="display:inline-flex;align-items:center;justify-content:center;background:#F5F5F5;padding:8px 14px;margin-bottom:10px;">
+                <img src="BRAND_ASSETS/clients/cobb-italy.png" alt="Cobb Italy" style="height:28px;width:auto;display:block;" />
+              </div>
+              <p style="font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:rgba(26,26,24,0.4);">Cobb Italy</p>
+            </div>
+            <p style="font-size:13px;font-style:italic;line-height:1.9;color:#1A1A18;margin-bottom:18px;">"Napoleon supplies both ends of our range — the casual 100% cotton checks carry exactly the texture our weekend line demands, while the poly-cotton blended formals hold structure through the season. Two categories, one reliable source."</p>
+            <p style="font-size:8px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#C5A97A;">Cotton Checks · Poly-Cotton Formals</p>
+          </div>
+
+          <div class="testimonial-card">
+            <div style="margin-bottom:18px;padding-bottom:16px;border-bottom:1px solid rgba(26,26,24,0.1);">
+              <div style="display:inline-flex;align-items:center;justify-content:center;background:#D0202A;padding:8px 16px;margin-bottom:10px;">
+                <img src="BRAND_ASSETS/clients/raymond.png" alt="Raymond" style="height:26px;width:auto;display:block;" />
+              </div>
+              <p style="font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:rgba(26,26,24,0.4);">Raymond</p>
+            </div>
+            <p style="font-size:13px;font-style:italic;line-height:1.9;color:#1A1A18;margin-bottom:18px;">"Napoleon's high-end formal fabric elevates our online brand portfolio in both appearance and wear life. Their ability to honour precise repeat quantities — across poly-cotton and pure cotton blends — without variation in quality is what keeps them on our vendor list."</p>
+            <p style="font-size:8px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#C5A97A;">Pure Formals · High-End Blends</p>
+          </div>
+
+          <div class="testimonial-card">
+            <div style="margin-bottom:18px;padding-bottom:16px;border-bottom:1px solid rgba(26,26,24,0.1);">
+              <div style="display:inline-flex;align-items:center;justify-content:center;background:#2B2B2B;padding:8px 14px;margin-bottom:10px;">
+                <img src="BRAND_ASSETS/clients/watchler.png" alt="Watchler" style="height:30px;width:auto;display:block;" />
+              </div>
+              <p style="font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:rgba(26,26,24,0.4);">Watchler Shirts</p>
+            </div>
+            <p style="font-size:13px;font-style:italic;line-height:1.9;color:#1A1A18;margin-bottom:18px;">"Our quantities are selective, but Napoleon never treats them that way. The casual cotton checks are exactly right — the weave, the feel, the finish. And their collection depth means we always discover more than we came looking for."</p>
+            <p style="font-size:8px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:#C5A97A;">Casual Cotton Checks · Curated Basket</p>
           </div>
 
         </div><!-- /testimonial-track -->
