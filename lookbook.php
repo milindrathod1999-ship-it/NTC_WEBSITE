@@ -568,9 +568,10 @@
     const { minX, minY, cW, cH } = getContentBounds(laid);
     const availW = vw - EDGE_PAD * 2;
     const availH = vh - navH - EDGE_PAD * 2;
-    const coverScale = Math.max(availW / cW, availH / cH);
-    minScale = coverScale;
-    scale    = coverScale;
+    // Math.min = fit-to-view (all photos visible); Math.max would cover/crop
+    const fitScale = Math.min(availW / cW, availH / cH);
+    minScale = fitScale * 0.7; // allow zooming out 30% past fit for context
+    scale    = fitScale;
     vx = EDGE_PAD + (availW - cW * scale) / 2 - minX * scale;
     vy = navH + EDGE_PAD - minY * scale;
     clampPan();
