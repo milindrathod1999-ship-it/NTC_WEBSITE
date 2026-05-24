@@ -606,6 +606,9 @@
     }
     @media (max-width: 767px) {
       .journey-content { border-left: none !important; border-right: none !important; border-top: 1px solid rgba(26,26,24,0.08); }
+      /* Photo always first on mobile regardless of DOM order */
+      .journey-row-flip .journey-artwork { order: -1; }
+      .journey-row-flip .journey-content { order: 1; }
     }
     .milestone-year {
       font-size: clamp(0.72rem, 1.1vw, 0.82rem);
@@ -836,6 +839,9 @@
       flex: 0 0 400px;
       background: #E8E0D0;
       padding: 36px 40px;
+    }
+    @media (max-width: 639px) {
+      .testimonial-card { flex: 0 0 260px; padding: 20px 18px; }
     }
 
     /* ══ MOBILE OPTIMISATIONS ═══════════════════════════════════════════ */
@@ -1657,7 +1663,8 @@
       <!-- SVG World Map — dotted grid, D3 Mercator (Natural Earth 110m) -->
       <div class="gsap-reveal" style="overflow:hidden;">
         <svg id="world-map-svg" viewBox="0 0 960 500" xmlns="http://www.w3.org/2000/svg"
-             style="width:100%;display:block;background:#0E0E0C;">
+             preserveAspectRatio="xMidYMid slice"
+             style="width:100%;display:block;background:#0E0E0C;min-height:220px;">
           <defs>
             <!-- Land dot grid — small, dense, uniform squares (pixel-map style) -->
             <pattern id="dotGrid" width="5.5" height="5.5" patternUnits="userSpaceOnUse">
@@ -1957,7 +1964,7 @@
         </div>
       </div>
       <div class="craft-step-photo-mobile">
-        <img src="https://placehold.co/800x360/1A1A18/C5A97A?text=Quality+Check" alt="Quality Assurance" loading="lazy" decoding="async" />
+        <img src="BRAND_ASSETS/Fabric photos/Checkingmachine.jpg" alt="Quality Assurance" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;" />
       </div>
 
       <div class="craft-step craft-anim" style="border-bottom:1px solid rgba(197,169,122,0.14);">
@@ -2092,12 +2099,12 @@
   <footer class="py-10 lg:py-12" style="background:#0E0E0C;">
     <div class="max-w-screen-xl mx-auto px-6 lg:px-12">
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-8">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-5 lg:gap-10 mb-6 lg:mb-8">
 
         <!-- Brand -->
         <div>
           <img src="BRAND_ASSETS/napoleon logo-2.png" alt="Napoleon Textile Company"
-               class="h-20 w-auto mb-5" style="filter:invert(1);opacity:0.8;" />
+               class="h-12 lg:h-20 w-auto mb-3 lg:mb-5" style="filter:invert(1);opacity:0.8;" />
           <p style="font-size:9px;font-weight:400;color:rgba(244,241,234,0.28);line-height:1.9;">A Design House in Fabric.<br />Premium Men's Shirting.<br />Mumbai · India · Est. 1995</p>
           <div style="width:28px;height:1px;background:rgba(197,169,122,0.4);margin-top:1.25rem;"></div>
           <p style="font-size:9px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:rgba(197,169,122,0.55);margin-top:0.9rem;">500+ Designs · Season</p>
@@ -2369,7 +2376,7 @@
         trigger: tlContainer,
         start: 'top center',
         end:   'bottom center',
-        scrub: 1.5,
+        scrub: 0.8,
         onUpdate(self) {
           const s = self.progress;
           tlProgress.style.transform = `scaleY(${s})`;
