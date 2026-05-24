@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+* { margin: 0; padding: 0; }
+body { overflow: hidden; width: 1440px; height: 900px; }
+iframe { width: 1440px; height: 900px; border: none; display: block; }
+</style>
+</head>
+<body>
+<iframe id="f" src="http://localhost:3000"></iframe>
+<script>
+var params = new URLSearchParams(location.search);
+var y = parseInt(params.get('y') || '0');
+document.getElementById('f').addEventListener('load', function() {
+  this.contentWindow.scrollTo(0, y);
+});
+</script>
+</body>
+</html>
