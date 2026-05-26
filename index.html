@@ -1096,7 +1096,7 @@
             <div class="card-inner" style="background:#0E0E0C;overflow:hidden;position:relative;">
               <video class="collection-video" muted loop playsinline preload="none"
                      style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;pointer-events:none;">
-                <source data-src="BRAND_ASSETS/Boardroom formal.mov" type="video/quicktime">
+                <source data-src="BRAND_ASSETS/Boardroom formal.mp4" type="video/mp4">
               </video>
               <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.72) 0%,rgba(0,0,0,0.18) 55%,transparent 100%);z-index:1;"></div>
               <span class="card-number text-ntc-ivory" style="z-index:2;">01</span>
@@ -1113,7 +1113,7 @@
             <div class="card-inner" style="background:#2A2E38;overflow:hidden;position:relative;">
               <video class="collection-video" muted loop playsinline preload="none"
                      style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;pointer-events:none;">
-                <source data-src="BRAND_ASSETS/Smart Casual.mov" type="video/quicktime">
+                <source data-src="BRAND_ASSETS/Smart Casual.mp4" type="video/mp4">
               </video>
               <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.72) 0%,rgba(0,0,0,0.18) 55%,transparent 100%);z-index:1;"></div>
               <span class="card-number text-ntc-ivory" style="z-index:2;">02</span>
@@ -1130,7 +1130,7 @@
             <div class="card-inner" style="background:#1A0E08;overflow:hidden;position:relative;">
               <video class="collection-video" muted loop playsinline preload="none"
                      style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;pointer-events:none;">
-                <source data-src="BRAND_ASSETS/Evening wear.mov" type="video/quicktime">
+                <source data-src="BRAND_ASSETS/Evening wear.mp4" type="video/mp4">
               </video>
               <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.72) 0%,rgba(0,0,0,0.18) 55%,transparent 100%);z-index:1;"></div>
               <span class="card-number text-ntc-champagne" style="z-index:2;">03</span>
@@ -1147,7 +1147,7 @@
             <div class="card-inner" style="background:#1A1810;overflow:hidden;position:relative;">
               <video class="collection-video" muted loop playsinline preload="none"
                      style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;pointer-events:none;">
-                <source data-src="BRAND_ASSETS/Workwear.mov" type="video/quicktime">
+                <source data-src="BRAND_ASSETS/Workwear.mp4" type="video/mp4">
               </video>
               <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.72) 0%,rgba(0,0,0,0.18) 55%,transparent 100%);z-index:1;"></div>
               <span class="card-number text-ntc-champagne" style="z-index:2;">04</span>
@@ -1163,7 +1163,7 @@
             <div class="card-inner" style="background:#1C2830;overflow:hidden;position:relative;">
               <video class="collection-video" muted loop playsinline preload="none"
                      style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;pointer-events:none;">
-                <source data-src="BRAND_ASSETS/Resort wear.mov" type="video/quicktime">
+                <source data-src="BRAND_ASSETS/Resort wear.mp4" type="video/mp4">
               </video>
               <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.72) 0%,rgba(0,0,0,0.18) 55%,transparent 100%);z-index:1;"></div>
               <span class="card-number text-ntc-ivory" style="z-index:2;">05</span>
@@ -1188,7 +1188,7 @@
             <div class="card-inner" style="background:#0E0E0C;overflow:hidden;position:relative;">
               <video class="collection-video" muted loop playsinline preload="none"
                      style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;pointer-events:none;">
-                <source data-src="BRAND_ASSETS/Checks.mov" type="video/quicktime">
+                <source data-src="BRAND_ASSETS/Checks.mp4" type="video/mp4">
               </video>
               <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.72) 0%,rgba(0,0,0,0.18) 55%,transparent 100%);z-index:1;"></div>
               <span class="card-number text-ntc-ivory" style="z-index:2;">01</span>
@@ -1204,7 +1204,7 @@
             <div class="card-inner" style="background:#0E0E0C;overflow:hidden;position:relative;">
               <video class="collection-video" muted loop playsinline preload="none"
                      style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;pointer-events:none;">
-                <source data-src="BRAND_ASSETS/Stripes.mov" type="video/quicktime">
+                <source data-src="BRAND_ASSETS/Stripes.mp4" type="video/mp4">
               </video>
               <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.72) 0%,rgba(0,0,0,0.18) 55%,transparent 100%);z-index:1;"></div>
               <span class="card-number text-ntc-ivory" style="z-index:2;">02</span>
@@ -1220,7 +1220,7 @@
             <div class="card-inner" style="background:#0E0E0C;overflow:hidden;position:relative;">
               <video class="collection-video" muted loop playsinline preload="none"
                      style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;pointer-events:none;">
-                <source data-src="BRAND_ASSETS/Dobbies.mov" type="video/quicktime">
+                <source data-src="BRAND_ASSETS/Dobbies.mp4" type="video/mp4">
               </video>
               <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.72) 0%,rgba(0,0,0,0.18) 55%,transparent 100%);z-index:1;"></div>
               <span class="card-number text-ntc-champagne" style="z-index:2;">03</span>
@@ -1236,7 +1236,7 @@
             <div class="card-inner" style="background:#0E0E0C;overflow:hidden;position:relative;">
               <video class="collection-video" muted loop playsinline preload="none"
                      style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;pointer-events:none;">
-                <source data-src="BRAND_ASSETS/Plains.mov" type="video/quicktime">
+                <source data-src="BRAND_ASSETS/Plains.mp4" type="video/mp4">
               </video>
               <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.72) 0%,rgba(0,0,0,0.18) 55%,transparent 100%);z-index:1;"></div>
               <span class="card-number text-ntc-ivory" style="z-index:2;">04</span>
@@ -1252,7 +1252,7 @@
             <div class="card-inner" style="background:#0E0E0C;overflow:hidden;position:relative;">
               <video class="collection-video" muted loop playsinline preload="none"
                      style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;pointer-events:none;">
-                <source data-src="BRAND_ASSETS/Prints.mov" type="video/quicktime">
+                <source data-src="BRAND_ASSETS/Prints.mp4" type="video/mp4">
               </video>
               <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.72) 0%,rgba(0,0,0,0.18) 55%,transparent 100%);z-index:1;"></div>
               <span class="card-number text-ntc-champagne" style="z-index:2;">05</span>

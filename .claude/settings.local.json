@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node serve.mjs)",
+      "Read(//usr/local/**)",
+      "Read(//opt/homebrew/**)",
+      "Bash(nvm use:*)",
+      "Bash(python3 -m http.server 3000)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3000/index.html)",
+      "Bash('/Applications/Google Chrome.app/Contents/MacOS/Google Chrome' --headless=new '--screenshot=/Users/milindrathod/Desktop/Website build/temporary screenshots/screenshot-1.png' --window-size=1440,900 --no-sandbox --disable-gpu http://localhost:3000)",
+      "Bash(echo \"exit: $?\")",
+      "Bash(pip3 install:*)",
+      "Bash(python3 -c \"import websocket; print\\('ok'\\)\")",
+      "Bash(python3 /tmp/cdp_screenshot.py)"
+    ]
+  }
+}
