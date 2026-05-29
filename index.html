@@ -2660,35 +2660,10 @@
       const svgEl = document.getElementById('world-map-svg');
       if (!svgEl) return;
 
-      const loadScript = src => new Promise(resolve => {
-        const s = document.createElement('script');
-        s.src = src; s.onload = resolve; document.head.appendChild(s);
-      });
-
-      let triggered = false;
-      new IntersectionObserver(entries => {
-        if (!entries[0].isIntersecting || triggered) return;
-        triggered = true;
-        Promise.all([
-          loadScript('https://d3js.org/d3.v7.min.js'),
-          loadScript('https://unpkg.com/topojson-client@3/dist/topojson-client.min.js')
-        ]).then(() => {
-          fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json')
-            .then(r => r.json())
-            .then(buildMap)
-            .catch(() => {});
-        });
-      }, { rootMargin: '400px' }).observe(svgEl);
-
+      // Declared here, assigned after D3 loads so buildMap can access via closure
+      let projection, geoPath;
       const W = 960, H = 500;
       const ns = 'http://www.w3.org/2000/svg';
-
-      const projection = d3.geoNaturalEarth1()
-        .scale(153)
-        .translate([W / 2, H / 2]);
-      const geoPath = d3.geoPath().projection(projection);
-
-      // Export destinations + Mumbai home base
       const MUMBAI = [72.88, 19.07];
       const CITIES = [
         { name: 'Sri Lanka',    lon:  80.77, lat:   7.87, delay: 0.0  },
@@ -2705,24 +2680,48 @@
         { name: 'Hong Kong',    lon: 114.16, lat:  22.32, delay: 0.8  },
       ];
 
-      // Arrowhead marker definition
-      const defs = svgEl.querySelector('defs');
-      const marker = document.createElementNS(ns, 'marker');
-      marker.setAttribute('id', 'arrowhead');
-      marker.setAttribute('markerWidth', '6');
-      marker.setAttribute('markerHeight', '6');
-      marker.setAttribute('refX', '5');
-      marker.setAttribute('refY', '3');
-      marker.setAttribute('orient', 'auto');
-      marker.setAttribute('markerUnits', 'strokeWidth');
-      const arrowPath = document.createElementNS(ns, 'path');
-      arrowPath.setAttribute('d', 'M0,0.5 L5,3 L0,5.5');
-      arrowPath.setAttribute('fill', 'none');
-      arrowPath.setAttribute('stroke', '#C5A97A');
-      arrowPath.setAttribute('stroke-width', '1');
-      arrowPath.setAttribute('stroke-linecap', 'round');
-      marker.appendChild(arrowPath);
-      defs.appendChild(marker);
+      const loadScript = src => new Promise(resolve => {
+        const s = document.createElement('script');
+        s.src = src; s.onload = resolve; document.head.appendChild(s);
+      });
+
+      let triggered = false;
+      new IntersectionObserver(entries => {
+        if (!entries[0].isIntersecting || triggered) return;
+        triggered = true;
+        Promise.all([
+          loadScript('https://d3js.org/d3.v7.min.js'),
+          loadScript('https://unpkg.com/topojson-client@3/dist/topojson-client.min.js')
+        ]).then(() => {
+          // Assign D3-dependent vars now that D3 is loaded
+          projection = d3.geoNaturalEarth1().scale(153).translate([W / 2, H / 2]);
+          geoPath = d3.geoPath().projection(projection);
+
+          // Arrowhead marker
+          const defs = svgEl.querySelector('defs');
+          const marker = document.createElementNS(ns, 'marker');
+          marker.setAttribute('id', 'arrowhead');
+          marker.setAttribute('markerWidth', '6');
+          marker.setAttribute('markerHeight', '6');
+          marker.setAttribute('refX', '5');
+          marker.setAttribute('refY', '3');
+          marker.setAttribute('orient', 'auto');
+          marker.setAttribute('markerUnits', 'strokeWidth');
+          const arrowPath = document.createElementNS(ns, 'path');
+          arrowPath.setAttribute('d', 'M0,0.5 L5,3 L0,5.5');
+          arrowPath.setAttribute('fill', 'none');
+          arrowPath.setAttribute('stroke', '#C5A97A');
+          arrowPath.setAttribute('stroke-width', '1');
+          arrowPath.setAttribute('stroke-linecap', 'round');
+          marker.appendChild(arrowPath);
+          defs.appendChild(marker);
+
+          fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json')
+            .then(r => r.json())
+            .then(buildMap)
+            .catch(() => {});
+        });
+      }, { rootMargin: '400px' }).observe(svgEl);
 
       function buildMap(world) {
         const land = topojson.feature(world, world.objects.land);
