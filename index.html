@@ -11,13 +11,19 @@
   <!-- Preload hero image — discovered early, above-fold critical path -->
   <link rel="preload" href="BRAND_ASSETS/IMG_2961.webp" as="image" fetchpriority="high">
 
+  <!-- Preconnect to CDN origins — resolves DNS+TLS before scripts are requested -->
+  <link rel="preconnect" href="https://cdn.tailwindcss.com">
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+  <link rel="preconnect" href="https://unpkg.com">
+  <link rel="dns-prefetch" href="https://d3js.org">
+  <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+
   <!-- Scripts -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
-  <script src="https://d3js.org/d3.v7.min.js"></script>
-  <script src="https://unpkg.com/topojson-client@3/dist/topojson-client.min.js"></script>
+  <!-- D3 + TopoJSON loaded lazily when world map scrolls into view -->
 
   <!-- Tailwind brand tokens -->
   <script>
@@ -914,7 +920,7 @@
 
         <!-- Center: Logo -->
         <a href="#" class="flex justify-center">
-          <img src="BRAND_ASSETS/napoleon logo-2.png" alt="Napoleon Textile Company"
+          <img src="BRAND_ASSETS/napoleon logo-2.webp" alt="Napoleon Textile Company"
                id="nav-logo" class="w-auto" style="height:4.8rem;filter: none; transition: filter 0.35s ease;" />
         </a>
 
@@ -928,7 +934,7 @@
       <!-- Mobile row -->
       <div class="flex lg:hidden items-center justify-between py-5">
         <a href="#">
-          <img src="BRAND_ASSETS/napoleon logo-2.png" alt="Napoleon Textile Company"
+          <img src="BRAND_ASSETS/napoleon logo-2.webp" alt="Napoleon Textile Company"
                id="nav-logo-mob" class="w-auto" style="height:3.5rem;filter: none; transition: filter 0.35s ease;" />
         </a>
         <button id="menu-btn" class="p-2 focus:outline-none" aria-label="Menu">
@@ -1749,7 +1755,7 @@
           <div class="testimonial-card">
             <div style="margin-bottom:18px;padding-bottom:16px;border-bottom:1px solid rgba(26,26,24,0.1);">
               <div style="display:inline-flex;align-items:center;justify-content:center;background:#0D0D0D;padding:8px 14px;margin-bottom:10px;">
-                <img src="BRAND_ASSETS/clients/shoppers-stop.png" alt="Shoppers Stop" style="height:26px;width:auto;display:block;" />
+                <img src="BRAND_ASSETS/clients/shoppers-stop.webp" alt="Shoppers Stop" style="height:26px;width:auto;display:block;" />
               </div>
               <p style="font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:rgba(26,26,24,0.4);">Shoppers Stop</p>
             </div>
@@ -1761,7 +1767,7 @@
           <div class="testimonial-card">
             <div style="margin-bottom:18px;padding-bottom:16px;border-bottom:1px solid rgba(26,26,24,0.1);">
               <div style="display:inline-flex;align-items:center;justify-content:center;background:#F5F5F5;padding:8px 14px;margin-bottom:10px;">
-                <img src="BRAND_ASSETS/clients/white-house.png" alt="White House" style="height:32px;width:auto;display:block;" />
+                <img src="BRAND_ASSETS/clients/white-house.webp" alt="White House" style="height:32px;width:auto;display:block;" />
               </div>
               <p style="font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:rgba(26,26,24,0.4);">White House</p>
             </div>
@@ -1773,7 +1779,7 @@
           <div class="testimonial-card">
             <div style="margin-bottom:18px;padding-bottom:16px;border-bottom:1px solid rgba(26,26,24,0.1);">
               <div style="display:inline-flex;align-items:center;justify-content:center;background:#F5F5F5;padding:8px 14px;margin-bottom:10px;">
-                <img src="BRAND_ASSETS/clients/cobb-italy.png" alt="Cobb Italy" style="height:28px;width:auto;display:block;" />
+                <img src="BRAND_ASSETS/clients/cobb-italy.webp" alt="Cobb Italy" style="height:28px;width:auto;display:block;" />
               </div>
               <p style="font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:rgba(26,26,24,0.4);">Cobb Italy</p>
             </div>
@@ -1785,7 +1791,7 @@
           <div class="testimonial-card">
             <div style="margin-bottom:18px;padding-bottom:16px;border-bottom:1px solid rgba(26,26,24,0.1);">
               <div style="display:inline-flex;align-items:center;justify-content:center;background:#D0202A;padding:8px 16px;margin-bottom:10px;">
-                <img src="BRAND_ASSETS/clients/raymond.png" alt="Raymond" style="height:26px;width:auto;display:block;" />
+                <img src="BRAND_ASSETS/clients/raymond.webp" alt="Raymond" style="height:26px;width:auto;display:block;" />
               </div>
               <p style="font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:rgba(26,26,24,0.4);">Raymond</p>
             </div>
@@ -1797,7 +1803,7 @@
           <div class="testimonial-card">
             <div style="margin-bottom:18px;padding-bottom:16px;border-bottom:1px solid rgba(26,26,24,0.1);">
               <div style="display:inline-flex;align-items:center;justify-content:center;background:#2B2B2B;padding:8px 14px;margin-bottom:10px;">
-                <img src="BRAND_ASSETS/clients/watchler.png" alt="Watchler" style="height:30px;width:auto;display:block;" />
+                <img src="BRAND_ASSETS/clients/watchler.webp" alt="Watchler" style="height:30px;width:auto;display:block;" />
               </div>
               <p style="font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:rgba(26,26,24,0.4);">Watchler Shirts</p>
             </div>
@@ -1810,7 +1816,7 @@
           <div class="testimonial-card">
             <div style="margin-bottom:18px;padding-bottom:16px;border-bottom:1px solid rgba(26,26,24,0.1);">
               <div style="display:inline-flex;align-items:center;justify-content:center;background:#0D0D0D;padding:8px 14px;margin-bottom:10px;">
-                <img src="BRAND_ASSETS/clients/shoppers-stop.png" alt="Shoppers Stop" style="height:26px;width:auto;display:block;" />
+                <img src="BRAND_ASSETS/clients/shoppers-stop.webp" alt="Shoppers Stop" style="height:26px;width:auto;display:block;" />
               </div>
               <p style="font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:rgba(26,26,24,0.4);">Shoppers Stop</p>
             </div>
@@ -1821,7 +1827,7 @@
           <div class="testimonial-card">
             <div style="margin-bottom:18px;padding-bottom:16px;border-bottom:1px solid rgba(26,26,24,0.1);">
               <div style="display:inline-flex;align-items:center;justify-content:center;background:#F5F5F5;padding:8px 14px;margin-bottom:10px;">
-                <img src="BRAND_ASSETS/clients/white-house.png" alt="White House" style="height:32px;width:auto;display:block;" />
+                <img src="BRAND_ASSETS/clients/white-house.webp" alt="White House" style="height:32px;width:auto;display:block;" />
               </div>
               <p style="font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:rgba(26,26,24,0.4);">White House</p>
             </div>
@@ -1832,7 +1838,7 @@
           <div class="testimonial-card">
             <div style="margin-bottom:18px;padding-bottom:16px;border-bottom:1px solid rgba(26,26,24,0.1);">
               <div style="display:inline-flex;align-items:center;justify-content:center;background:#F5F5F5;padding:8px 14px;margin-bottom:10px;">
-                <img src="BRAND_ASSETS/clients/cobb-italy.png" alt="Cobb Italy" style="height:28px;width:auto;display:block;" />
+                <img src="BRAND_ASSETS/clients/cobb-italy.webp" alt="Cobb Italy" style="height:28px;width:auto;display:block;" />
               </div>
               <p style="font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:rgba(26,26,24,0.4);">Cobb Italy</p>
             </div>
@@ -1843,7 +1849,7 @@
           <div class="testimonial-card">
             <div style="margin-bottom:18px;padding-bottom:16px;border-bottom:1px solid rgba(26,26,24,0.1);">
               <div style="display:inline-flex;align-items:center;justify-content:center;background:#D0202A;padding:8px 16px;margin-bottom:10px;">
-                <img src="BRAND_ASSETS/clients/raymond.png" alt="Raymond" style="height:26px;width:auto;display:block;" />
+                <img src="BRAND_ASSETS/clients/raymond.webp" alt="Raymond" style="height:26px;width:auto;display:block;" />
               </div>
               <p style="font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:rgba(26,26,24,0.4);">Raymond</p>
             </div>
@@ -1854,7 +1860,7 @@
           <div class="testimonial-card">
             <div style="margin-bottom:18px;padding-bottom:16px;border-bottom:1px solid rgba(26,26,24,0.1);">
               <div style="display:inline-flex;align-items:center;justify-content:center;background:#2B2B2B;padding:8px 14px;margin-bottom:10px;">
-                <img src="BRAND_ASSETS/clients/watchler.png" alt="Watchler" style="height:30px;width:auto;display:block;" />
+                <img src="BRAND_ASSETS/clients/watchler.webp" alt="Watchler" style="height:30px;width:auto;display:block;" />
               </div>
               <p style="font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:rgba(26,26,24,0.4);">Watchler Shirts</p>
             </div>
@@ -2129,7 +2135,7 @@
 
         <!-- Brand -->
         <div>
-          <img src="BRAND_ASSETS/napoleon logo-2.png" alt="Napoleon Textile Company"
+          <img src="BRAND_ASSETS/napoleon logo-2.webp" alt="Napoleon Textile Company"
                class="h-12 lg:h-20 w-auto mb-3 lg:mb-5" style="filter:invert(1);opacity:0.8;" />
           <p style="font-size:9px;font-weight:400;color:rgba(244,241,234,0.28);line-height:1.9;">A Design House in Fabric.<br />Premium Men's Shirting.<br />Mumbai · India · Est. 1995</p>
           <div style="width:28px;height:1px;background:rgba(197,169,122,0.4);margin-top:1.25rem;"></div>
@@ -2648,10 +2654,31 @@
 
     // ════════════════════════════════════════
     // WORLD MAP — D3 + Natural Earth TopoJSON
+    // Loaded lazily only when the exports section nears the viewport
     // ════════════════════════════════════════
     (function() {
       const svgEl = document.getElementById('world-map-svg');
-      if (!svgEl || typeof d3 === 'undefined' || typeof topojson === 'undefined') return;
+      if (!svgEl) return;
+
+      const loadScript = src => new Promise(resolve => {
+        const s = document.createElement('script');
+        s.src = src; s.onload = resolve; document.head.appendChild(s);
+      });
+
+      let triggered = false;
+      new IntersectionObserver(entries => {
+        if (!entries[0].isIntersecting || triggered) return;
+        triggered = true;
+        Promise.all([
+          loadScript('https://d3js.org/d3.v7.min.js'),
+          loadScript('https://unpkg.com/topojson-client@3/dist/topojson-client.min.js')
+        ]).then(() => {
+          fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json')
+            .then(r => r.json())
+            .then(buildMap)
+            .catch(() => {});
+        });
+      }, { rootMargin: '400px' }).observe(svgEl);
 
       const W = 960, H = 500;
       const ns = 'http://www.w3.org/2000/svg';
@@ -2885,10 +2912,6 @@
         });
       }
 
-      fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json')
-        .then(r => r.json())
-        .then(buildMap)
-        .catch(() => {});
     })();
 
     // ════════════════════════════════════════
