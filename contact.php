@@ -35,7 +35,7 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 }
 
 // Build email
-$to      = 'milindrathod1999@gmail.com';
+$to      = 'info@napoleontextilecompany.com';
 $subject = 'New Enquiry from ' . $name . ($company ? " ($company)" : '');
 $body    = "Name:    $name\n"
          . "Company: $company\n"
