@@ -1,3 +1,9 @@
+<?php
+session_start();
+$cap_a = rand(2, 9);
+$cap_b = rand(1, 9);
+$_SESSION['captcha_answer'] = $cap_a + $cap_b;
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,15 +15,21 @@
   <link rel="preload" href="fonts/bodoni-400.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/bodoni-700.woff2" as="font" type="font/woff2" crossorigin>
   <!-- Preload hero image — discovered early, above-fold critical path -->
-  <link rel="preload" href="BRAND_ASSETS/IMG_2961.jpeg" as="image" fetchpriority="high">
+  <link rel="preload" href="BRAND_ASSETS/IMG_2961.webp" as="image" fetchpriority="high">
+
+  <!-- Preconnect to CDN origins — resolves DNS+TLS before scripts are requested -->
+  <link rel="preconnect" href="https://cdn.tailwindcss.com">
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+  <link rel="preconnect" href="https://unpkg.com">
+  <link rel="dns-prefetch" href="https://d3js.org">
+  <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
 
   <!-- Scripts -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
-  <script src="https://d3js.org/d3.v7.min.js"></script>
-  <script src="https://unpkg.com/topojson-client@3/dist/topojson-client.min.js"></script>
+  <!-- D3 + TopoJSON loaded lazily when world map scrolls into view -->
 
   <!-- Tailwind brand tokens -->
   <script>
@@ -909,12 +921,12 @@
 
         <!-- Left: Lookbook -->
         <div class="flex items-center">
-          <a href="lookbook.php" class="btn-nav-text">Lookbook</a>
+          <a href="lookbook.html" class="btn-nav-text">Lookbook</a>
         </div>
 
         <!-- Center: Logo -->
         <a href="#" class="flex justify-center">
-          <img src="BRAND_ASSETS/napoleon logo-2.png" alt="Napoleon Textile Company"
+          <img src="BRAND_ASSETS/napoleon logo-2.webp" alt="Napoleon Textile Company"
                id="nav-logo" class="w-auto" style="height:4.8rem;filter: none; transition: filter 0.35s ease;" />
         </a>
 
@@ -928,7 +940,7 @@
       <!-- Mobile row -->
       <div class="flex lg:hidden items-center justify-between py-5">
         <a href="#">
-          <img src="BRAND_ASSETS/napoleon logo-2.png" alt="Napoleon Textile Company"
+          <img src="BRAND_ASSETS/napoleon logo-2.webp" alt="Napoleon Textile Company"
                id="nav-logo-mob" class="w-auto" style="height:3.5rem;filter: none; transition: filter 0.35s ease;" />
         </a>
         <button id="menu-btn" class="p-2 focus:outline-none" aria-label="Menu">
@@ -950,7 +962,7 @@
       <a href="#heritage"    class="font-display text-3xl font-light text-ntc-ivory" style="letter-spacing:-0.01em;" onclick="closeMobile()">Heritage</a>
       <a href="#craft"       class="font-display text-3xl font-light text-ntc-ivory" style="letter-spacing:-0.01em;" onclick="closeMobile()">Process</a>
       <a href="#exports"      class="font-display text-3xl font-light text-ntc-ivory" style="letter-spacing:-0.01em;" onclick="closeMobile()">Global Reach</a>
-      <a href="lookbook.php" class="font-display text-3xl font-light text-ntc-ivory" style="letter-spacing:-0.01em;" onclick="closeMobile()">Lookbook</a>
+      <a href="lookbook.html" class="font-display text-3xl font-light text-ntc-ivory" style="letter-spacing:-0.01em;" onclick="closeMobile()">Lookbook</a>
       <a href="#contact"      class="font-display text-3xl font-light text-ntc-ivory" style="letter-spacing:-0.01em;" onclick="closeMobile()">Contact</a>
     </div>
     <div class="mt-auto">
@@ -965,7 +977,7 @@
   ══════════════════════════════════════════ -->
   <section class="hero-section">
     <div class="hero-bg">
-      <img src="BRAND_ASSETS/IMG_2961.jpeg" alt="" aria-hidden="true" class="hero-bg-img" fetchpriority="high" decoding="sync" loading="eager" />
+      <img src="BRAND_ASSETS/IMG_2961.webp" alt="" aria-hidden="true" class="hero-bg-img" fetchpriority="high" decoding="sync" loading="eager" />
       <div style="position:absolute;inset:0;z-index:1;background:linear-gradient(to right,rgba(10,10,8,0.55) 0%,rgba(10,10,8,0.25) 50%,rgba(10,10,8,0) 100%);"></div>
       <div style="position:absolute;inset:0;z-index:1;background:linear-gradient(to bottom,rgba(10,10,8,0.1) 0%,rgba(10,10,8,0) 30%,rgba(10,10,8,0.5) 100%);"></div>
     </div>
@@ -1039,7 +1051,7 @@
 
     <!-- Full-bleed photo -->
     <div style="position:absolute;inset:0;z-index:1;">
-      <img src="BRAND_ASSETS/BLBANNER.jpg"
+      <img src="BRAND_ASSETS/BLBANNER.webp"
            alt="Napoleon shirting fabric range"
            style="width:100%;height:100%;object-fit:cover;object-position:center center;filter:saturate(1.15) brightness(1.0);" />
       <!-- Bottom darkening — deepens toward where collections card sits over it -->
@@ -1091,7 +1103,7 @@
         <div class="carousel-track" id="track-occasion">
 
           <!-- Boardroom Formal -->
-          <a href="lookbook.php" class="carousel-card gsap-reveal" style="text-decoration:none;display:block;">
+          <a href="lookbook.html" class="carousel-card gsap-reveal" style="text-decoration:none;display:block;">
 
             <div class="card-inner" style="background:#0E0E0C;overflow:hidden;position:relative;">
               <video class="collection-video" muted loop playsinline preload="none"
@@ -1108,7 +1120,7 @@
           </a>
 
           <!-- Smart Casual -->
-          <a href="lookbook.php" class="carousel-card gsap-reveal" style="text-decoration:none;display:block;">
+          <a href="lookbook.html" class="carousel-card gsap-reveal" style="text-decoration:none;display:block;">
 
             <div class="card-inner" style="background:#2A2E38;overflow:hidden;position:relative;">
               <video class="collection-video" muted loop playsinline preload="none"
@@ -1125,7 +1137,7 @@
           </a>
 
           <!-- Evening & Occasion -->
-          <a href="lookbook.php" class="carousel-card gsap-reveal" style="text-decoration:none;display:block;">
+          <a href="lookbook.html" class="carousel-card gsap-reveal" style="text-decoration:none;display:block;">
 
             <div class="card-inner" style="background:#1A0E08;overflow:hidden;position:relative;">
               <video class="collection-video" muted loop playsinline preload="none"
@@ -1142,7 +1154,7 @@
           </a>
 
           <!-- Workwear & Uniform -->
-          <a href="lookbook.php" class="carousel-card gsap-reveal" style="text-decoration:none;display:block;">
+          <a href="lookbook.html" class="carousel-card gsap-reveal" style="text-decoration:none;display:block;">
 
             <div class="card-inner" style="background:#1A1810;overflow:hidden;position:relative;">
               <video class="collection-video" muted loop playsinline preload="none"
@@ -1159,7 +1171,7 @@
           </a>
 
           <!-- Travel & Leisure -->
-          <a href="lookbook.php" class="carousel-card gsap-reveal" style="text-decoration:none;display:block;">
+          <a href="lookbook.html" class="carousel-card gsap-reveal" style="text-decoration:none;display:block;">
             <div class="card-inner" style="background:#1C2830;overflow:hidden;position:relative;">
               <video class="collection-video" muted loop playsinline preload="none"
                      style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;pointer-events:none;">
@@ -1184,7 +1196,7 @@
         <div class="carousel-track" id="track-pattern">
 
           <!-- Checks -->
-          <a href="lookbook.php?cat=checks" class="carousel-card gsap-reveal" style="text-decoration:none;display:block;">
+          <a href="lookbook.html?cat=checks" class="carousel-card gsap-reveal" style="text-decoration:none;display:block;">
             <div class="card-inner" style="background:#0E0E0C;overflow:hidden;position:relative;">
               <video class="collection-video" muted loop playsinline preload="none"
                      style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;pointer-events:none;">
@@ -1200,7 +1212,7 @@
           </a>
 
           <!-- Stripes -->
-          <a href="lookbook.php?cat=stripes" class="carousel-card gsap-reveal" style="text-decoration:none;display:block;">
+          <a href="lookbook.html?cat=stripes" class="carousel-card gsap-reveal" style="text-decoration:none;display:block;">
             <div class="card-inner" style="background:#0E0E0C;overflow:hidden;position:relative;">
               <video class="collection-video" muted loop playsinline preload="none"
                      style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;pointer-events:none;">
@@ -1216,7 +1228,7 @@
           </a>
 
           <!-- Dobbies -->
-          <a href="lookbook.php?cat=dobbies" class="carousel-card gsap-reveal" style="text-decoration:none;display:block;">
+          <a href="lookbook.html?cat=dobbies" class="carousel-card gsap-reveal" style="text-decoration:none;display:block;">
             <div class="card-inner" style="background:#0E0E0C;overflow:hidden;position:relative;">
               <video class="collection-video" muted loop playsinline preload="none"
                      style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;pointer-events:none;">
@@ -1232,7 +1244,7 @@
           </a>
 
           <!-- Plains -->
-          <a href="lookbook.php?cat=plains" class="carousel-card gsap-reveal" style="text-decoration:none;display:block;">
+          <a href="lookbook.html?cat=plains" class="carousel-card gsap-reveal" style="text-decoration:none;display:block;">
             <div class="card-inner" style="background:#0E0E0C;overflow:hidden;position:relative;">
               <video class="collection-video" muted loop playsinline preload="none"
                      style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;pointer-events:none;">
@@ -1248,7 +1260,7 @@
           </a>
 
           <!-- Prints -->
-          <a href="lookbook.php?cat=prints" class="carousel-card gsap-reveal" style="text-decoration:none;display:block;">
+          <a href="lookbook.html?cat=prints" class="carousel-card gsap-reveal" style="text-decoration:none;display:block;">
             <div class="card-inner" style="background:#0E0E0C;overflow:hidden;position:relative;">
               <video class="collection-video" muted loop playsinline preload="none"
                      style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;pointer-events:none;">
@@ -1398,7 +1410,7 @@
           <div class="heritage-city-frame relative overflow-hidden" style="height:400px;background:#1A1A18;">
 
             <!-- Full-bleed photo -->
-            <img src="BRAND_ASSETS/Fabric photos/Gateway.jpg"
+            <img src="BRAND_ASSETS/Fabric photos/Gateway.webp"
                  alt="Mumbai — India"
                  class="absolute inset-0 w-full h-full object-cover"
                  loading="lazy" decoding="async"
@@ -1496,7 +1508,7 @@
           <!-- 1995 — The Foundation (artwork left) -->
           <div class="journey-row gsap-timeline-item">
             <div class="journey-artwork" style="background:#1A1A18;padding:0;">
-              <img src="BRAND_ASSETS/Fabric photos/foundation.jpg" alt="The Foundation · 1995" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;" loading="lazy" decoding="async" />
+              <img src="BRAND_ASSETS/Fabric photos/foundation.webp" alt="The Foundation · 1995" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;" loading="lazy" decoding="async" />
               <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(10,10,8,0.75) 0%,rgba(10,10,8,0.2) 60%,transparent 100%);"></div>
               <span class="artwork-year" style="position:absolute;bottom:2.6rem;left:1.25rem;z-index:1;font-size:clamp(1rem,2vw,1.25rem);color:rgba(244,241,234,0.95);">1995</span>
               <span class="artwork-label" style="position:absolute;bottom:1rem;left:1.25rem;z-index:1;">Kalbadevi · Est. 1995</span>
@@ -1518,7 +1530,7 @@
               <span style="font-size:8px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:rgba(197,169,122,0.6);display:inline-block;margin-top:12px;">First Destination · Sri Lanka</span>
             </div>
             <div class="journey-artwork" style="background:#1A1A18;padding:0;">
-              <img src="BRAND_ASSETS/Fabric photos/Srilankaship.jpg" alt="First Export Shipment · 1997" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;" loading="lazy" decoding="async" />
+              <img src="BRAND_ASSETS/Fabric photos/Srilankaship.webp" alt="First Export Shipment · 1997" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;" loading="lazy" decoding="async" />
               <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(10,10,8,0.75) 0%,rgba(10,10,8,0.2) 60%,transparent 100%);"></div>
               <span class="artwork-year" style="position:absolute;bottom:2.6rem;left:1.25rem;z-index:1;font-size:clamp(1rem,2vw,1.25rem);color:rgba(244,241,234,0.95);">1997</span>
               <span class="artwork-label" style="position:absolute;bottom:1rem;left:1.25rem;z-index:1;">Sri Lanka · 1997</span>
@@ -1528,7 +1540,7 @@
           <!-- 2005 — Stripe Supremacy (artwork left) -->
           <div class="journey-row gsap-timeline-item">
             <div class="journey-artwork" style="background:#1A1A18;padding:0;">
-              <img src="BRAND_ASSETS/StripeSub.jpeg" alt="Stripe Supremacy · 2005" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;" loading="lazy" decoding="async" />
+              <img src="BRAND_ASSETS/StripeSub.webp" alt="Stripe Supremacy · 2005" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;" loading="lazy" decoding="async" />
               <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(10,10,8,0.75) 0%,rgba(10,10,8,0.2) 60%,transparent 100%);"></div>
               <span class="artwork-year" style="position:absolute;bottom:2.6rem;left:1.25rem;z-index:1;font-size:clamp(1rem,2vw,1.25rem);color:rgba(244,241,234,0.95);">2005</span>
               <span class="artwork-label" style="position:absolute;bottom:1rem;left:1.25rem;z-index:1;">Stripe Master · 2005</span>
@@ -1550,7 +1562,7 @@
               <span style="font-size:8px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:rgba(197,169,122,0.6);display:inline-block;margin-top:12px;">Cotton-Rich Range · 70%+ of Orders</span>
             </div>
             <div class="journey-artwork" style="background:#1A1A18;padding:0;">
-              <img src="BRAND_ASSETS/Fabric photos/Cottonfirst.jpg" alt="Cotton First · 2015" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;" loading="lazy" decoding="async" />
+              <img src="BRAND_ASSETS/Fabric photos/Cottonfirst.webp" alt="Cotton First · 2015" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;" loading="lazy" decoding="async" />
               <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(10,10,8,0.75) 0%,rgba(10,10,8,0.2) 60%,transparent 100%);"></div>
               <span class="artwork-year" style="position:absolute;bottom:2.6rem;left:1.25rem;z-index:1;font-size:clamp(1rem,2vw,1.25rem);color:rgba(244,241,234,0.95);">2015</span>
               <span class="artwork-label" style="position:absolute;bottom:1rem;left:1.25rem;z-index:1;">Cotton Era · 2015</span>
@@ -1560,7 +1572,7 @@
           <!-- 2018 — Colour Enters (artwork left) -->
           <div class="journey-row gsap-timeline-item">
             <div class="journey-artwork" style="background:#1A1A18;padding:0;">
-              <img src="BRAND_ASSETS/PRINTES.jpg" alt="Colour Enters the Story · 2018" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;" loading="lazy" decoding="async" />
+              <img src="BRAND_ASSETS/PRINTES.webp" alt="Colour Enters the Story · 2018" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;" loading="lazy" decoding="async" />
               <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(10,10,8,0.75) 0%,rgba(10,10,8,0.2) 60%,transparent 100%);"></div>
               <span class="artwork-year" style="position:absolute;bottom:2.6rem;left:1.25rem;z-index:1;font-size:clamp(1rem,2vw,1.25rem);color:rgba(244,241,234,0.95);">2018</span>
               <span class="artwork-label" style="position:absolute;bottom:1rem;left:1.25rem;z-index:1;">Prints · 2018</span>
@@ -1582,7 +1594,7 @@
               <span style="font-size:8px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:rgba(197,169,122,0.6);display:inline-block;margin-top:12px;">100% Cotton · Reactive Dyed · Seasonal Collections</span>
             </div>
             <div class="journey-artwork" style="background:#1A1A18;padding:0;">
-              <img src="BRAND_ASSETS/Pure cotton .jpg" alt="Pure Cotton. Always. · 2019" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;" loading="lazy" decoding="async" />
+              <img src="BRAND_ASSETS/Pure cotton .webp" alt="Pure Cotton. Always. · 2019" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;" loading="lazy" decoding="async" />
               <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(10,10,8,0.75) 0%,rgba(10,10,8,0.2) 60%,transparent 100%);"></div>
               <span class="artwork-year" style="position:absolute;bottom:2.6rem;left:1.25rem;z-index:1;font-size:clamp(1rem,2vw,1.25rem);color:rgba(244,241,234,0.95);">2019</span>
               <div class="artwork-icon" style="display:none;">
@@ -1595,7 +1607,7 @@
           <!-- 2022 — We Blended Well (artwork left) -->
           <div class="journey-row gsap-timeline-item">
             <div class="journey-artwork" style="background:#1A1A18;padding:0;">
-              <img src="BRAND_ASSETS/Tencel.jpeg" alt="We Blended Well · 2022" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;transform:scale(1.3);" loading="lazy" decoding="async" />
+              <img src="BRAND_ASSETS/Tencel.webp" alt="We Blended Well · 2022" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;transform:scale(1.3);" loading="lazy" decoding="async" />
               <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(10,10,8,0.75) 0%,rgba(10,10,8,0.2) 60%,transparent 100%);"></div>
               <span class="artwork-year" style="position:absolute;bottom:2.6rem;left:1.25rem;z-index:1;font-size:clamp(1rem,2vw,1.25rem);color:rgba(244,241,234,0.95);">2022</span>
               <span class="artwork-label" style="position:absolute;bottom:1rem;left:1.25rem;z-index:1;">Tencel · Modal · 2022</span>
@@ -1617,7 +1629,7 @@
               <span style="font-size:8px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:rgba(197,169,122,0.6);display:inline-block;margin-top:12px;">2/80s · 2/100s · Fine 2-Ply Counts</span>
             </div>
             <div class="journey-artwork" style="background:#1A1A18;padding:0;">
-              <img src="BRAND_ASSETS/Fabric photos/Fineline.jpg" alt="The Fine Line · 2023" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;" loading="lazy" decoding="async" />
+              <img src="BRAND_ASSETS/Fabric photos/Fineline.webp" alt="The Fine Line · 2023" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;" loading="lazy" decoding="async" />
               <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(10,10,8,0.75) 0%,rgba(10,10,8,0.2) 60%,transparent 100%);"></div>
               <span class="artwork-year" style="position:absolute;bottom:2.6rem;left:1.25rem;z-index:1;font-size:clamp(1rem,2vw,1.25rem);color:rgba(244,241,234,0.95);">2023</span>
               <span class="artwork-label" style="position:absolute;bottom:1rem;left:1.25rem;z-index:1;">Fine 2-Ply · 2023</span>
@@ -1627,7 +1639,7 @@
           <!-- Today — Still Developing (artwork left) -->
           <div class="journey-row gsap-timeline-item" style="border-bottom:1px solid rgba(26,26,24,0.08);">
             <div class="journey-artwork" style="background:#1A1A18;padding:0;">
-              <img src="BRAND_ASSETS/Still Dev.jpg" alt="Still Developing. Still Growing." style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;" loading="lazy" decoding="async" />
+              <img src="BRAND_ASSETS/Still Dev.webp" alt="Still Developing. Still Growing." style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;" loading="lazy" decoding="async" />
               <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(10,10,8,0.75) 0%,rgba(10,10,8,0.2) 60%,transparent 100%);"></div>
               <span class="artwork-year" style="position:absolute;bottom:2.6rem;left:1.25rem;z-index:1;font-size:clamp(1rem,2vw,1.25rem);color:rgba(244,241,234,0.95);">Today</span>
               <span class="artwork-label" style="position:absolute;bottom:1rem;left:1.25rem;z-index:1;">12 Countries · Today</span>
@@ -1749,7 +1761,7 @@
           <div class="testimonial-card">
             <div style="margin-bottom:18px;padding-bottom:16px;border-bottom:1px solid rgba(26,26,24,0.1);">
               <div style="display:inline-flex;align-items:center;justify-content:center;background:#0D0D0D;padding:8px 14px;margin-bottom:10px;">
-                <img src="BRAND_ASSETS/clients/shoppers-stop.png" alt="Shoppers Stop" style="height:26px;width:auto;display:block;" />
+                <img src="BRAND_ASSETS/clients/shoppers-stop.webp" alt="Shoppers Stop" style="height:26px;width:auto;display:block;" />
               </div>
               <p style="font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:rgba(26,26,24,0.4);">Shoppers Stop</p>
             </div>
@@ -1761,7 +1773,7 @@
           <div class="testimonial-card">
             <div style="margin-bottom:18px;padding-bottom:16px;border-bottom:1px solid rgba(26,26,24,0.1);">
               <div style="display:inline-flex;align-items:center;justify-content:center;background:#F5F5F5;padding:8px 14px;margin-bottom:10px;">
-                <img src="BRAND_ASSETS/clients/white-house.png" alt="White House" style="height:32px;width:auto;display:block;" />
+                <img src="BRAND_ASSETS/clients/white-house.webp" alt="White House" style="height:32px;width:auto;display:block;" />
               </div>
               <p style="font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:rgba(26,26,24,0.4);">White House</p>
             </div>
@@ -1773,7 +1785,7 @@
           <div class="testimonial-card">
             <div style="margin-bottom:18px;padding-bottom:16px;border-bottom:1px solid rgba(26,26,24,0.1);">
               <div style="display:inline-flex;align-items:center;justify-content:center;background:#F5F5F5;padding:8px 14px;margin-bottom:10px;">
-                <img src="BRAND_ASSETS/clients/cobb-italy.png" alt="Cobb Italy" style="height:28px;width:auto;display:block;" />
+                <img src="BRAND_ASSETS/clients/cobb-italy.webp" alt="Cobb Italy" style="height:28px;width:auto;display:block;" />
               </div>
               <p style="font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:rgba(26,26,24,0.4);">Cobb Italy</p>
             </div>
@@ -1785,7 +1797,7 @@
           <div class="testimonial-card">
             <div style="margin-bottom:18px;padding-bottom:16px;border-bottom:1px solid rgba(26,26,24,0.1);">
               <div style="display:inline-flex;align-items:center;justify-content:center;background:#D0202A;padding:8px 16px;margin-bottom:10px;">
-                <img src="BRAND_ASSETS/clients/raymond.png" alt="Raymond" style="height:26px;width:auto;display:block;" />
+                <img src="BRAND_ASSETS/clients/raymond.webp" alt="Raymond" style="height:26px;width:auto;display:block;" />
               </div>
               <p style="font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:rgba(26,26,24,0.4);">Raymond</p>
             </div>
@@ -1797,7 +1809,7 @@
           <div class="testimonial-card">
             <div style="margin-bottom:18px;padding-bottom:16px;border-bottom:1px solid rgba(26,26,24,0.1);">
               <div style="display:inline-flex;align-items:center;justify-content:center;background:#2B2B2B;padding:8px 14px;margin-bottom:10px;">
-                <img src="BRAND_ASSETS/clients/watchler.png" alt="Watchler" style="height:30px;width:auto;display:block;" />
+                <img src="BRAND_ASSETS/clients/watchler.webp" alt="Watchler" style="height:30px;width:auto;display:block;" />
               </div>
               <p style="font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:rgba(26,26,24,0.4);">Watchler Shirts</p>
             </div>
@@ -1810,7 +1822,7 @@
           <div class="testimonial-card">
             <div style="margin-bottom:18px;padding-bottom:16px;border-bottom:1px solid rgba(26,26,24,0.1);">
               <div style="display:inline-flex;align-items:center;justify-content:center;background:#0D0D0D;padding:8px 14px;margin-bottom:10px;">
-                <img src="BRAND_ASSETS/clients/shoppers-stop.png" alt="Shoppers Stop" style="height:26px;width:auto;display:block;" />
+                <img src="BRAND_ASSETS/clients/shoppers-stop.webp" alt="Shoppers Stop" style="height:26px;width:auto;display:block;" />
               </div>
               <p style="font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:rgba(26,26,24,0.4);">Shoppers Stop</p>
             </div>
@@ -1821,7 +1833,7 @@
           <div class="testimonial-card">
             <div style="margin-bottom:18px;padding-bottom:16px;border-bottom:1px solid rgba(26,26,24,0.1);">
               <div style="display:inline-flex;align-items:center;justify-content:center;background:#F5F5F5;padding:8px 14px;margin-bottom:10px;">
-                <img src="BRAND_ASSETS/clients/white-house.png" alt="White House" style="height:32px;width:auto;display:block;" />
+                <img src="BRAND_ASSETS/clients/white-house.webp" alt="White House" style="height:32px;width:auto;display:block;" />
               </div>
               <p style="font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:rgba(26,26,24,0.4);">White House</p>
             </div>
@@ -1832,7 +1844,7 @@
           <div class="testimonial-card">
             <div style="margin-bottom:18px;padding-bottom:16px;border-bottom:1px solid rgba(26,26,24,0.1);">
               <div style="display:inline-flex;align-items:center;justify-content:center;background:#F5F5F5;padding:8px 14px;margin-bottom:10px;">
-                <img src="BRAND_ASSETS/clients/cobb-italy.png" alt="Cobb Italy" style="height:28px;width:auto;display:block;" />
+                <img src="BRAND_ASSETS/clients/cobb-italy.webp" alt="Cobb Italy" style="height:28px;width:auto;display:block;" />
               </div>
               <p style="font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:rgba(26,26,24,0.4);">Cobb Italy</p>
             </div>
@@ -1843,7 +1855,7 @@
           <div class="testimonial-card">
             <div style="margin-bottom:18px;padding-bottom:16px;border-bottom:1px solid rgba(26,26,24,0.1);">
               <div style="display:inline-flex;align-items:center;justify-content:center;background:#D0202A;padding:8px 16px;margin-bottom:10px;">
-                <img src="BRAND_ASSETS/clients/raymond.png" alt="Raymond" style="height:26px;width:auto;display:block;" />
+                <img src="BRAND_ASSETS/clients/raymond.webp" alt="Raymond" style="height:26px;width:auto;display:block;" />
               </div>
               <p style="font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:rgba(26,26,24,0.4);">Raymond</p>
             </div>
@@ -1854,7 +1866,7 @@
           <div class="testimonial-card">
             <div style="margin-bottom:18px;padding-bottom:16px;border-bottom:1px solid rgba(26,26,24,0.1);">
               <div style="display:inline-flex;align-items:center;justify-content:center;background:#2B2B2B;padding:8px 14px;margin-bottom:10px;">
-                <img src="BRAND_ASSETS/clients/watchler.png" alt="Watchler" style="height:30px;width:auto;display:block;" />
+                <img src="BRAND_ASSETS/clients/watchler.webp" alt="Watchler" style="height:30px;width:auto;display:block;" />
               </div>
               <p style="font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:rgba(26,26,24,0.4);">Watchler Shirts</p>
             </div>
@@ -1901,11 +1913,11 @@
         </div>
         <p class="craft-step-desc hidden lg:block">Every season begins with research — global runway trends, buyer feedback, and fibre market intelligence combine to identify the next generation of base fabrics.</p>
         <div class="craft-step-photo">
-          <img src="BRAND_ASSETS/HWW01.jpg" alt="Research" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;object-position:center center;" />
+          <img src="BRAND_ASSETS/HWW01.webp" alt="Research" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;object-position:center center;" />
         </div>
       </div>
       <div class="craft-step-photo-mobile">
-        <img src="BRAND_ASSETS/HWW01.jpg" alt="Research" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;object-position:center center;" />
+        <img src="BRAND_ASSETS/HWW01.webp" alt="Research" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;object-position:center center;" />
       </div>
 
       <div class="craft-step craft-anim">
@@ -1918,11 +1930,11 @@
         </div>
         <p class="craft-step-desc hidden lg:block">Colour, texture, weight, and pattern are assembled into seasonal mood boards before any fabric is made. The collection has a point of view first.</p>
         <div class="craft-step-photo">
-          <img src="BRAND_ASSETS/HWW02.jpg" alt="Mood Boards" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;object-position:center center;" />
+          <img src="BRAND_ASSETS/HWW02.webp" alt="Mood Boards" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;object-position:center center;" />
         </div>
       </div>
       <div class="craft-step-photo-mobile">
-        <img src="BRAND_ASSETS/HWW02.jpg" alt="Mood Boards" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;object-position:center center;" />
+        <img src="BRAND_ASSETS/HWW02.webp" alt="Mood Boards" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;object-position:center center;" />
       </div>
 
       <div class="craft-step craft-anim">
@@ -1935,11 +1947,11 @@
         </div>
         <p class="craft-step-desc hidden lg:block">Indian cotton forms the core of most of our sourcing — selected for its clean spinning characteristics and fine staple. We also work with Australian cotton for superior softness, and bring in select Egyptian cotton blends where the construction calls for it. The right fibre is chosen per fabric, not per formula.</p>
         <div class="craft-step-photo">
-          <img src="BRAND_ASSETS/HWW03.jpg" alt="Yarn Sourcing" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;object-position:center center;transform:scale(1.3);" />
+          <img src="BRAND_ASSETS/HWW03.webp" alt="Yarn Sourcing" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;object-position:center center;transform:scale(1.3);" />
         </div>
       </div>
       <div class="craft-step-photo-mobile">
-        <img src="BRAND_ASSETS/HWW03.jpg" alt="Yarn Sourcing" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;object-position:center center;" />
+        <img src="BRAND_ASSETS/HWW03.webp" alt="Yarn Sourcing" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;object-position:center center;" />
       </div>
 
       <div class="craft-step craft-anim">
@@ -1952,11 +1964,11 @@
         </div>
         <p class="craft-step-desc hidden lg:block">We work with established weaving mills, providing precise specifications for every fabric — thread count, weave structure, yarn count, and construction. Our merchandising team liaises directly with mill partners to ensure each production run is executed to our design intent, metre by metre.</p>
         <div class="craft-step-photo">
-          <img src="BRAND_ASSETS/Fabric photos/Millpartner.jpg" alt="Weaving" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;" />
+          <img src="BRAND_ASSETS/Fabric photos/Millpartner.webp" alt="Weaving" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;" />
         </div>
       </div>
       <div class="craft-step-photo-mobile">
-        <img src="BRAND_ASSETS/Fabric photos/Millpartner.jpg" alt="Weaving" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;" />
+        <img src="BRAND_ASSETS/Fabric photos/Millpartner.webp" alt="Weaving" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;" />
       </div>
 
       <div class="craft-step craft-anim">
@@ -1969,11 +1981,11 @@
         </div>
         <p class="craft-step-desc hidden lg:block">Dyeing, mercerisation, sanforising, and finishing are carried out by trusted processing partners working to our written specifications. Our team oversees colour standards, shrinkage parameters, and finish requirements — validating each lot before it is cleared for the next stage.</p>
         <div class="craft-step-photo">
-          <img src="BRAND_ASSETS/Fabric photos/Fabric process.jpg" alt="Processing" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;transform:scale(1.2);" />
+          <img src="BRAND_ASSETS/Fabric photos/Fabric process.webp" alt="Processing" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;transform:scale(1.2);" />
         </div>
       </div>
       <div class="craft-step-photo-mobile">
-        <img src="BRAND_ASSETS/Fabric photos/Fabric process.jpg" alt="Processing" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;" />
+        <img src="BRAND_ASSETS/Fabric photos/Fabric process.webp" alt="Processing" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;" />
       </div>
 
       <div class="craft-step craft-anim">
@@ -1986,11 +1998,11 @@
         </div>
         <p class="craft-step-desc hidden lg:block">Every roll is physically inspected by our in-house quality team using dedicated checking machines. We apply the 4-Point System across every piece — only fabric that clears our standard is passed for packing and dispatch. Defect rates held below 0.2%.</p>
         <div class="craft-step-photo">
-          <img src="BRAND_ASSETS/Fabric photos/Checkingmachine.jpg" alt="Quality Assurance" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;" />
+          <img src="BRAND_ASSETS/Fabric photos/Checkingmachine.webp" alt="Quality Assurance" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;" />
         </div>
       </div>
       <div class="craft-step-photo-mobile">
-        <img src="BRAND_ASSETS/Fabric photos/Checkingmachine.jpg" alt="Quality Assurance" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;" />
+        <img src="BRAND_ASSETS/Fabric photos/Checkingmachine.webp" alt="Quality Assurance" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;" />
       </div>
 
       <div class="craft-step craft-anim" style="border-bottom:1px solid rgba(197,169,122,0.14);">
@@ -2003,11 +2015,11 @@
         </div>
         <p class="craft-step-desc hidden lg:block">Every order, defect, and buyer response is catalogued. This intelligence feeds directly back into next season's design brief — a continuous loop of refinement.</p>
         <div class="craft-step-photo">
-          <img src="BRAND_ASSETS/Fabric photos/Datacross.jpg" alt="Season Data" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;" />
+          <img src="BRAND_ASSETS/Fabric photos/Datacross.webp" alt="Season Data" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;" />
         </div>
       </div>
       <div class="craft-step-photo-mobile" style="border-bottom:1px solid rgba(197,169,122,0.14);">
-        <img src="BRAND_ASSETS/Fabric photos/Datacross.jpg" alt="Season Data" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;" />
+        <img src="BRAND_ASSETS/Fabric photos/Datacross.webp" alt="Season Data" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;" />
       </div>
 
     </div>
@@ -2103,11 +2115,19 @@
                 class="w-full bg-white/5 border text-ntc-ivory placeholder-ntc-ivory/20 px-4 py-3.5 text-sm focus:outline-none focus:border-ntc-champagne resize-none"
                 style="border-color:rgba(244,241,234,0.12);font-family:'Bodoni Moda',serif;font-weight:400;transition:border-color 0.2s ease;"></textarea>
             </div>
+            <div>
+              <label class="eyebrow text-ntc-ivory/30 block mb-2" for="captcha">Verification — What is <?php echo $cap_a; ?> + <?php echo $cap_b; ?>?</label>
+              <input id="captcha" name="captcha" type="number" required min="0" max="99"
+                class="w-full bg-white/5 border text-ntc-ivory placeholder-ntc-ivory/20 px-4 py-3.5 text-sm focus:outline-none focus:border-ntc-champagne"
+                style="border-color:rgba(244,241,234,0.12);font-family:'Bodoni Moda',serif;font-weight:400;transition:border-color 0.2s ease;"
+                placeholder="Your answer"/>
+            </div>
             <button type="submit" class="btn-primary w-full text-center border-0"
               style="background:#C5A97A;color:#1A1A18;font-weight:500;"
               onmouseover="this.style.background='#D4B87A'" onmouseout="this.style.background='#C5A97A'">
               Send Enquiry
             </button>
+            <p id="form-error" class="eyebrow text-red-400 text-center hidden" style="font-size:9px;"></p>
             <p id="form-success" class="eyebrow text-ntc-champagne text-center hidden" style="font-size:9px;">
               ✓ Thank you — we will be in touch within 24 hours.
             </p>
@@ -2129,7 +2149,7 @@
 
         <!-- Brand -->
         <div>
-          <img src="BRAND_ASSETS/napoleon logo-2.png" alt="Napoleon Textile Company"
+          <img src="BRAND_ASSETS/napoleon logo-2.webp" alt="Napoleon Textile Company"
                class="h-12 lg:h-20 w-auto mb-3 lg:mb-5" style="filter:invert(1);opacity:0.8;" />
           <p style="font-size:9px;font-weight:400;color:rgba(244,241,234,0.28);line-height:1.9;">A Design House in Fabric.<br />Premium Men's Shirting.<br />Mumbai · India · Est. 1995</p>
           <div style="width:28px;height:1px;background:rgba(197,169,122,0.4);margin-top:1.25rem;"></div>
@@ -2144,7 +2164,7 @@
             <a href="#heritage"    style="font-size:10px;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;text-decoration:none;color:rgba(244,241,234,0.4);transition:color 0.2s ease;" onmouseover="this.style.color='rgba(244,241,234,0.75)'" onmouseout="this.style.color='rgba(244,241,234,0.4)'">Heritage</a>
             <a href="#craft"       style="font-size:10px;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;text-decoration:none;color:rgba(244,241,234,0.4);transition:color 0.2s ease;" onmouseover="this.style.color='rgba(244,241,234,0.75)'" onmouseout="this.style.color='rgba(244,241,234,0.4)'">Process</a>
             <a href="#exports"     style="font-size:10px;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;text-decoration:none;color:rgba(244,241,234,0.4);transition:color 0.2s ease;" onmouseover="this.style.color='rgba(244,241,234,0.75)'" onmouseout="this.style.color='rgba(244,241,234,0.4)'">Global Reach</a>
-            <a href="lookbook.php" style="font-size:10px;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;text-decoration:none;color:rgba(244,241,234,0.4);transition:color 0.2s ease;" onmouseover="this.style.color='rgba(244,241,234,0.75)'" onmouseout="this.style.color='rgba(244,241,234,0.4)'">Lookbook</a>
+            <a href="lookbook.html" style="font-size:10px;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;text-decoration:none;color:rgba(244,241,234,0.4);transition:color 0.2s ease;" onmouseover="this.style.color='rgba(244,241,234,0.75)'" onmouseout="this.style.color='rgba(244,241,234,0.4)'">Lookbook</a>
             <a href="#contact"     style="font-size:10px;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;text-decoration:none;color:rgba(244,241,234,0.4);transition:color 0.2s ease;" onmouseover="this.style.color='rgba(244,241,234,0.75)'" onmouseout="this.style.color='rgba(244,241,234,0.4)'">Contact</a>
           </div>
         </div>
@@ -2648,20 +2668,16 @@
 
     // ════════════════════════════════════════
     // WORLD MAP — D3 + Natural Earth TopoJSON
+    // Loaded lazily only when the exports section nears the viewport
     // ════════════════════════════════════════
     (function() {
       const svgEl = document.getElementById('world-map-svg');
-      if (!svgEl || typeof d3 === 'undefined' || typeof topojson === 'undefined') return;
+      if (!svgEl) return;
 
+      // Declared here, assigned after D3 loads so buildMap can access via closure
+      let projection, geoPath;
       const W = 960, H = 500;
       const ns = 'http://www.w3.org/2000/svg';
-
-      const projection = d3.geoNaturalEarth1()
-        .scale(153)
-        .translate([W / 2, H / 2]);
-      const geoPath = d3.geoPath().projection(projection);
-
-      // Export destinations + Mumbai home base
       const MUMBAI = [72.88, 19.07];
       const CITIES = [
         { name: 'Sri Lanka',    lon:  80.77, lat:   7.87, delay: 0.0  },
@@ -2678,24 +2694,48 @@
         { name: 'Hong Kong',    lon: 114.16, lat:  22.32, delay: 0.8  },
       ];
 
-      // Arrowhead marker definition
-      const defs = svgEl.querySelector('defs');
-      const marker = document.createElementNS(ns, 'marker');
-      marker.setAttribute('id', 'arrowhead');
-      marker.setAttribute('markerWidth', '6');
-      marker.setAttribute('markerHeight', '6');
-      marker.setAttribute('refX', '5');
-      marker.setAttribute('refY', '3');
-      marker.setAttribute('orient', 'auto');
-      marker.setAttribute('markerUnits', 'strokeWidth');
-      const arrowPath = document.createElementNS(ns, 'path');
-      arrowPath.setAttribute('d', 'M0,0.5 L5,3 L0,5.5');
-      arrowPath.setAttribute('fill', 'none');
-      arrowPath.setAttribute('stroke', '#C5A97A');
-      arrowPath.setAttribute('stroke-width', '1');
-      arrowPath.setAttribute('stroke-linecap', 'round');
-      marker.appendChild(arrowPath);
-      defs.appendChild(marker);
+      const loadScript = src => new Promise(resolve => {
+        const s = document.createElement('script');
+        s.src = src; s.onload = resolve; document.head.appendChild(s);
+      });
+
+      let triggered = false;
+      new IntersectionObserver(entries => {
+        if (!entries[0].isIntersecting || triggered) return;
+        triggered = true;
+        Promise.all([
+          loadScript('https://d3js.org/d3.v7.min.js'),
+          loadScript('https://unpkg.com/topojson-client@3/dist/topojson-client.min.js')
+        ]).then(() => {
+          // Assign D3-dependent vars now that D3 is loaded
+          projection = d3.geoNaturalEarth1().scale(153).translate([W / 2, H / 2]);
+          geoPath = d3.geoPath().projection(projection);
+
+          // Arrowhead marker
+          const defs = svgEl.querySelector('defs');
+          const marker = document.createElementNS(ns, 'marker');
+          marker.setAttribute('id', 'arrowhead');
+          marker.setAttribute('markerWidth', '6');
+          marker.setAttribute('markerHeight', '6');
+          marker.setAttribute('refX', '5');
+          marker.setAttribute('refY', '3');
+          marker.setAttribute('orient', 'auto');
+          marker.setAttribute('markerUnits', 'strokeWidth');
+          const arrowPath = document.createElementNS(ns, 'path');
+          arrowPath.setAttribute('d', 'M0,0.5 L5,3 L0,5.5');
+          arrowPath.setAttribute('fill', 'none');
+          arrowPath.setAttribute('stroke', '#C5A97A');
+          arrowPath.setAttribute('stroke-width', '1');
+          arrowPath.setAttribute('stroke-linecap', 'round');
+          marker.appendChild(arrowPath);
+          defs.appendChild(marker);
+
+          fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json')
+            .then(r => r.json())
+            .then(buildMap)
+            .catch(() => {});
+        });
+      }, { rootMargin: '400px' }).observe(svgEl);
 
       function buildMap(world) {
         const land = topojson.feature(world, world.objects.land);
@@ -2885,10 +2925,6 @@
         });
       }
 
-      fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json')
-        .then(r => r.json())
-        .then(buildMap)
-        .catch(() => {});
     })();
 
     // ════════════════════════════════════════
@@ -2942,16 +2978,42 @@
     function handleSubmit(e) {
       e.preventDefault();
       const btn = e.target.querySelector('button[type=submit]');
+      const errEl = document.getElementById('form-error');
+      const okEl  = document.getElementById('form-success');
+      errEl.classList.add('hidden');
+      okEl.classList.add('hidden');
       btn.textContent = 'Sending…'; btn.disabled = true;
-      setTimeout(() => {
-        btn.textContent = 'Sent!';
-        document.getElementById('form-success').classList.remove('hidden');
-        e.target.reset();
-        setTimeout(() => {
+
+      const data = new FormData();
+      data.append('name',     document.getElementById('name').value);
+      data.append('company',  document.getElementById('company').value);
+      data.append('email',    document.getElementById('email').value);
+      data.append('interest', document.getElementById('interest').value);
+      data.append('message',  document.getElementById('message').value);
+      data.append('captcha',  document.getElementById('captcha').value);
+
+      fetch('contact.php', { method: 'POST', body: data })
+        .then(r => r.json())
+        .then(res => {
+          if (res.success) {
+            btn.textContent = 'Sent!';
+            okEl.classList.remove('hidden');
+            e.target.reset();
+            setTimeout(() => {
+              btn.textContent = 'Send Enquiry'; btn.disabled = false;
+              okEl.classList.add('hidden');
+            }, 5000);
+          } else {
+            btn.textContent = 'Send Enquiry'; btn.disabled = false;
+            errEl.textContent = res.message;
+            errEl.classList.remove('hidden');
+          }
+        })
+        .catch(() => {
           btn.textContent = 'Send Enquiry'; btn.disabled = false;
-          document.getElementById('form-success').classList.add('hidden');
-        }, 5000);
-      }, 1200);
+          errEl.textContent = 'Something went wrong. Please try again.';
+          errEl.classList.remove('hidden');
+        });
     }
 
     (function updateOfficeStatus() {
