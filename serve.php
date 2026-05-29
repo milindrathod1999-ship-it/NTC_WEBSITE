@@ -37,10 +37,30 @@ if (is_file($file)) {
         'mp4'   => 'video/mp4',
         'pdf'   => 'application/pdf',
     ];
-    if (isset($mime[$ext])) {
-        header('Content-Type: ' . $mime[$ext]);
+    $type = $mime[$ext] ?? 'application/octet-stream';
+    $size = filesize($file);
+
+    // Support HTTP range requests — required for video playback in browsers
+    if (isset($_SERVER['HTTP_RANGE'])) {
+        preg_match('/bytes=(\d+)-(\d*)/', $_SERVER['HTTP_RANGE'], $m);
+        $start = intval($m[1]);
+        $end   = isset($m[2]) && $m[2] !== '' ? intval($m[2]) : $size - 1;
+        $length = $end - $start + 1;
+        http_response_code(206);
+        header('Content-Type: ' . $type);
+        header('Content-Length: ' . $length);
+        header('Content-Range: bytes ' . $start . '-' . $end . '/' . $size);
+        header('Accept-Ranges: bytes');
+        $fp = fopen($file, 'rb');
+        fseek($fp, $start);
+        echo fread($fp, $length);
+        fclose($fp);
+    } else {
+        header('Content-Type: ' . $type);
+        header('Content-Length: ' . $size);
+        header('Accept-Ranges: bytes');
+        readfile($file);
     }
-    readfile($file);
     return true;
 }
 
