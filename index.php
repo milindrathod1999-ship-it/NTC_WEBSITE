@@ -1959,10 +1959,10 @@ $_SESSION['captcha_answer'] = $cap_a + $cap_b;
         <span class="craft-step-num">04</span>
         <div>
           <p class="craft-step-label">Weaving</p>
-          <p class="craft-step-title">Mill Partnership</p>
-          <p class="craft-step-desc lg:hidden">We work with established weaving mills, providing precise specifications for every fabric — thread count, weave structure, yarn count, and construction. Our merchandising team liaises directly with mill partners to ensure each production run is executed to our design intent, metre by metre.</p>
+          <p class="craft-step-title">Our Weaving Facility</p>
+          <p class="craft-step-desc lg:hidden">Our in-house weaving facility gives us complete control over every construction — thread count, weave structure, yarn count, and fabric weight. Every production run is executed under our direct oversight, metre by metre, ensuring each fabric meets our design intent without compromise.</p>
         </div>
-        <p class="craft-step-desc hidden lg:block">We work with established weaving mills, providing precise specifications for every fabric — thread count, weave structure, yarn count, and construction. Our merchandising team liaises directly with mill partners to ensure each production run is executed to our design intent, metre by metre.</p>
+        <p class="craft-step-desc hidden lg:block">Our in-house weaving facility gives us complete control over every construction — thread count, weave structure, yarn count, and fabric weight. Every production run is executed under our direct oversight, metre by metre, ensuring each fabric meets our design intent without compromise.</p>
         <div class="craft-step-photo">
           <img src="BRAND_ASSETS/Fabric photos/Millpartner.webp" alt="Weaving" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;" />
         </div>
@@ -2154,6 +2154,10 @@ $_SESSION['captcha_answer'] = $cap_a + $cap_b;
           <p style="font-size:9px;font-weight:400;color:rgba(244,241,234,0.28);line-height:1.9;">A Design House in Fabric.<br />Premium Men's Shirting.<br />Mumbai · India · Est. 1995</p>
           <div style="width:28px;height:1px;background:rgba(197,169,122,0.4);margin-top:1.25rem;"></div>
           <p style="font-size:9px;font-weight:600;letter-spacing:0.18em;text-transform:uppercase;color:rgba(197,169,122,0.55);margin-top:0.9rem;">500+ Designs · Season</p>
+          <div style="margin-top:1.25rem;display:flex;align-items:center;gap:10px;">
+            <img src="BRAND_ASSETS/bci-logo.svg" alt="Better Cotton Initiative" style="height:32px;width:auto;opacity:0.65;filter:invert(1) brightness(0.75);" />
+            <p style="font-size:8px;color:rgba(244,241,234,0.28);line-height:1.5;">Better Cotton<br/>Member</p>
+          </div>
         </div>
 
         <!-- Navigate -->
